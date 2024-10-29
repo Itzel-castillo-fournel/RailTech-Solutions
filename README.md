@@ -27,3 +27,17 @@
 
 # Solutions proposées
 
+Rôles : 
+- Gestionnaire plannings
+- Conducteurs de trains
+
+Fonctionnalités :
+
+- Gestion des plannings des conducteurs : Pointer, modifier les plannings, alerte si modifications, comptabilisé les heures 
+- Gestion des disponibilités des trains : disponibilité (en panne, utiliser, en réserve), trajets effectués, comptabilisé kilomètres parcourus 
+- Gestion des trajets : modifier les arrêts, créer de nouveau trajets 
+
+  
+
+
+
