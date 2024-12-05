@@ -46,7 +46,6 @@ Notre solution, MyEasyTrain, est une application desktop développée spécifiqu
 **Gestion des disponibilités des trains :**
 
 - Visualisation de la disponibilité et de l'état de chaque train en temps réel.
-- Historique des trajets effectués.
 - Alertes pour la maintenance préventive ou pour les interventions d’urgence sur les trains.
 
 **Gestion des trajets :**
