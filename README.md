@@ -29,7 +29,7 @@ Avec l'augmentation constante de la demande pour le transport ferroviaire et la 
 
 **Gestion des plannings des conducteurs :** Il est complexe d’assurer la présence des conducteurs en fonction des besoins opérationnels et des contraintes réglementaires (temps de conduite maximum, repos obligatoire). Une mauvaise gestion peut entraîner des retards, des conflits de ressources ou une surcharge des conducteurs.
 
-**Suivi de la disponibilité des trains :** IronTrail doit gérer un grand nombre de trains dont la disponibilité peut varier selon leur état (maintenance, réserve, en panne). Sans un suivi en temps réel, la disponibilité de la flotte pour des trajets particuliers n'est pas optimisée.
+**Suivi de la disponibilité des trains :** IronTrail doit gérer un grand nombre de trains dont la disponibilité peut varier selon leur état (maintenance, opérationnel, en panne). Sans un suivi en temps réel, la disponibilité de la flotte pour des trajets particuliers n'est pas optimisée.
 
 **Planification et gestion des trajets :** Les itinéraires peuvent nécessiter des modifications fréquentes (par exemple en cas d'incidents sur le réseau), et le personnel d'IronTrail a besoin d'un moyen rapide et fiable pour ajuster les arrêts et créer de nouveaux trajets.
 
@@ -41,7 +41,6 @@ Notre solution, MyEasyTrain, est une application desktop développée spécifiqu
 
 - Consultation et modification des plannings de chaque conducteur.
 - Système d’alerte en cas de modifications de dernière minute.
-
 
 **Gestion des disponibilités des trains :**
 
