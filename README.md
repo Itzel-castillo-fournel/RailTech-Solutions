@@ -66,5 +66,5 @@ Notre solution, MyEasyTrain, est une application desktop développée spécifiqu
 ![Diagramme de cas d'utilisation](/assets/img/diagrammeUtilisation.png)
 
 # Diagramme de classes : 
-![Diagramme de classes](/assets/img/diagrammeClasse.png)
+![Diagramme de classes](/assets/img/Screenshot_2024-12-07-20-39-55-751_com.android.chrome-edit.jpg)
 
