@@ -65,3 +65,6 @@ Notre solution, MyEasyTrain, est une application desktop développée spécifiqu
 # Diagramme de cas d'utilisation :
 ![Diagramme de cas d'utilisation](/assets/img/diagrammeUtilisation.png)
 
+# Diagramme de classes : 
+![Diagramme de classes](/assets/img/diagrammeClasse.png)
+
