@@ -1,6 +1,6 @@
 # RailTech-Solutions
 
-[Itzel CASTILLO FOURNEL](mailto:libitzel.castillo@gmail.com), ESIEE-IT
+[Itzel CASTILLO FOURNEL, Malika AMRANI, Dylan OG](mailto:libitzel.castillo@gmail.com), ESIEE-IT
  (BTS - SIO), 29/10/2024
 
 ## Consignes
