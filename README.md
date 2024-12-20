@@ -35,7 +35,7 @@ Avec l'augmentation constante de la demande pour le transport ferroviaire et la 
 
 # La solution proposée :
 
-Notre solution, MyEasyTrain, est une application desktop développée spécifiquement pour répondre aux besoins d'IronTrail en matière de gestion ferroviaire. Cette solution se focalise sur trois fonctionnalités principales, chacune conçue pour répondre aux défis identifiés :
+Notre solution, RailTechRH, est une application desktop développée spécifiquement pour répondre aux besoins d'IronTrail en matière de gestion ferroviaire. Cette solution se focalise sur trois fonctionnalités principales, chacune conçue pour répondre aux défis identifiés :
 
 **Gestion des plannings des conducteurs :**
 
@@ -53,14 +53,14 @@ Notre solution, MyEasyTrain, est une application desktop développée spécifiqu
 - Modification des trajets en fonction des conditions opérationnelles.
 
 # Les utilisateurs :
- Ce logiciel de gestion interne, nommé MyEasyTrain, sera destiné aux :
- - **Gestionnaires d'opérations ferroviaires** ( Responsable qui supervise l'ensemble des opérations ferroviaires, planifie les trajets et gère les plannings des conducteurs et la disponibilité des trains.) 
+ Ce logiciel de gestion interne, nommé RailTechRH, sera destiné aux :
+ - **Opérateur** ( Responsable qui supervise l'ensemble des opérations ferroviaires, planifie les trajets et gère les plannings des conducteurs et la disponibilité des trains.) 
 
- - **Equipes de maintenance** ( Responsable de la gestion de l'entretien des trains et de l'infrastructure ferroviaire)
+ - **Technicien** ( Responsable de la gestion de l'entretien des trains et de l'infrastructure ferroviaire)
 
  - **Conducteurs de train**
 
-- **Administrateurs**  
+- **Administrateurs** ( Responsable des rôles utilisateurs )
 
 # Diagramme de cas d'utilisation :
 ![Diagramme de cas d'utilisation](/assets/img/diagrammeUtilisation.png)
