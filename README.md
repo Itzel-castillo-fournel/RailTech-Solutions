@@ -6,7 +6,7 @@ ESIEE-IT (BTS - SIO)
 
 ---
 
-## 📋 Consignes
+# 📋 Consignes
 
 - 📌 **Constituer l'équipe** : 2 à 3 personnes
 - 📌 **Inventer un contexte** : Définir une organisation fictive travaillant dans le domaine ferroviaire, avec une problématique à résoudre.
@@ -17,18 +17,12 @@ ESIEE-IT (BTS - SIO)
 
 ---
 
-## 🔒 Contraintes
+# 🔒 Contraintes
 
 - Application en **Client Lourd JavaFX** (fenêtrée).
 - Base de données accessible via Internet.
 - Développement en **Java**.
 - Gestion de **2 types d'utilisateurs minimum**.
-
----
-
-## 💡 Aide
-
-- Concevoir une **maquette d'interface utilisateur**.
 
 ---
 
@@ -105,7 +99,7 @@ Le logiciel **RailTechRH** est conçu pour les profils suivants :
 
 ### 📄 **Maquette de l'application (PDF)**
 
-![Maquette de l'application](assets/maquette_application.pdf)
+[Cliquez-ici pour visualiser la maquette](assets/maquetteApplication.pdf)
 
 ### 🗓️ **Planification du projet v0**
 #### **Diagramme de Gantt**
