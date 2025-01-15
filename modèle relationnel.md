@@ -7,36 +7,30 @@ Itzel CASTILLO FOURNEL, Malika AMRANI, Dylan OG, ESIEE-IT (BTS - SIO), 10/12/202
 
 ## Modèle relationnel
 
-Planning(id: int(10), date: localdate, heureDebut: localdatetime, heureFin: localdatetime, conducteurId: int(10), trainId: int(10), lieuDepart: varchar(255), lieuArrivee: varchar(255), etatTrain: varchar(50), statutPlanning: varchar(50))
+Utilisateur(id: int(10), nom: varchar(50), prenom: varchar(50), email: varchar(100), mdp: varchar(255), role: enum('ADMIN', 'TECHNICIEN', 'CONDUCTEUR', 'OPERATEUR'))
 - Clé primaire : id
-- Clé étrangère :
-    - conducteurId référence à Conducteur.id
-    - trainId référence à Train.id
+- Clé étrangère : .
 
-Conducteur(id: int(10), nom: varchar(50), prenom: varchar(50), email: varchar(100), numeroTelephone: varchar(15))
+Technicien(id: int(10), specialite: enum('MECANIQUE', 'ELECTRONIQUE', 'ELECTRIQUE', 'INFORMATIQUE', 'INFRASTRUCTURE'))
 - Clé primaire : id
-- Champs unique : email
+- Clé étrangère : id référence à Utilisateur.id
 
-Train(id: int(10), numeroTrain: varchar(50), etat: varchar(50), dateDerniereMaintenance: localdate)
-- Clé primaire : id
+Train(immatriculation: varchar(50), marque: varchar(50), modele: varchar(50))
+- Clé primaire : immatriculation
+- Clé étrangère : .
 
-Gestionnaire(id: int(10), nom: varchar(50), prenom: varchar(50), email: varchar(100), numeroTelephone: varchar(15))
+Trajet(id: int(10), heureDepart: localdatetime, heureArrivee: localdatetime, arretDepart: enum('PARIS', 'LYON', 'MARSEILLE', 'BORDEAUX', 'TOULOUSE', 'LILLE', 'NANTES', 'STRASBOURG', 'NICE', 'RENNES', 'MONTPELLIER'), arretArrivee: enum('PARIS', 'LYON', 'MARSEILLE', 'BORDEAUX', 'TOULOUSE', 'LILLE', 'NANTES', 'STRASBOURG', 'NICE', 'RENNES', 'MONTPELLIER'), trainId: int(10), conducteurId: int(10))
 - Clé primaire : id
-- Champs unique : email
-	
-Trajet(id: int(10), date: localdate, heureDepart: localdatetime, heureArrivee: localdatetime, arrets: varchar(255), trainId: int(10), conducteurId: int(10), etat: varchar(50))
-- Clé primaire : id
-- Clé étrangère :
-    - trainId référence à Train.id
-    - conducteurId référence à Conducteur.id
+- Clé étrangère : 
+    - trainImmat référence à Train.immatriculation, 
+    - conducteurId référence à Utilisateur.id
 
-Maintenance(id: int(10), dateMaintenance: localdatetime, description: varchar(255), trainId: int(10), typeMaintenance: varchar(50), personnelId: int(10))
+Incident(id: int(10), description: varchar(255), typeIncident: Type, gravite: enum('MINEUR', 'MODERE', 'MAJEUR', 'CRITIQUE'), trainImmat: int(10))
 - Clé primaire : id
-- Clé étrangère :
-    - trainId référence à Train.id
-    - personnelId référence à PersonnelDeMaintenance.id
+- Clé étrangère : trainImmat référence à Train.immatriculation
 
-PersonnelDeMaintenance(id: int(10), nom: varchar(50), prenom: varchar(50), specialite: varchar(50), numeroTelephone: varchar(15), email: varchar(100))
-- Clé primaire : id
-- Champs unique : email
-
+Maintenance(dateMaintenance: localdatetime, description: varchar(255), etat: enum('PANNE','MAINTENANCE','OPERATIONNEL'), incidentId: int(10), technicienId: int(10))
+- Clé primaire : .
+- Clé étrangère : 
+    - incidentId référence à Incident.id
+    - technicienId référence à Utilisateur.id
