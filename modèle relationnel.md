@@ -25,7 +25,7 @@ Train(immatriculation: varchar(50), marque: varchar(50), modele: varchar(50))
 
 ---
 
-Trajet(id: int(10), heureDepart: localdatetime, heureArrivee: localdatetime, arretDepart: enum('PARIS', 'LYON', 'MARSEILLE', 'BORDEAUX', 'TOULOUSE', 'LILLE', 'NANTES', 'STRASBOURG', 'NICE', 'RENNES', 'MONTPELLIER'), arretArrivee: enum('PARIS', 'LYON', 'MARSEILLE', 'BORDEAUX', 'TOULOUSE', 'LILLE', 'NANTES', 'STRASBOURG', 'NICE', 'RENNES', 'MONTPELLIER'), trainId: int(10), conducteurId: int(10))
+Trajet(id: int(10), heureDepart: localdatetime, heureArrivee: localdatetime, arretDepart: enum('PARIS', 'LYON', 'MARSEILLE', 'BORDEAUX', 'TOULOUSE', 'LILLE', 'NANTES', 'STRASBOURG', 'NICE', 'RENNES', 'MONTPELLIER'), arretArrivee: enum('PARIS', 'LYON', 'MARSEILLE', 'BORDEAUX', 'TOULOUSE', 'LILLE', 'NANTES', 'STRASBOURG', 'NICE', 'RENNES', 'MONTPELLIER'), trainImmat: int(10), conducteurId: int(10))
 - Clé primaire : id
 - Clé étrangère : 
     - trainImmat référence à Train.immatriculation, 
@@ -40,7 +40,7 @@ Incident(id: int(10), description: varchar(255), typeIncident: enum('PANNE_TECHN
 ---
 
 Maintenance(dateMaintenance: localdatetime, description: varchar(255), etat: enum('PANNE','MAINTENANCE','OPERATIONNEL'), incidentId: int(10), technicienId: int(10))
-- Clé primaire : .
+- Clé primaire : incidentId
 - Clé étrangère : 
     - incidentId référence à Incident.id
     - technicienId référence à Utilisateur.id
