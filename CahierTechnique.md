@@ -4,13 +4,13 @@
 # RailTech-Solutions
 </div>
 
-AMRANI Malika, CASTILLO Itzel, OG Dylan, ESIEE-IT (BTS - SIO), 07/02/2025
+AMRANI Malika, CASTILLO FOURNEL Itzel, OG Dylan, ESIEE-IT (BTS - SIO), 07/02/2025
 
 ---
 
 ## 1. Rappel bref du contexte
 
-_(A Ajouter)_
+IronTrail, une grande entreprise nationale de transport ferroviaire, fait face à des défis majeurs en raison de la demande croissante pour ses services. Les principaux problèmes incluent la gestion des plannings des conducteurs, le suivi de la disponibilité des trains et la planification des trajets. Pour répondre à ces besoins, RailTech Solutions propose une solution innovante avec des fonctionnalités de gestion de plannings, de suivi des trains en temps réel et de gestion des trajets. Cette application vise à optimiser les opérations et améliorer la gestion quotidienne des ressources d'IronTrail.
 
 ---
 ## Diagramme Gantt
