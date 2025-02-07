@@ -132,6 +132,11 @@ Maintenance(dateMaintenance: localdatetime, description: varchar(255), etat: enu
 - `PlanningModel.java`
 - `NotificationModel.java`
 - `Role.java`
+- `Arret.java`
+- `Incident.java`
+- `Gravite.java`
+- `Specialite.java`
+- `Etat.java`
 
 #### **Package `view`** (fr.irontrail.railtechrh.view)
 ##### **Login**
