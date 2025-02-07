@@ -13,7 +13,15 @@ AMRANI Malika, CASTILLO Itzel, OG Dylan, ESIEE-IT (BTS - SIO), 07/02/2025
 _(A Ajouter)_
 
 ---
+## Diagramme Gantt
 
+<img src="assets/img/planningPrevisionnel.png" alt="diagramme Gantt"/>
+ 
+### Légende des couleurs : 
+- 🟥 **Itzel CASTILLO FOURNEL**
+- 🟩 **Malika AMRANI**
+- 🟦 **Dylan OG**
+- 🟧 Itzel, Malika et Dylan
 ## 2. Contraintes techniques
 
 ### 2.1 Outils et langages d'aides à la gestion de projet et à la conception de code
@@ -98,7 +106,8 @@ Maintenance(dateMaintenance: localdatetime, description: varchar(255), etat: enu
 
 ## 5. Organisation du code
 
-### **5.1 Structure générale des packages**
+### **Structure générale des packages**
+<img src="assets/img/organisationCode.png" alt="diagramme Gantt"/>
 
 #### **Package `main`** (fr.irontrail.railtechrh.main)
 - `App.java` : Classe principale initialisant l'application JavaFX
