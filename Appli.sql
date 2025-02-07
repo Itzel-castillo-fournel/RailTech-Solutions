@@ -27,7 +27,7 @@ CREATE TABLE Trajet (
     arretArrivee ENUM('PARIS', 'LYON', 'MARSEILLE', 'BORDEAUX', 'TOULOUSE', 'LILLE', 'NANTES', 'STRASBOURG', 'NICE', 'RENNES', 'MONTPELLIER'),
     trainId INT(10),
     conducteurId INT(10),
-    FOREIGN KEY (trainId) REFERENCES Train(immatriculation),
+    FOREIGN KEY (trainImmat) REFERENCES Train(immatriculation),
     FOREIGN KEY (conducteurId) REFERENCES Utilisateur(id)
 );
 
@@ -44,7 +44,7 @@ CREATE TABLE Maintenance (
      dateMaintenance DATETIME,
      description VARCHAR(255),
      etat ENUM('PANNE', 'MAINTENANCE', 'OPERATIONNEL'),
-     incidentId INT(10),
+     incidentId INT(10) PRIMARY KEY,
      technicienId INT(10),
      FOREIGN KEY (incidentId) REFERENCES Incident(id),
      FOREIGN KEY (technicienId) REFERENCES Utilisateur(id)
