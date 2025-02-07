@@ -29,39 +29,47 @@ IronTrail, une grande entreprise nationale de transport ferroviaire, fait face �
 #### **Gestion du projet**
 - **Git** : Gestion du contrôle de version
   - Version : `2.46.2.windows.1`
-- **GitHub** : Stockage du code, système de tickets pour le suivi des tâches
-- **Jira** : Planification des tâches sous forme de diagramme de Gantt
+- **GitHub** (https://www.atlassian.com/software/jira) : Stockage du code, système de tickets pour le suivi des tâches
+- **Jira** (https://www.atlassian.com/software/jira): Planification des tâches sous forme de diagramme de Gantt
+
 
 #### **Conception**
-- **Miro** : Conception du diagramme de classe et des cas d'utilisation
+- **Miro** (https://www.atlassian.com/software/jira) : Conception du diagramme de classe et des cas d'utilisation
 - **MySQL** : Modélisation de la base de données
   - Version : `8.3.0`
-- **Figma** : Création des maquettes
+- **Figma** (https://www.figma.com/fr-fr/) : Création des maquettes
 
 
 ### 2.2 Outils et langages contribuant directement à la solution
 
 #### **Environnement de Développement**
-- **Java JDK 21** : Langage principal de développement
 - **IntelliJ IDEA** : IDE pour le développement
+  - Version : `2024.2.3 Ultimate Edition`
 - **SceneBuilder** : Conception des interfaces JavaFX
+  - Version : `23.0.1`
 - **Maven** : Gestion des dépendances
   - Version : `3.13.0`
 
 #### **Frameworks et Bibliothèques**
+- **Open JDK** : Langage principal de développement
+  - Version : `JDK 23`
 - **JavaFX 21** : Framework d'interface graphique
-  - Version : `0.0.8`
+  - Version : `17.0.6`
 - **JDBC MySQL Connector** : Connexion à la base de données
+   - Version : `3.4.1`
 - **JUnit** : Tests unitaires
   - Version : `5.10.2`
 
 #### **Base de Données**
 - **MySQL Server** : Système de gestion de base de données
-- **AlwaysData** : Interface d'administration de la base de données pour un accès distant
+   - Version : `8.0.41`
+- **AlwaysData** (https://www.alwaysdata.com/fr/) : Interface d'administration de la base de données pour un accès distant
 
 #### **Assistant IA**
 - **DeepSeek** : Aide à la génération de jeux de données et assistance au développement
+   - Version : `R1`
 - **Claude-3** : Support pour la génération des données de test et l'optimisation du code
+   - Version : `3.5`
 
 
 ## 4. Modèle relationnel
