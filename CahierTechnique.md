@@ -15,6 +15,7 @@ IronTrail, une grande entreprise nationale de transport ferroviaire, fait face Ã
 ---
 ## Diagramme Gantt
 
+<img src="assets/img/diagrammeGantt.png" alt="diagramme Gantt"/>
 <img src="assets/img/diagrammeGanttv2.png" alt="diagramme Gantt"/>
  
 ### LÃ©gende des couleurs : 
