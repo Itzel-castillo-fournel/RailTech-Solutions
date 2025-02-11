@@ -15,7 +15,7 @@ IronTrail, une grande entreprise nationale de transport ferroviaire, fait face �
 ---
 ## Diagramme Gantt
 
-<img src="assets/img/planningPrevisionnel.png" alt="diagramme Gantt"/>
+<img src="assets/img/diagrammeGanttv2" alt="diagramme Gantt"/>
  
 ### Légende des couleurs : 
 - 🟥 **Itzel CASTILLO FOURNEL**
