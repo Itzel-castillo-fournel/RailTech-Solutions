@@ -10,3 +10,30 @@
 - UtilisateurDAO
 - UtilisateurModel
 - Loginview.fxml
+
+# Configurer votre fichier .env :
+
+1. Créez un fichier .env à la racine du projet. (Dossier RailTechRH) :
+   RailTechRH/
+   ├── src/
+   ├── target/
+   ├── pom.xml
+   ├── .env          <-- Fichier .env à la racine
+   └── README.md
+
+2. Ajoutez les variables d'environnement nécessaires à ce projet :
+
+DB_URL=jdbc:mariadb://localhost:{votre_port}/railtechrh
+DB_USER=votre_user
+DB_PASSWORD=votre_password
+
+3. Vérifiez que la bibliothèque dotenv-java est ajoutée à votre pom.xml  :
+<dependency>
+    <groupId>io.github.cdimascio</groupId>
+    <artifactId>dotenv-java</artifactId>
+    <version>2.2.0</version>
+</dependency>
+
+
+
+2. Ajoutez .env à votre .gitignore
