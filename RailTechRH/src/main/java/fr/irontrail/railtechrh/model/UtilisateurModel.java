@@ -5,9 +5,6 @@ public class UtilisateurModel {
     private int id;
     private String nom;
     private String prenom;
-
-
-
     private String email;
     private String mdp;
     private String role;

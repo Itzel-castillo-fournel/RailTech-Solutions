@@ -30,7 +30,7 @@ public class LoginController {
 
         if (utilisateur != null && utilisateur.getMdp().equals(motDePasse)) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/main.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/MainView.fxml"));
                 Parent root = loader.load();
                 MainController controller = loader.getController();
                 controller.setRole(utilisateur.getRole()); // Passe le rôle au contrôleur principal

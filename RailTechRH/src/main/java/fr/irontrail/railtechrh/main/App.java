@@ -6,14 +6,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class App extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/LoginView.fxml"));
-        primaryStage.setTitle("Connexion");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/fr/irontrail/railtechrh/LoginView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setTitle("Railtech RH !");
+        stage.setScene(scene);
+        stage.show();
     }
+
 
     public static void main(String[] args) {
         launch(args);
