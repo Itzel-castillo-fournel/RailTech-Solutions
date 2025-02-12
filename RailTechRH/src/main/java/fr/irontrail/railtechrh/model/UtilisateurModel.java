@@ -45,7 +45,8 @@ public class UtilisateurModel {
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
-    public String getMotDePasse() {
+
+    public String getMdp() {
         return mdp;
     }
 
