@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.UserProfilController">
+<!--    <stylesheets>-->
+<!--        <URL value="@style/profil.css" /> &lt;!&ndash; Lien vers le fichier CSS &ndash;&gt;-->
+<!--    </stylesheets>-->
+    <Label text="Mon Profil" textFill="#1c287c">
+      <font>
+         <Font name="System Bold" size="22.0" />
+      </font></Label>
+
+    <Label fx:id="prenomLabel" text="Prénom: " />
+    <Label fx:id="nomLabel" text="Nom: " />
+    <Label fx:id="emailLabel" text="Email: " />
+    <Label fx:id="roleLabel" text="Rôle: " />
+</VBox>

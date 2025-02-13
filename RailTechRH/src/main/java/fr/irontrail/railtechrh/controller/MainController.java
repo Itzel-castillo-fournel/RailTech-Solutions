@@ -1,5 +1,6 @@
 package fr.irontrail.railtechrh.controller;
 
+import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,25 +23,24 @@ public class MainController {
     public void setRole(String role) {
         menuContainer.getChildren().clear(); // Vide le menu
 
+        // Ajouter le bouton pour afficher le profil de l'utilisateur
+        addMenuButton("Mon Profil", "/fr/irontrail/railtechrh/UserProfilView.fxml", "profile-icon.png");
+
         switch (role) {
             case "ADMIN":
-                addMenuButton("Mon Profil", "/fr/irontrail/railtechrh/admin/AdminDashboard.fxml", "profile-icon.png");
                 addMenuButton("Utilisateurs", "/fr/irontrail/railtechrh/admin/GestionUtilisateurs.fxml", "people-icon.png");
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/admin/Notifications.fxml", "notification-icon.png");
                 break;
             case "TECHNICIEN":
-                addMenuButton("Mon Profil", "/fr/irontrail/railtechrh/technicien/TechnicienDashboard.fxml", "profile-icon.png");
                 addMenuButton("Maintenance", "/fr/irontrail/railtechrh/technicien/MaintenanceList.fxml", "tools-icon.png");
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/technicien/Notifications.fxml", "profile-icon.png");
                 break;
             case "CONDUCTEUR":
-                addMenuButton("Mon Profil", "/fr/irontrail/railtechrh/conducteur/ConducteurDashboard.fxml", "profile-icon.png");
                 addMenuButton("Mon Planning", "/fr/irontrail/railtechrh/conducteur/Planning.fxml", "planning-icon.png");
                 addMenuButton("Signaler un incident", "/fr/irontrail/railtechrh/conducteur/IncidentForm.fxml", "alert-icon.png");
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/conducteur/Notifications.fxml", "notification-icon.png");
                 break;
             case "OPERATEUR":
-                addMenuButton("Mon Profile", "/fr/irontrail/railtechrh/operateur/OperateurDashboard.fxml", "profile-icon.png");
                 addMenuButton("Planning Conducteurs", "/fr/irontrail/railtechrh/operateur/Planning.fxml", "planning-icon.png");
                 addMenuButton("Trajets", "/fr/irontrail/railtechrh/operateur/TrajetList.fxml", "train-icon.png");
                 addMenuButton("Maintenance", "/fr/irontrail/railtechrh/operateur/MaintenanceList.fxml", "tools-icon.png");
@@ -66,7 +66,13 @@ public class MainController {
             System.err.println("Icône non trouvée : " + iconPath);
         }
 
-        button.setOnAction(e -> loadContent(fxmlFile));
+
+        // Appeler loadUserProfile pour le bouton "Mon Profil"
+        if (text.equals("Mon Profil")) {
+            button.setOnAction(e -> loadUserProfile());
+        } else {
+            button.setOnAction(e -> loadContent(fxmlFile));
+        }
         menuContainer.getChildren().add(button);
     }
 
@@ -100,4 +106,33 @@ public class MainController {
             e.printStackTrace();
         }
     }
+
+    private UtilisateurModel currentUser; // Utilisateur actuellement connecté
+
+    // Définit l'utilisateur actuellement connecté
+    public void setCurrentUser(UtilisateurModel user) {
+        this.currentUser = user;
+        System.out.println("Utilisateur défini : " + user.getPrenom() + " " + user.getNom()); // Debug
+    }
+
+    // Charge la vue du profil utilisateur
+    private void loadUserProfile() {
+        try {
+            // Charge la vue FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/UserProfilView.fxml"));
+            Parent content = loader.load();
+
+            // Récupère le contrôleur de la vue
+            UserProfilController controller = loader.getController();
+
+            // Passe l'utilisateur au contrôleur
+            controller.setUser(currentUser);
+
+            // Affiche la vue dans le conteneur
+            contentContainer.getChildren().setAll(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

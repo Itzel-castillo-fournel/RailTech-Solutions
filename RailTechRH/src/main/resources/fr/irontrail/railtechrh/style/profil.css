@@ -1,0 +1,33 @@
+/* profil.css */
+
+/* Couleur de fond */
+.root {
+    -fx-background-color: #EAEEF1;
+}
+
+/* Style des labels */
+.label {
+    -fx-text-fill: #5267D1;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Style des données (texte des informations) */
+.data-label {
+    -fx-text-fill: #1C287C;
+    -fx-font-size: 16px;
+    -fx-font-weight: normal;
+}
+
+
+/* Effet au survol du bouton */
+.button:hover {
+    -fx-background-color: #5267D1;
+}
+
+/* Style du titre */
+.title-label {
+    -fx-text-fill: #1C287C;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
