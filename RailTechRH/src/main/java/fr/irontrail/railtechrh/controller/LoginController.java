@@ -33,7 +33,7 @@ public class LoginController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/MainView.fxml"));
                 Parent root = loader.load();
                 MainController controller = loader.getController();
-                controller.setRole(utilisateur.getRole()); // Passe le rôle au contrôleur principal
+                controller.setRole(String.valueOf(utilisateur.getRole())); // Passe le rôle au contrôleur principal
 
                 Scene scene = new Scene(root);
                 Stage stage = (Stage) emailField.getScene().getWindow();

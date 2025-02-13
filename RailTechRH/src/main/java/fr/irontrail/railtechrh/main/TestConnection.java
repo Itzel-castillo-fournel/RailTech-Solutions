@@ -16,7 +16,7 @@ public class TestConnection {
             pstmt.setString(2, "User");
             pstmt.setString(3, "test.user@example.com");
             pstmt.setString(4, "password123");
-            pstmt.setString(5, "CONDUCTEUR");
+            pstmt.setString(5, "OPERATEUR");
 
             int rowsAffected = pstmt.executeUpdate();
             System.out.println(rowsAffected + " utilisateur ajouté");

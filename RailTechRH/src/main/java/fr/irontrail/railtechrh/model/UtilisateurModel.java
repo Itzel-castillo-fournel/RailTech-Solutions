@@ -1,5 +1,8 @@
 package fr.irontrail.railtechrh.model;
 
+
+import fr.irontrail.railtechrh.model.enums.Role;
+
 public class UtilisateurModel {
     // Attributs (propriétés de l'utilisateur)
     private int id;
@@ -7,11 +10,14 @@ public class UtilisateurModel {
     private String prenom;
     private String email;
     private String mdp;
-    private String role;
+
+
+
+    private Role role;
 
     public UtilisateurModel() {}
     // Constructeur (pour créer un nouvel utilisateur)
-    public UtilisateurModel(int id, String nom, String motDePasse, String role) {
+    public UtilisateurModel(int id, String nom, String motDePasse, Role role) {
         this.id = id;
         this.nom = nom;
         this.mdp = motDePasse;
@@ -47,10 +53,6 @@ public class UtilisateurModel {
         return mdp;
     }
 
-    public String getRole() {
-        return role;
-    }
-
     // Setters (pour modifier les attributs)
     public void setId(int id) {
         this.id = id;
@@ -64,7 +66,12 @@ public class UtilisateurModel {
         this.mdp = motDePasse;
     }
 
-    public void setRole(String role) {
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
         this.role = role;
     }
+
 }

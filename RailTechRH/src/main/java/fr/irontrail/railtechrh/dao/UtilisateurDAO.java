@@ -8,6 +8,7 @@ package fr.irontrail.railtechrh.dao;
 //}
 
 import fr.irontrail.railtechrh.model.UtilisateurModel;
+import fr.irontrail.railtechrh.model.enums.Role;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,7 +31,7 @@ public class UtilisateurDAO {
                 utilisateur.setPrenom(resultSet.getString("prenom"));
                 utilisateur.setEmail(resultSet.getString("email"));
                 utilisateur.setMdp(resultSet.getString("mdp"));
-                utilisateur.setRole(resultSet.getString("role"));
+                utilisateur.setRole(Role.valueOf(resultSet.getString("role")));
                 return utilisateur;
             }
         } catch (SQLException e) {
