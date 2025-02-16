@@ -15,9 +15,12 @@ import fr.irontrail.railtechrh.dao.UtilisateurDAO;
 import java.io.IOException;
 
 public class LoginController {
-    @FXML private TextField emailField;
-    @FXML private PasswordField motDePasseField;
-    @FXML private Label errorLabel;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField motDePasseField;
+    @FXML
+    private Label errorLabel;
 
     private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
 
@@ -34,11 +37,12 @@ public class LoginController {
                 Parent root = loader.load();
                 MainController controller = loader.getController();
                 controller.setCurrentUser(utilisateur);
-                controller.setRole(String.valueOf(utilisateur.getRole())); // Passe le rôle au contrôleur principal
+                controller.setRole(String.valueOf(utilisateur.getRole()));
 
-                Scene scene = new Scene(root);
+                Scene scene = new Scene(root, 1024, 768); // Même taille que dans App
                 Stage stage = (Stage) emailField.getScene().getWindow();
                 stage.setScene(scene);
+                stage.centerOnScreen();
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();

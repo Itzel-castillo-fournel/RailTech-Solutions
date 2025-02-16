@@ -3,17 +3,53 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.StackPane?>
 
-<?import java.net.URL?>
-<VBox spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.UserProfilController">
+<VBox spacing="20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.UserProfilController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 
-    <Label text="Mon Profil" textFill="#1c287c">
-      <font>
-         <Font name="System Bold" size="22.0" />
-      </font></Label>
+    <Label text="Mon Profil" style="-fx-font-size: 24; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;">
+        <font>
+            <Font name="Konkhmer Sleokchher" size="24.0" />
+        </font>
+    </Label>
 
-    <Label fx:id="prenomLabel" text="Prénom: " />
-    <Label fx:id="nomLabel" text="Nom: " />
-    <Label fx:id="emailLabel" text="Email: " />
-    <Label fx:id="roleLabel" text="Rôle: " />
+    <AnchorPane maxWidth="328.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-radius: 15;">
+        <effect>
+            <DropShadow color="#00000020" offsetY="2" offsetX="0" radius="8"/>
+        </effect>
+
+        <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+            <!-- Avatar Circle -->
+            <StackPane>
+                <Circle radius="40" fill="#4051b5"/>
+                <Label text="👤" style="-fx-font-size: 40; -fx-text-fill: white; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+            </StackPane>
+
+            <!-- Nom et Prénom centrés -->
+            <Label fx:id="prenomNomLabel" style="-fx-font-size: 16; -fx-text-fill: #4051b5; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+
+            <!-- Autres informations utilisateur -->
+            <VBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 0 0 10 0;">
+                <Label text="Adresse mail :" style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                <Label fx:id="emailLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                <Label text="Poste :" style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-padding: 10 0 0 0; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                <Label fx:id="roleLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+            </VBox>
+
+            <!-- Bouton modifier mot de passe -->
+            <Button text="Modifier mot de passe" style="-fx-background-color: #1a237e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10 20; -fx-cursor: hand; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;">
+                <graphic>
+                    <Label text="✎" style="-fx-text-fill: white; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                </graphic>
+            </Button>
+        </VBox>
+    </AnchorPane>
 </VBox>

@@ -1,51 +1,51 @@
-/* login.css */
+/*!* login.css *!*/
 
-/* Style pour le VBox principal */
-.vbox {
-    -fx-background-color: #f0f0f0; /* Fond gris clair */
-    -fx-padding: 20px; /* Espacement intérieur */
-    -fx-spacing: 10px; /* Espacement entre les éléments */
-    -fx-alignment: center; /* Centrer les éléments */
-}
+/*!* Style pour le VBox principal *!*/
+/*.vbox {*/
+/*    -fx-background-color: #f0f0f0; !* Fond gris clair *!*/
+/*    -fx-padding: 20px; !* Espacement intérieur *!*/
+/*    -fx-spacing: 10px; !* Espacement entre les éléments *!*/
+/*    -fx-alignment: center; !* Centrer les éléments *!*/
+/*}*/
 
-/* Style pour le titre "Connexion" */
-.label-title {
-    -fx-font-size: 24px; /* Taille de la police */
-    -fx-font-weight: bold; /* Texte en gras */
-    -fx-text-fill: #2D45C9; /* Couleur du texte (bleu) */
-}
+/*!* Style pour le titre "Connexion" *!*/
+/*.label-title {*/
+/*    -fx-font-size: 24px; !* Taille de la police *!*/
+/*    -fx-font-weight: bold; !* Texte en gras *!*/
+/*    -fx-text-fill: #2D45C9; !* Couleur du texte (bleu) *!*/
+/*}*/
 
-/* Style pour les champs de texte */
-.text-field, .password-field {
-    -fx-font-size: 14px; /* Taille de la police */
-    -fx-pref-width: 250px; /* Largeur des champs */
-    -fx-pref-height: 35px; /* Hauteur des champs */
-    -fx-background-radius: 5px; /* Bords arrondis */
-    -fx-border-radius: 5px; /* Bords arrondis */
-    -fx-border-color: #2D45C9; /* Couleur de la bordure (bleu) */
-    -fx-border-width: 1px; /* Épaisseur de la bordure */
-    -fx-padding: 5px; /* Espacement intérieur */
-}
+/*!* Style pour les champs de texte *!*/
+/*.text-field, .password-field {*/
+/*    -fx-font-size: 14px; !* Taille de la police *!*/
+/*    -fx-pref-width: 250px; !* Largeur des champs *!*/
+/*    -fx-pref-height: 35px; !* Hauteur des champs *!*/
+/*    -fx-background-radius: 5px; !* Bords arrondis *!*/
+/*    -fx-border-radius: 5px; !* Bords arrondis *!*/
+/*    -fx-border-color: #2D45C9; !* Couleur de la bordure (bleu) *!*/
+/*    -fx-border-width: 1px; !* Épaisseur de la bordure *!*/
+/*    -fx-padding: 5px; !* Espacement intérieur *!*/
+/*}*/
 
-/* Style pour le bouton "Se connecter" */
-.button {
-    -fx-font-size: 14px; /* Taille de la police */
-    -fx-pref-width: 250px; /* Largeur du bouton */
-    -fx-pref-height: 35px; /* Hauteur du bouton */
-    -fx-background-color: #2D45C9; /* Fond bleu */
-    -fx-text-fill: white; /* Texte en blanc */
-    -fx-background-radius: 5px; /* Bords arrondis */
-    -fx-border-radius: 5px; /* Bords arrondis */
-    -fx-cursor: hand; /* Curseur en forme de main */
-}
+/*!* Style pour le bouton "Se connecter" *!*/
+/*.button {*/
+/*    -fx-font-size: 14px; !* Taille de la police *!*/
+/*    -fx-pref-width: 250px; !* Largeur du bouton *!*/
+/*    -fx-pref-height: 35px; !* Hauteur du bouton *!*/
+/*    -fx-background-color: #2D45C9; !* Fond bleu *!*/
+/*    -fx-text-fill: white; !* Texte en blanc *!*/
+/*    -fx-background-radius: 5px; !* Bords arrondis *!*/
+/*    -fx-border-radius: 5px; !* Bords arrondis *!*/
+/*    -fx-cursor: hand; !* Curseur en forme de main *!*/
+/*}*/
 
-/* Style pour le bouton "Se connecter" au survol */
-.button:hover {
-    -fx-background-color: #1A2F8F; /* Fond bleu foncé au survol */
-}
+/*!* Style pour le bouton "Se connecter" au survol *!*/
+/*.button:hover {*/
+/*    -fx-background-color: #1A2F8F; !* Fond bleu foncé au survol *!*/
+/*}*/
 
-/* Style pour le label d'erreur */
-.error-label {
-    -fx-text-fill: red; /* Texte en rouge */
-    -fx-font-size: 12px; /* Taille de la police */
-}
+/*!* Style pour le label d'erreur *!*/
+/*.error-label {*/
+/*    -fx-text-fill: red; !* Texte en rouge *!*/
+/*    -fx-font-size: 12px; !* Taille de la police *!*/
+/*}*/
