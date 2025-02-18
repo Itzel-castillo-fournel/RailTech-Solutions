@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController">
+    <VBox fx:id="trajetsContainer">
+        <!-- Les cartes seront ajoutées ici dynamiquement -->
+    </VBox>
+</ScrollPane>

@@ -42,7 +42,7 @@ public class MainController {
                 break;
             case "OPERATEUR":
                 addMenuButton("Planning Conducteurs", "/fr/irontrail/railtechrh/operateur/Planning.fxml", "planning-icon.png");
-                addMenuButton("Trajets", "/fr/irontrail/railtechrh/operateur/TrajetList.fxml", "train-icon.png");
+                addMenuButton("Trajets", "/fr/irontrail/railtechrh/operateur/TrajetsProgrammes.fxml", "train-icon.png");
                 addMenuButton("Maintenance", "/fr/irontrail/railtechrh/operateur/MaintenanceList.fxml", "tools-icon.png");
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/operateur/Notifications.fxml", "notification-icon.png");
                 break;
