@@ -52,4 +52,19 @@
             </Button>
         </VBox>
     </AnchorPane>
+
+    <AnchorPane fx:id="trajetsAnchorPane" maxWidth="328.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-radius: 15;">
+        <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+            <!-- Avatar Circle -->
+            <StackPane>
+                <Circle radius="40" fill="#4051b5"/>
+                <Label fx:id="trajetsLabel" style="-fx-text-fill: #ffffff; -fx-font-size: 24; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" visible="false"/>
+            </StackPane>
+
+            <!-- Autres informations utilisateur -->
+            <VBox spacing="8" alignment="CENTER" style="-fx-padding: 0 0 10 0;">
+                <Label text="Trajets effectués ce mois :" style="-fx-font-size: 14; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+            </VBox>
+        </VBox>
+    </AnchorPane>
 </VBox>
