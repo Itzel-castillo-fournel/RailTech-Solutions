@@ -38,4 +38,21 @@ public class UtilisateurDAO {
         }
         return null; // Aucun utilisateur trouvé
     }
+
+    public int getNombreTrajetsCeMois(int userId) {
+        int nombreTrajets = 0;
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            String sql = "SELECT COUNT(*) AS nombre_trajets FROM trajet WHERE conducteurId = ? AND MONTH(heureDepart) = MONTH(CURRENT_DATE()) AND YEAR(heureDepart) = YEAR(CURRENT_DATE())";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                nombreTrajets = resultSet.getInt("nombre_trajets");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombreTrajets;
+    }
 }
