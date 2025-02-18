@@ -11,9 +11,11 @@ public class UserProfilController {
     @FXML private Label prenomNomLabel;
     @FXML private Label emailLabel;
     @FXML private Label roleLabel;
-    @FXML private Label trajetsLabel; // Nouveau label pour afficher le nombre de trajets
+    @FXML private Label trajetsLabel;
+    @FXML private Label specialiteTitle;
+    @FXML private Label specialiteLabel;
     @FXML private AnchorPane trajetsAnchorPane;
-    @FXML private Label heuresLabel; // Nouveau label pour afficher le nombre d'heures
+    @FXML private Label heuresLabel;
     @FXML private AnchorPane heuresAnchorPane;
     private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
 
@@ -34,6 +36,16 @@ public class UserProfilController {
             heuresAnchorPane.setVisible(true);
         } else {
             trajetsAnchorPane.setVisible(false); // Cacher l'AnchorPane pour les autres rôles
+        }
+
+        if (utilisateur.getRole() == Role.TECHNICIEN) {
+            String specialite = utilisateurDAO.getSpecialiteTechnicien(utilisateur.getId());
+            // Afficher la spécialité dans l'interface utilisateur
+            // Par exemple, mettre à jour un Label avec la spécialité
+            specialiteLabel.setText(specialite);
+        } else {
+            specialiteLabel.setVisible(false);
+            specialiteTitle.setVisible(false);
         }
     }
 }
