@@ -48,7 +48,7 @@ public class MainController {
                 break;
         }
         // Ajouter le bouton "Se déconnecter" pour tous les rôles
-        addLogoutButton();
+        addLogoutButton("logout-icon.png");
     }
 
     private void addMenuButton(String text, String fxmlFile, String iconPath) {
@@ -76,11 +76,25 @@ public class MainController {
         menuContainer.getChildren().add(button);
     }
 
-    private void addLogoutButton() {
+    private void addLogoutButton(String iconPath) {
         Button logoutButton = new Button("Se déconnecter");
+        logoutButton.getStyleClass().add("logout-button");
+
+        // Charger l'icône
+        InputStream iconStream = getClass().getResourceAsStream("/fr/irontrail/railtechrh/icons/" + iconPath);
+        if (iconStream != null) {
+            ImageView icon = new ImageView(new Image(iconStream));
+            icon.setFitWidth(20);
+            icon.setFitHeight(20);
+            logoutButton.setGraphic(icon);
+        } else {
+            System.err.println("Icône non trouvée : " + iconPath);
+        }
+
         logoutButton.setOnAction(e -> logout());
         menuContainer.getChildren().add(logoutButton);
     }
+
     private void logout() {
         try {
             // Charger la page de connexion
@@ -89,8 +103,9 @@ public class MainController {
 
             // Obtenir la scène actuelle et la remplacer par la scène de connexion
             Stage stage = (Stage) menuContainer.getScene().getWindow();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 1024, 768); // Même taille que les autres scènes
             stage.setScene(scene);
+            stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,6 +128,7 @@ public class MainController {
     public void setCurrentUser(UtilisateurModel user) {
         this.currentUser = user;
         System.out.println("Utilisateur défini : " + user.getPrenom() + " " + user.getNom()); // Debug
+        loadUserProfile();
     }
 
     // Charge la vue du profil utilisateur
