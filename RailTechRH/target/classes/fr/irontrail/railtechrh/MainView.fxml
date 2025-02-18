@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.MainController">
+    <stylesheets>
+        <URL value="@style/Menu.css" /> <!-- Lien vers le fichier CSS -->
+    </stylesheets>
+    <left>
+        <VBox fx:id="menuContainer" spacing="10" styleClass="menu-container">
+            <!-- Le menu sera ajouté dynamiquement -->
+        </VBox>
+    </left>
+    <center>
+        <StackPane fx:id="contentContainer">
+            <!-- Le contenu sera chargé dynamiquement -->
+        </StackPane>
+    </center>
+</BorderPane>
