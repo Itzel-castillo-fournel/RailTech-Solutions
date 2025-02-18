@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class UtilisateurDAO {
     private static final String INSERT_USER = "INSERT INTO Utilisateur (nom, prenom, email, mdp, role) VALUES (?, ?, ?, ?, ?)";
@@ -54,5 +56,37 @@ public class UtilisateurDAO {
             e.printStackTrace();
         }
         return nombreTrajets;
+    }
+
+    // Méthode pour obtenir le nombre d'heures travaillées dans le mois
+    public int getNombreHeuresTravailleesCeMois(int utilisateurId) {
+        String query = "SELECT heureDepart, heureArrivee " +
+                "FROM trajet " +
+                "WHERE conducteurId = ? " +
+                "AND MONTH(heureDepart) = MONTH(CURRENT_DATE()) " +
+                "AND YEAR(heureDepart) = YEAR(CURRENT_DATE())";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, utilisateurId);
+            ResultSet resultSet = statement.executeQuery();
+
+            long totalHeures = 0;
+
+            while (resultSet.next()) {
+                LocalDateTime heureDepart = resultSet.getTimestamp("heureDepart").toLocalDateTime();
+                LocalDateTime heureArrivee = resultSet.getTimestamp("heureArrivee").toLocalDateTime();
+
+                long heuresTravaillees = ChronoUnit.HOURS.between(heureDepart, heureArrivee);
+                totalHeures += heuresTravaillees;
+            }
+
+            return (int) totalHeures;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }
