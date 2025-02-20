@@ -1,12 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Formulaire d'incident"/>
+<VBox prefHeight="538.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.conducteur.IncidentController">
+    <Label prefHeight="70.0" prefWidth="466.0" text="Signaler un incident" textFill="#1c287c">
+      <font>
+         <Font name="System Bold" size="48.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="60.0" left="40.0" />
+      </VBox.margin></Label>
+   <HBox prefHeight="100.0" prefWidth="354.0">
+      <children>
+         <VBox prefHeight="99.0" prefWidth="232.0">
+            <children>
+               <Label text="Type d'incident :" textFill="#1c287c">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets bottom="5.0" />
+                  </VBox.margin></Label>
+               <ChoiceBox fx:id="cb_typeIncident" prefWidth="150.0" style="-fx-background-color: rgba(114, 129, 216, 0.2);">
+                  <VBox.margin>
+                     <Insets bottom="40.0" />
+                  </VBox.margin></ChoiceBox>
+               <Label prefHeight="27.0" prefWidth="150.0" text="Train concerné : " textFill="#1c287c">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets bottom="5.0" />
+                  </VBox.margin>
+               </Label>
+               <ChoiceBox fx:id="cb_train" prefWidth="150.0" style="-fx-background-color: rgba(114, 129, 216, 0.2);" />
+            </children>
+            <HBox.margin>
+               <Insets top="1.0" />
+            </HBox.margin>
+         </VBox>
+         <VBox prefHeight="156.0" prefWidth="181.0">
+            <children>
+               <Label text="Gravité :" textFill="#1c287c">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets bottom="5.0" />
+                  </VBox.margin>
+               </Label>
+               <ChoiceBox fx:id="cb_gravite" prefWidth="150.0" style="-fx-background-color: rgba(114, 129, 216, 0.2);" />
+            </children>
+            <HBox.margin>
+               <Insets left="180.0" />
+            </HBox.margin>
+         </VBox>
+      </children>
+      <VBox.margin>
+         <Insets bottom="60.0" left="40.0" />
+      </VBox.margin>
+   </HBox>
+   <HBox prefHeight="100.0" prefWidth="200.0">
+      <children>
+         <VBox prefHeight="100.0" prefWidth="581.0">
+            <children>
+               <Label text="Description : " textFill="#1c287c">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets bottom="5.0" />
+                  </VBox.margin>
+               </Label>
+               <TextArea fx:id="ta_description" cache="true" prefHeight="62.0" prefWidth="571.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: transparent; -fx-control-inner-background: rgba(114, 129, 216, 0.2);">
+               </TextArea>
+            </children>
+            <HBox.margin>
+               <Insets left="40.0" />
+            </HBox.margin>
+         </VBox>
+      </children>
+   </HBox>
+   <Button fx:id="b_addIncident" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="55.0" prefWidth="155.0" style="-fx-background-color: #1C287C;" text="ENVOYER" textAlignment="CENTER" textFill="#fcfafa">
+      <VBox.margin>
+         <Insets left="466.0" />
+      </VBox.margin>
+      <font>
+         <Font name="System Bold" size="18.0" />
+      </font>
+   </Button>
     <!-- Ajoute d'autres éléments ici -->
 </VBox>
