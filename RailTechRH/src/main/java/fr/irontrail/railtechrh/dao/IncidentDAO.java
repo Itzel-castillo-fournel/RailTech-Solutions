@@ -2,48 +2,58 @@ package fr.irontrail.railtechrh.dao;
 
 import fr.irontrail.railtechrh.model.IncidentModel;
 import fr.irontrail.railtechrh.model.TrainModel;
-import fr.irontrail.railtechrh.model.enums.Gravite;
-import fr.irontrail.railtechrh.model.enums.TypeIncident;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
+
+
 
 public class IncidentDAO {
-    private static final String INSERT_INCIDENT = "INSERT INTO Incident (description, typeIncident, gravite, trainImmat VALUES (?,?,?,?)";
+    private static final String INSERT_INCIDENT = "INSERT INTO Incident (description, typeIncident, gravite, trainImmat) VALUES (?,?,?,?)";
     private static final String GET_INCIDENT = "SELECT id, description, typeIncident, gravite, trainImmat FROM Incident WHERE id = ?";
     private static final String UPDATE_INCIDENT = "UPDATE Incident SET descritpion = ?, typeIncident = ?, gravite = ?, trainImmat = ? WHERE id = ?";
     private static final String DELETE_INCIDENT = "DELETE FROM Incident WHERE id = ?";
     private static final String GET_TRAIN = "SELECT immatriculation FROM Train";
+    private static final String GET_TRAIN_BY_IMMAT = "SELECT immatriculation, modele, marque FROM Train WHERE immatriculation = ?";
 
-    public IncidentModel createIncident(String description, TypeIncident typeIncident, Gravite gravite, TrainModel trainImmat) throws SQLException {
-        String [] generatedColumns = {"id"};
+    private static Connection connection = null;
 
+    public static boolean addIncident(IncidentModel incident) throws SQLException {
+        Boolean ajoutIncident = false;
         try (Connection connection = DatabaseConnection.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(INSERT_INCIDENT);
-            statement.setString(1, description);
-            statement.setString(2, typeIncident.toString());
-            statement.setString(3, gravite.toString());
-            statement.setString(4, trainImmat.getImmatriculation());
+            PreparedStatement statement = connection.prepareStatement(INSERT_INCIDENT, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, incident.getDescription());
+            statement.setString(2, incident.getTypeIncident().toString());
+            statement.setString(3, incident.getGravite().toString());
+            statement.setString(4, incident.getTrainImmat().getImmatriculation());
 
             int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
+            ajoutIncident = rowsInserted > 0;
+
+            if (ajoutIncident) {
                 try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         int id = generatedKeys.getInt(1);
-                        System.out.println("Incident created successfully");
-                        return new IncidentModel(id, description, typeIncident, gravite, trainImmat);
-
+                        incident.setId(id);
+                        System.out.println("Incident created successfully. ID : " + id);
                     }
                 }
             }
+
         }catch (SQLException e) {
             System.out.println("Error inserting incident : " + e.getMessage());
+        } finally {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error closing connection : " + e.getMessage());
         }
-        return null;
+    }
+        return ajoutIncident;
     }
 
     public ObservableList<String> getTrain() throws SQLException {
@@ -57,6 +67,45 @@ public class IncidentDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error getting train : " + e.getMessage());
+        } finally {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error closing connection : " + e.getMessage());
+        }
+    }
+        return train;
+    }
+
+    public static TrainModel getTrainByImmat(String immat) throws SQLException {
+
+        TrainModel train = null;
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_TRAIN_BY_IMMAT);
+            statement.setString(1, immat);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                train = new TrainModel();
+                train.setImmatriculation(resultSet.getString("immatriculation"));
+                train.setMarque(resultSet.getString("marque"));
+                train.setModele(resultSet.getString("modele"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error getting train : " + e.getMessage());
+
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error closing connection : " + e.getMessage());
+            }
         }
         return train;
     }

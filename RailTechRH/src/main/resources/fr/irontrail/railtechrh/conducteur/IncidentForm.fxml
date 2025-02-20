@@ -11,8 +11,16 @@
          <Font name="System Bold" size="48.0" />
       </font>
       <VBox.margin>
-         <Insets bottom="60.0" left="40.0" />
+         <Insets bottom="40.0" left="40.0" />
       </VBox.margin></Label>
+   <Label fx:id="l_resultText" prefHeight="18.0" prefWidth="587.0" textFill="#f70404">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+      <VBox.margin>
+         <Insets bottom="20.0" left="40.0" />
+      </VBox.margin>
+   </Label>
    <HBox prefHeight="100.0" prefWidth="354.0">
       <children>
          <VBox prefHeight="99.0" prefWidth="232.0">
@@ -84,7 +92,7 @@
          </VBox>
       </children>
    </HBox>
-   <Button fx:id="b_addIncident" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="55.0" prefWidth="155.0" style="-fx-background-color: #1C287C;" text="ENVOYER" textAlignment="CENTER" textFill="#fcfafa">
+   <Button fx:id="b_addIncident" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#b_onClickAddIncident" prefHeight="55.0" prefWidth="155.0" style="-fx-background-color: #1C287C;" text="ENVOYER" textAlignment="CENTER" textFill="#fcfafa">
       <VBox.margin>
          <Insets left="466.0" />
       </VBox.margin>
