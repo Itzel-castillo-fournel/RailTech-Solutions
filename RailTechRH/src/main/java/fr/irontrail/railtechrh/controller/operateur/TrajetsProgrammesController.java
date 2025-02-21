@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.DatePicker;
@@ -238,7 +239,14 @@ public class TrajetsProgrammesController implements Initializable {
         dateBox.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
         dateBox.setPrefWidth(375);
 
-        Label dateLabel = new Label(trajet.getHeureDepart() != null ? trajet.getHeureDepart().toString() : "Inconnu");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        // Formater la date et l'heure
+        String formattedDateTime = trajet.getHeureDepart() != null
+                ? trajet.getHeureDepart().format(formatter)
+                : "Inconnu";
+
+        Label dateLabel = new Label(formattedDateTime);
         dateLabel.setFont(new Font("System Bold", 14));
         dateLabel.setTextFill(Color.web("#2d45c9"));
 
