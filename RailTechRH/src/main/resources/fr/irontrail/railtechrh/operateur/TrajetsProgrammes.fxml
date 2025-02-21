@@ -172,7 +172,7 @@
       </HBox>
       <Pane minWidth="-Infinity" prefHeight="50.0" prefWidth="740.0">
          <children>
-            <DatePicker layoutX="153.0" layoutY="14.0" prefHeight="25.0" prefWidth="120.0" promptText="jj/mm/aaaa" />
+            <DatePicker fx:id="datePicker" layoutX="153.0" layoutY="14.0" prefHeight="25.0" prefWidth="120.0" promptText="jj/mm/aaaa" onAction="#filterTrajetsByDate" />
             <Label layoutX="21.0" layoutY="15.0" text="Filtrer par date : " textFill="#1c287c">
                <font>
                   <Font name="System Bold" size="15.0" />

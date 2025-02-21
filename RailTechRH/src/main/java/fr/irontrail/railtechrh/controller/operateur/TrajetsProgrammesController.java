@@ -5,6 +5,7 @@ import fr.irontrail.railtechrh.model.TrainModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
@@ -17,13 +18,18 @@ import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.control.DatePicker;
 
 public class TrajetsProgrammesController implements Initializable {
 
     @FXML
     private VBox trajetsContainer;
+
+    @FXML
+    private DatePicker datePicker;
 
     private final OperateurDAO operateurDAO = new OperateurDAO();
 
@@ -44,6 +50,43 @@ public class TrajetsProgrammesController implements Initializable {
         }
     }
 
+    public void filterTrajetsByDate() {
+        LocalDate selectedDate = datePicker.getValue();
+        if (selectedDate != null) {
+            try {
+                List<TrajetModel> filteredTrajets = operateurDAO.getTrajetsByDate(selectedDate);
+                System.out.println(filteredTrajets);
+                for (TrajetModel trajet : filteredTrajets) {
+                    System.out.println("Train filtrés: " + trajet.getTrainImmat()); // Ajoutez ce log
+                }
+                updateTrajetsContainer(filteredTrajets);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert("Erreur", "Erreur lors du filtrage des trajets par date.");
+            }
+        }
+    }
+
+    private void updateTrajetsContainer(List<TrajetModel> trajets) {
+        trajetsContainer.getChildren().clear();
+        for (TrajetModel trajet : trajets) {
+            TitledPane trajetPane = createTrajetPane(trajet);
+            trajetsContainer.getChildren().add(trajetPane);
+            System.out.println("Adding Trajet: " + trajet.getTrainImmat()); // Log existant
+            System.out.println("TitledPane created: " + trajetPane); // Nouveau log
+        }
+        System.out.println("Total trajets added: " + trajets.size()); // Log existant
+    }
+
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
     private TitledPane createTrajetPane(TrajetModel trajet) {
         TitledPane titledPane = new TitledPane();
         titledPane.setStyle("-fx-background-color: none;");
@@ -62,7 +105,7 @@ public class TrajetsProgrammesController implements Initializable {
         immatriculationLabel.setLayoutY(33);
         immatriculationLabel.setTextFill(Color.web("#2d45c9"));
 
-        Label immatriculationValue = new Label(trajet.getTrainImmat());
+        Label immatriculationValue = new Label(trajet.getTrainImmat() != null ? trajet.getTrainImmat() : "Inconnu");
         immatriculationValue.setLayoutX(109);
         immatriculationValue.setLayoutY(34);
         immatriculationValue.setFont(new Font("System Bold", 12));
@@ -110,18 +153,27 @@ public class TrajetsProgrammesController implements Initializable {
         // Récupérer les détails du train
         try {
             TrainModel trainDetails = operateurDAO.getTrainDetails(trajet.getTrainImmat());
-            modeleValue.setText(trainDetails.getModele());
-            marqueValue.setText(trainDetails.getMarque());
+            if (trainDetails != null) {
+                modeleValue.setText(trainDetails.getModele());
+                marqueValue.setText(trainDetails.getMarque());
+            } else {
+                System.out.println("Train details not found for immatriculation: " + trajet.getTrainImmat());
+                modeleValue.setText("Inconnu");
+                marqueValue.setText("Inconnu");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            modeleValue.setText("Erreur");
+            marqueValue.setText("Erreur");
         }
 
         // Récupérer le nom du conducteur
         try {
             String conducteurName = operateurDAO.getConducteurName(trajet.getConducteurId());
-            conducteurValue.setText(conducteurName);
+            conducteurValue.setText(conducteurName != null ? conducteurName : "Inconnu");
         } catch (SQLException e) {
             e.printStackTrace();
+            conducteurValue.setText("Erreur");
         }
 
         infoPane.getChildren().addAll(immatriculationLabel, immatriculationValue, modeleLabel, modeleValue, marqueLabel, marqueValue, conducteurLabel, conducteurValue, infoTitle);
@@ -134,6 +186,8 @@ public class TrajetsProgrammesController implements Initializable {
 
         return titledPane;
     }
+
+
 
     private Pane createGraphicPane(TrajetModel trajet) {
         Pane graphicPane = new Pane();
@@ -160,7 +214,7 @@ public class TrajetsProgrammesController implements Initializable {
         routeBox.setPrefWidth(202);
         routeBox.setSpacing(10); // Ajoutez de l'espacement entre les éléments
 
-        Label departLabel = new Label(trajet.getArretDepart().toString());
+        Label departLabel = new Label(trajet.getArretDepart() != null ? trajet.getArretDepart().toString() : "Inconnu");
         departLabel.setFont(new Font("System Bold", 14));
         departLabel.setTextFill(Color.web("#2d45c9"));
 
@@ -168,13 +222,13 @@ public class TrajetsProgrammesController implements Initializable {
         arrow.setContent("M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z");
         arrow.setFill(Color.web("#2d45c9"));
 
-        Label arriveeLabel = new Label(trajet.getArretArrivee().toString());
+        Label arriveeLabel = new Label(trajet.getArretArrivee() != null ? trajet.getArretArrivee().toString() : "Inconnu");
         arriveeLabel.setFont(new Font("System Bold", 14));
         arriveeLabel.setTextFill(Color.web("#2d45c9"));
 
         routeBox.getChildren().addAll(departLabel, arrow, arriveeLabel);
 
-        Label trainInfo = new Label("Train - " + trajet.getTrainImmat());
+        Label trainInfo = new Label("Train - " + (trajet.getTrainImmat() != null ? trajet.getTrainImmat() : "Inconnu"));
         trainInfo.setTextFill(Color.web("#2d45c9"));
         trainInfo.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
@@ -184,7 +238,7 @@ public class TrajetsProgrammesController implements Initializable {
         dateBox.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
         dateBox.setPrefWidth(375);
 
-        Label dateLabel = new Label(trajet.getHeureDepart().toString());
+        Label dateLabel = new Label(trajet.getHeureDepart() != null ? trajet.getHeureDepart().toString() : "Inconnu");
         dateLabel.setFont(new Font("System Bold", 14));
         dateLabel.setTextFill(Color.web("#2d45c9"));
 
@@ -198,6 +252,7 @@ public class TrajetsProgrammesController implements Initializable {
 
         return graphicPane;
     }
+
 
 }
 

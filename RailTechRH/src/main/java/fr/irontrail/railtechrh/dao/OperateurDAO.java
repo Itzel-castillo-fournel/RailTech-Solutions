@@ -4,10 +4,8 @@ import fr.irontrail.railtechrh.model.TrainModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 import fr.irontrail.railtechrh.model.enums.Arret;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,4 +69,31 @@ public class OperateurDAO {
         }
         return "Conducteur Inconnu";
     }
+
+    public List<TrajetModel> getTrajetsByDate(LocalDate date) throws SQLException {
+        List<TrajetModel> trajets = new ArrayList<>();
+        String sql = "SELECT * FROM trajet WHERE DATE(heureDepart) >= ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(date));
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                TrajetModel trajet = new TrajetModel();
+                trajet.setId(rs.getInt("id"));
+                trajet.setHeureDepart(rs.getTimestamp("heureDepart").toLocalDateTime());
+                trajet.setHeureArrivee(rs.getTimestamp("heureArrivee").toLocalDateTime());
+                trajet.setArretDepart(Arret.valueOf(rs.getString("arretDepart")));
+                trajet.setArretArrivee(Arret.valueOf(rs.getString("arretArrivee")));
+                trajet.setTrainImmat(rs.getString("trainImmat"));
+                trajet.setConducteurId(rs.getInt("conducteurId"));
+
+                // Ajoutez ce log pour vérifier les valeurs récupérées
+                System.out.println("Trajet récupéré: " + trajet);
+
+                trajets.add(trajet);
+            }
+        }
+        return trajets;
+    }
+
 }
