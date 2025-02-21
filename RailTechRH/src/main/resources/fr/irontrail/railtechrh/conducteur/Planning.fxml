@@ -1,12 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Planning conducteur"/>
-    <!-- Ajoute d'autres éléments ici -->
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.PlanningController">
+   <children>
+      <Label layoutX="31.0" layoutY="22.0" style="-fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" styleClass="title-label" text="Mon Planning" textFill="#1a237e">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="85.0" styleClass="title-label" text="Mes Trajets du Jour" textFill="#1a237e">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" layoutX="382.0" layoutY="84.0" spacing="10">
+         <children>
+            <Button fx:id="previousDateButton1" prefWidth="25.0" style="-fx-background-color: transparent; -fx-font-weight: bold;" styleClass="nav-button" text="&lt;" textFill="#1a237e">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Label fx:id="dateLabel1" styleClass="date-label" />
+            <Button fx:id="nextDateButton1" style="-fx-background-color: transparent; -fx-font-weight: bold;" styleClass="nav-button" text="&gt;" textFill="#1a237e">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+         </children>
+      </HBox>
+
+       <VBox layoutX="31.0" layoutY="130.0" prefHeight="155.0" prefWidth="420.0" spacing="10" style="-fx-padding: 10px; -fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-color: lightgray; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 2, 2);" styleClass="root-container" xmlns:fx="http://javafx.com/fxml">
+           <HBox prefHeight="15.0" prefWidth="353.0" style="-fx-border-width: 1px; -fx-padding: 10px;" styleClass="train-card">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="14.0" fitWidth="14.0">
+                     <image>
+                        <Image url="@../icons/train-planning-icon.png" />
+                     </image>
+                  </ImageView>
+                   <Label fx:id="trainNumero" style="-fx-font-weight: bold;" styleClass="train-number" text="TGV 6538" textFill="#1a237e" />
+               </children>
+            </HBox>
+               <HBox HBox.hgrow="ALWAYS" />
+               <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="0.0" prefWidth="67.0" style="-fx-text-fill: rgb(28, 40, 124); -fx-background-color: rgba(28, 40, 124, 0.33); -fx-padding: 5px; -fx-background-radius: 5px; -fx-font-weight: bold;" styleClass="status-label" text="À venir">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+           </HBox>
+         <Separator prefHeight="2.0" prefWidth="245.0" />
+
+           <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="353.0" style="-fx-background-color: white; -fx-padding: 10px;" styleClass="train-info">
+               <VBox prefHeight="42.0" prefWidth="98.0" spacing="14.0">
+               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                     <ImageView fitHeight="17.0" fitWidth="13.0">
+                        <image>
+                           <Image url="@../icons/localisation-icon.png" />
+                        </image>
+                     </ImageView>
+                      <Label fx:id="departVille" style="-fx-font-weight: bold;" styleClass="departure-info" text="Départ: Paris" textFill="#1a237e" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                     <ImageView fitHeight="16.0" fitWidth="14.0">
+                        <image>
+                           <Image url="@../icons/time-icon.png" />
+                        </image>
+                     </ImageView>
+                      <Label fx:id="departHeure" style="-fx-font-weight: bold;" styleClass="time-info" text="08:00" textFill="#1a237e" />
+                  </children>
+               </HBox>
+               </VBox>
+               <HBox maxWidth="141.0" prefHeight="48.0" prefWidth="141.0" HBox.hgrow="ALWAYS" />
+            <VBox prefHeight="42.0" prefWidth="98.0" spacing="14.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="17.0" fitWidth="13.0">
+                           <image>
+                              <Image url="@../icons/localisation-icon.png" />
+                           </image>
+                        </ImageView>
+                         <Label fx:id="arriveeVille" style="-fx-font-weight: bold;" styleClass="departure-info" text="Arrivée: Lyon" textFill="#1a237e" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="16.0" fitWidth="14.0">
+                           <image>
+                              <Image url="@../icons/time-icon.png" />
+                           </image>
+                        </ImageView>
+                         <Label fx:id="arriveeHeure" style="-fx-font-weight: bold;" styleClass="time-info" text="10:00" textFill="#1a237e" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+           </HBox>
+
+       </VBox>
+      <ScrollBar layoutX="481.0" layoutY="131.0" orientation="VERTICAL" prefHeight="269.0" prefWidth="14.0" />
+   </children>
+
+</AnchorPane>
