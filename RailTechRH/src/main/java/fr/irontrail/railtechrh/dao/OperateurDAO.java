@@ -1,5 +1,6 @@
 package fr.irontrail.railtechrh.dao;
 
+import fr.irontrail.railtechrh.model.TrainModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 import fr.irontrail.railtechrh.model.enums.Arret;
 
@@ -33,5 +34,41 @@ public class OperateurDAO {
             }
         }
         return trajets;
+    }
+
+    //Récupérer les détails du train
+    public TrainModel getTrainDetails(String trainImmat) throws SQLException {
+        TrainModel train = null;
+        String sql = "SELECT immatriculation, marque, modele FROM train WHERE immatriculation = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setString(1, trainImmat);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    train = new TrainModel();
+                    train.setImmatriculation(resultSet.getString("immatriculation"));
+                    train.setMarque(resultSet.getString("marque"));
+                    train.setModele(resultSet.getString("modele"));
+                }
+            }
+        }
+        return train;
+    }
+
+    public String getConducteurName(int conducteurId) throws SQLException {
+        String sql = "SELECT nom FROM utilisateur WHERE id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, conducteurId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("nom");
+                }
+            }
+        }
+        return "Conducteur Inconnu";
     }
 }
