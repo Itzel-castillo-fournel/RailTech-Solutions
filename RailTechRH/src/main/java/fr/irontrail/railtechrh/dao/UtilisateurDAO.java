@@ -89,4 +89,25 @@ public class UtilisateurDAO {
             return 0;
         }
     }
+
+    // Méthode pour obtenir la spécialité d'un technicien
+    public String getSpecialiteTechnicien(int technicienId) {
+        String query = "SELECT specialite FROM technicien WHERE id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, technicienId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getString("specialite");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; // Retourne null si aucune spécialité n'est trouvée
+    }
 }

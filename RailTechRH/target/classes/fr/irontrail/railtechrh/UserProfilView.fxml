@@ -45,6 +45,8 @@
                     <Label fx:id="emailLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
                     <Label text="Poste :" style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-padding: 10 0 0 0; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
                     <Label fx:id="roleLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                    <Label fx:id="specialiteTitle" text="Spécialité :" style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-padding: 10 0 0 0; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                    <Label fx:id="specialiteLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
                 </VBox>
 
                 <!-- Bouton modifier mot de passe -->
