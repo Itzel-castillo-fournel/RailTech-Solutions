@@ -116,7 +116,13 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent content = loader.load();
-            contentContainer.getChildren().setAll(content); // Affiche le contenu
+
+            if (fxmlFile.contains("Planning.fxml")) {
+                PlanningController planningController = loader.getController();
+                planningController.setUser(currentUser);
+            }
+
+            contentContainer.getChildren().setAll(content);
         } catch (IOException e) {
             e.printStackTrace();
         }
