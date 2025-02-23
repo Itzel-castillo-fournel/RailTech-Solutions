@@ -232,7 +232,14 @@ public class TrajetsProgrammesController implements Initializable {
             conducteurValue.setText("Erreur");
         }
 
-        infoPane.getChildren().addAll(immatriculationLabel, immatriculationValue, modeleLabel, modeleValue, marqueLabel, marqueValue, conducteurLabel, conducteurValue, infoTitle);
+        javafx.scene.control.Button modifyButton = new javafx.scene.control.Button("Modifier");
+        modifyButton.setStyle("-fx-background-color: #2d45c9; -fx-text-fill: white; -fx-background-radius: 5;");
+        modifyButton.setLayoutX(550);
+        modifyButton.setLayoutY(30);
+        modifyButton.setPrefWidth(80);
+        modifyButton.setOnAction(event -> handleModifyTrajet(trajet));
+
+        infoPane.getChildren().addAll(immatriculationLabel, immatriculationValue, modeleLabel, modeleValue, marqueLabel, marqueValue, conducteurLabel, conducteurValue, infoTitle, modifyButton);
 
         anchorPane.getChildren().add(infoPane);
 
@@ -241,6 +248,27 @@ public class TrajetsProgrammesController implements Initializable {
         titledPane.setGraphic(createGraphicPane(trajet));
 
         return titledPane;
+    }
+
+    private void handleModifyTrajet(TrajetModel trajet) {
+        try {
+            // Load the ModifierTrajet.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/operateur/ModifierTrajet.fxml"));
+            Parent content = loader.load();
+
+            // Get the controller and pass the trajet data
+            ModifierTrajetController controller = loader.getController();
+
+            // Display the content in the MainController's contentContainer
+            if (mainController != null) {
+                mainController.getContentContainer().getChildren().setAll(content);
+            } else {
+                showAlert("Erreur", "Impossible d'accéder au conteneur principal.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger la page de modification du trajet.");
+        }
     }
 
     private Pane createGraphicPane(TrajetModel trajet) {
