@@ -1,10 +1,15 @@
 package fr.irontrail.railtechrh.controller.operateur;
 
+import fr.irontrail.railtechrh.controller.MainController;
 import fr.irontrail.railtechrh.dao.OperateurDAO;
 import fr.irontrail.railtechrh.model.TrainModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -16,6 +21,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -23,6 +31,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.DatePicker;
+import javafx.stage.Stage;
 
 public class TrajetsProgrammesController implements Initializable {
 
@@ -32,19 +41,65 @@ public class TrajetsProgrammesController implements Initializable {
     @FXML
     private DatePicker datePicker;
 
+    @FXML
+    private Label noTrajetsLabel;
+
     private final OperateurDAO operateurDAO = new OperateurDAO();
+
+    private MainController mainController;
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Charger les trajets initiaux
         loadTrajetsProgrammes();
+
+        // Ajouter un listener sur le DatePicker pour gérer la réinitialisation
+        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                loadTrajetsProgrammes();
+            }
+        });
+    }
+
+    @FXML
+    public void handleCreerTrajetButtonClick(javafx.event.ActionEvent actionEvent) {
+        try {
+            // Charger le fichier FXML "creerTrajet.fxml"
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/operateur/CreerTrajet.fxml"));
+            Parent content = loader.load();
+
+            // Afficher le contenu dans le contentContainer du MainController
+            if (mainController != null) {
+                mainController.getContentContainer().getChildren().setAll(content);
+            } else {
+                showAlert("Erreur", "Impossible d'accéder au conteneur principal.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger la page de création de trajet.");
+        }
     }
 
     private void loadTrajetsProgrammes() {
         try {
+            trajetsContainer.getChildren().clear();
+            LocalDate today = LocalDate.now(); // Récupère la date du jour
             List<TrajetModel> trajets = operateurDAO.getTrajetsProgrammes();
-            for (TrajetModel trajet : trajets) {
-                TitledPane trajetPane = createTrajetPane(trajet);
-                trajetsContainer.getChildren().add(trajetPane);
+            if (trajets.isEmpty()) {
+                // Afficher le message si aucun trajet n'est prévu à partir d'aujourd'hui
+                noTrajetsLabel.setText("Aucun trajet prévu à partir du " + today.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ".");
+                noTrajetsLabel.setVisible(true);
+            } else {
+                // Masquer le message et afficher les trajets
+                noTrajetsLabel.setVisible(false);
+                for (TrajetModel trajet : trajets) {
+                    TitledPane trajetPane = createTrajetPane(trajet);
+                    trajetsContainer.getChildren().add(trajetPane);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,30 +110,30 @@ public class TrajetsProgrammesController implements Initializable {
         LocalDate selectedDate = datePicker.getValue();
         if (selectedDate != null) {
             try {
+                trajetsContainer.getChildren().clear();
                 List<TrajetModel> filteredTrajets = operateurDAO.getTrajetsByDate(selectedDate);
-                System.out.println(filteredTrajets);
-                for (TrajetModel trajet : filteredTrajets) {
-                    System.out.println("Train filtrés: " + trajet.getTrainImmat()); // Ajoutez ce log
+
+                if (filteredTrajets.isEmpty()) {
+                    // Afficher le message si aucun trajet n'est trouvé
+                    noTrajetsLabel.setText("Aucun trajet programmé à partir de cette date : " + selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ".");
+                    noTrajetsLabel.setVisible(true);
+                } else {
+                    // Masquer le message et afficher les trajets
+                    noTrajetsLabel.setVisible(false);
+                    for (TrajetModel trajet : filteredTrajets) {
+                        TitledPane trajetPane = createTrajetPane(trajet);
+                        trajetsContainer.getChildren().add(trajetPane);
+                    }
                 }
-                updateTrajetsContainer(filteredTrajets);
             } catch (SQLException e) {
                 e.printStackTrace();
                 showAlert("Erreur", "Erreur lors du filtrage des trajets par date.");
             }
+        } else {
+            // Si aucune date n'est sélectionnée, recharger tous les trajets
+            loadTrajetsProgrammes();
         }
     }
-
-    private void updateTrajetsContainer(List<TrajetModel> trajets) {
-        trajetsContainer.getChildren().clear();
-        for (TrajetModel trajet : trajets) {
-            TitledPane trajetPane = createTrajetPane(trajet);
-            trajetsContainer.getChildren().add(trajetPane);
-            System.out.println("Adding Trajet: " + trajet.getTrainImmat()); // Log existant
-            System.out.println("TitledPane created: " + trajetPane); // Nouveau log
-        }
-        System.out.println("Total trajets added: " + trajets.size()); // Log existant
-    }
-
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -188,8 +243,6 @@ public class TrajetsProgrammesController implements Initializable {
         return titledPane;
     }
 
-
-
     private Pane createGraphicPane(TrajetModel trajet) {
         Pane graphicPane = new Pane();
 
@@ -260,7 +313,6 @@ public class TrajetsProgrammesController implements Initializable {
 
         return graphicPane;
     }
-
 
 }
 

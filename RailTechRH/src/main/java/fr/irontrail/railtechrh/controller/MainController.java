@@ -1,5 +1,6 @@
 package fr.irontrail.railtechrh.controller;
 
+import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,9 @@ public class MainController {
     @FXML private VBox menuContainer;
     @FXML private StackPane contentContainer;
 
+    public StackPane getContentContainer() {
+        return contentContainer;
+    }
     public void setRole(String role) {
         menuContainer.getChildren().clear(); // Vide le menu
 
@@ -116,6 +120,13 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent content = loader.load();
+
+            // Si le contrôleur est TrajetsProgrammesController, passez une référence de MainController
+            if (loader.getController() instanceof TrajetsProgrammesController) {
+                TrajetsProgrammesController controller = loader.getController();
+                controller.setMainController(this); // Passez une référence de MainController
+            }
+
             contentContainer.getChildren().setAll(content); // Affiche le contenu
         } catch (IOException e) {
             e.printStackTrace();

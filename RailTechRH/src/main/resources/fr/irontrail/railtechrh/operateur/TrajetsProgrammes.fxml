@@ -5,14 +5,9 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <!--<ScrollPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController">-->
@@ -155,24 +150,24 @@
 <!--    </VBox>-->
 <!--</ScrollPane>-->
 
-
 <ScrollPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController">
-   <VBox fx:id="trajetsContainer" prefHeight="838.0" prefWidth="780.0" spacing="15" style="-fx-padding: 20; -fx-background-color: none;">
+   <VBox fx:id="mainContainer" prefHeight="838.0" prefWidth="780.0" spacing="15" style="-fx-padding: 20; -fx-background-color: none;">
       <HBox alignment="TOP_CENTER">
          <Label prefHeight="30.0" prefWidth="515.0" text="Trajets programmés" textFill="#1c287c">
             <font>
                <Font name="System Bold" size="28.0" />
             </font>
          </Label>
-         <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="174.0" style="-fx-background-color: #1C287C; -fx-padding: 10;" text="CREER UN TRAJET" textFill="WHITE">
+         <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="174.0" style="-fx-background-color: #1C287C; -fx-padding: 10;" text="CREER UN TRAJET" textFill="WHITE" onAction="#handleCreerTrajetButtonClick">
             <font>
                <Font name="System Bold" size="15.0" />
             </font>
          </Button>
       </HBox>
+
       <Pane minWidth="-Infinity" prefHeight="50.0" prefWidth="740.0">
          <children>
-            <DatePicker fx:id="datePicker" layoutX="153.0" layoutY="14.0" prefHeight="25.0" prefWidth="120.0" promptText="jj/mm/aaaa" onAction="#filterTrajetsByDate" />
+            <DatePicker fx:id="datePicker" layoutX="153.0" layoutY="14.0" onAction="#filterTrajetsByDate" prefHeight="25.0" prefWidth="120.0" promptText="jj/mm/aaaa" />
             <Label layoutX="21.0" layoutY="15.0" text="Filtrer par date : " textFill="#1c287c">
                <font>
                   <Font name="System Bold" size="15.0" />
@@ -180,6 +175,17 @@
             </Label>
          </children>
       </Pane>
-      <!-- Contenu de votre VBox -->
+
+      <!-- Label pour afficher un message lorsqu'aucun trajet n'est trouvé -->
+      <Label fx:id="noTrajetsLabel" text="" style="-fx-text-fill: red; -fx-font-size: 14; -fx-font-weight: bold;" visible="false" />
+
+      <!-- Conteneur spécifique pour les trajets -->
+      <VBox fx:id="trajetsContainer" spacing="10" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </VBox>
+
+
    </VBox>
 </ScrollPane>
