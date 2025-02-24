@@ -1,5 +1,6 @@
 package fr.irontrail.railtechrh.controller;
 
+import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -122,7 +123,13 @@ public class MainController {
                 planningController.setUser(currentUser);
             }
 
-            contentContainer.getChildren().setAll(content);
+            // Si le contrôleur est TrajetsProgrammesController, passez une référence de MainController
+            if (loader.getController() instanceof TrajetsProgrammesController) {
+                TrajetsProgrammesController controller = loader.getController();
+                controller.setMainController(this); // Passez une référence de MainController
+            }
+
+            contentContainer.getChildren().setAll(content); // Affiche le contenu
         } catch (IOException e) {
             e.printStackTrace();
         }
