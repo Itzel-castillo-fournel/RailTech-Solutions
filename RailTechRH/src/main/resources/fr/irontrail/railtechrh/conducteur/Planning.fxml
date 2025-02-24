@@ -33,10 +33,13 @@
         </HBox>
     </HBox>
 
-    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+    <ScrollPane fitToWidth="true"
+                style="-fx-background-color: transparent; -fx-background: transparent;">
         <VBox.margin>
             <Insets top="20"/>
         </VBox.margin>
-        <VBox fx:id="trajetsContainer" spacing="20"/>
+        <content>
+            <VBox fx:id="trajetsContainer" spacing="20" style="-fx-background-color: transparent;"/>
+        </content>
     </ScrollPane>
 </VBox>
