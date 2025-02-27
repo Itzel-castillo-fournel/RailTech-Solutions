@@ -36,18 +36,85 @@ public class TrajetDAO {
         return trajets;
     }
 
-    public List<TrajetModel> getTrajetsByConducteur(int conducteurId) throws SQLException {
+    // Méthode pour récupérer tous les trajets (pour l'opérateur)
+    public List<TrajetModel> getAllTrajets() throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
-        String query = "SELECT * FROM Trajet WHERE conducteurId = ?";
+        String query = "SELECT * FROM Trajet ORDER BY heureDepart";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                trajets.add(new TrajetModel(
+                        rs.getInt("id"),
+                        rs.getTimestamp("heureDepart").toLocalDateTime(),
+                        rs.getTimestamp("heureArrivee").toLocalDateTime(),
+                        Arret.valueOf(rs.getString("arretDepart")),
+                        Arret.valueOf(rs.getString("arretArrivee")),
+                        rs.getString("trainImmat"),
+                        rs.getInt("conducteurId")
+                ));
+            }
+        }
+        return trajets;
+    }
+
+    // Méthode pour créer un nouveau trajet
+    public void createTrajet(String trainImmat, LocalDateTime heureDepart, LocalDateTime heureArrivee,
+                             Arret arretDepart, Arret arretArrivee, int conducteurId) throws SQLException {
+
+        String query = "INSERT INTO Trajet (trainImmat, heureDepart, heureArrivee, arretDepart, arretArrivee, conducteurId) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pstmt.setInt(1, conducteurId);
+            pstmt.setString(1, trainImmat);
+            pstmt.setTimestamp(2, Timestamp.valueOf(heureDepart));
+            pstmt.setTimestamp(3, Timestamp.valueOf(heureArrivee));
+            pstmt.setString(4, arretDepart.toString());
+            pstmt.setString(5, arretArrivee.toString());
+            pstmt.setInt(6, conducteurId);
+
+            pstmt.executeUpdate();
+        }
+    }
+
+    // Méthode pour mettre à jour un trajet existant
+    public void updateTrajet(int trajetId, String trainImmat, LocalDateTime heureDepart, LocalDateTime heureArrivee,
+                             Arret arretDepart, Arret arretArrivee, int conducteurId) throws SQLException {
+
+        String query = "UPDATE Trajet SET trainImmat = ?, heureDepart = ?, heureArrivee = ?, " +
+                "arretDepart = ?, arretArrivee = ?, conducteurId = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, trainImmat);
+            pstmt.setTimestamp(2, Timestamp.valueOf(heureDepart));
+            pstmt.setTimestamp(3, Timestamp.valueOf(heureArrivee));
+            pstmt.setString(4, arretDepart.toString());
+            pstmt.setString(5, arretArrivee.toString());
+            pstmt.setInt(6, conducteurId);
+            pstmt.setInt(7, trajetId);
+
+            pstmt.executeUpdate();
+        }
+    }
+
+    // Méthode pour récupérer un trajet par son ID
+    public TrajetModel getTrajetById(int trajetId) throws SQLException {
+        String query = "SELECT * FROM Trajet WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, trajetId);
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                while (rs.next()) {
-                    trajets.add(new TrajetModel(
+                if (rs.next()) {
+                    return new TrajetModel(
                             rs.getInt("id"),
                             rs.getTimestamp("heureDepart").toLocalDateTime(),
                             rs.getTimestamp("heureArrivee").toLocalDateTime(),
@@ -55,10 +122,22 @@ public class TrajetDAO {
                             Arret.valueOf(rs.getString("arretArrivee")),
                             rs.getString("trainImmat"),
                             rs.getInt("conducteurId")
-                    ));
+                    );
                 }
             }
         }
-        return trajets;
+        return null;
+    }
+
+    // Méthode pour supprimer un trajet
+    public void deleteTrajet(int trajetId) throws SQLException {
+        String query = "DELETE FROM Trajet WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, trajetId);
+            pstmt.executeUpdate();
+        }
     }
 }
