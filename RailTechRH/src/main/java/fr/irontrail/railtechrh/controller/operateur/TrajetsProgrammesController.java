@@ -7,9 +7,7 @@ import fr.irontrail.railtechrh.model.TrajetModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
@@ -21,8 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,7 +27,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.scene.control.DatePicker;
-import javafx.stage.Stage;
 
 public class TrajetsProgrammesController implements Initializable {
 
@@ -69,7 +64,7 @@ public class TrajetsProgrammesController implements Initializable {
     public void handleCreerTrajetButtonClick(javafx.event.ActionEvent actionEvent) {
         try {
             // Charger le fichier FXML "creerTrajet.fxml"
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/operateur/CreerTrajet.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/operateur/TrajetForm.fxml"));
             Parent content = loader.load();
 
             // Afficher le contenu dans le contentContainer du MainController
@@ -252,12 +247,12 @@ public class TrajetsProgrammesController implements Initializable {
 
     private void handleModifyTrajet(TrajetModel trajet) {
         try {
-            // Load the ModifierTrajet.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/operateur/ModifierTrajet.fxml"));
+            // Load the TrajetForm.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/operateur/TrajetForm.fxml"));
             Parent content = loader.load();
 
             // Get the controller and pass the trajet data
-            ModifierTrajetController controller = loader.getController();
+            TrajetController controller = loader.getController();
 
             // Display the content in the MainController's contentContainer
             if (mainController != null) {

@@ -6,7 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="c43037f2-af69-4b48-8065-1e0848c3f0c2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/controller/operateur/TrajetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/controller/operateur/TrajetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/controller/operateur/TrajetsProgrammesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/controller/operateur/TrajetsProgrammesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/dao/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/dao/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/dao/TrajetDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/dao/TrajetDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/dao/UtilisateurDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/dao/UtilisateurDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/main/TestTrajet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/main/TestTrajet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fr/irontrail/railtechrh/operateur/TrajetForm.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fr/irontrail/railtechrh/operateur/TrajetForm.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,29 +45,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "Application.TestConnection.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/libit/IdeaProjects/JAVA_CASTILLO_FOURNEL/RailTech-Solutions/RailTechRH",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestConnection.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TestTrajet.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;operateurTrajet&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/libit/IdeaProjects/JAVA_CASTILLO_FOURNEL/RailTech-Solutions/RailTechRH&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="fr.irontrail.railtechrh.main.App" />
       <module name="railtechrh" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="fr.irontrail.railtechrh.main.*" />
+          <option name="PATTERN" value="fr.irontrail.railtechrh.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -71,7 +81,20 @@
       <module name="railtechrh" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="fr.irontrail.railtechrh.main.*" />
+          <option name="PATTERN" value="fr.irontrail.railtechrh.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestTrajet" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fr.irontrail.railtechrh.main.TestTrajet" />
+      <module name="railtechrh" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fr.irontrail.railtechrh.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -95,6 +118,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.TestTrajet" />
         <item itemvalue="Application.TestConnection" />
       </list>
     </recent_temporary>
@@ -120,6 +144,9 @@
       <workItem from="1739611632272" duration="634000" />
       <workItem from="1739612363566" duration="76000" />
       <workItem from="1739969681045" duration="600000" />
+      <workItem from="1740730352937" duration="5404000" />
+      <workItem from="1740747967368" duration="1272000" />
+      <workItem from="1740749249965" duration="1683000" />
     </task>
     <servers />
   </component>
