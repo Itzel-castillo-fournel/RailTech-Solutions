@@ -2,6 +2,7 @@ package fr.irontrail.railtechrh.controller.operateur;
 
 import fr.irontrail.railtechrh.controller.MainController;
 import fr.irontrail.railtechrh.dao.OperateurDAO;
+import fr.irontrail.railtechrh.dao.TrajetDAO;
 import fr.irontrail.railtechrh.model.TrainModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
@@ -26,7 +29,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.scene.control.DatePicker;
 
 public class TrajetsProgrammesController implements Initializable {
 
@@ -49,10 +51,8 @@ public class TrajetsProgrammesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Charger les trajets initiaux
         loadTrajetsProgrammes();
 
-        // Ajouter un listener sur le DatePicker pour gérer la réinitialisation
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadTrajetsProgrammes();
@@ -61,13 +61,11 @@ public class TrajetsProgrammesController implements Initializable {
     }
 
     @FXML
-    public void handleCreerTrajetButtonClick(javafx.event.ActionEvent actionEvent) {
+    public void b_onClickAddTrajet(javafx.event.ActionEvent actionEvent) {
         try {
-            // Charger le fichier FXML "creerTrajet.fxml"
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/operateur/TrajetForm.fxml"));
             Parent content = loader.load();
 
-            // Afficher le contenu dans le contentContainer du MainController
             if (mainController != null) {
                 mainController.getContentContainer().getChildren().setAll(content);
             } else {
@@ -82,14 +80,12 @@ public class TrajetsProgrammesController implements Initializable {
     private void loadTrajetsProgrammes() {
         try {
             trajetsContainer.getChildren().clear();
-            LocalDate today = LocalDate.now(); // Récupère la date du jour
+            LocalDate today = LocalDate.now();
             List<TrajetModel> trajets = operateurDAO.getTrajetsProgrammes();
             if (trajets.isEmpty()) {
-                // Afficher le message si aucun trajet n'est prévu à partir d'aujourd'hui
                 noTrajetsLabel.setText("Aucun trajet prévu à partir du " + today.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ".");
                 noTrajetsLabel.setVisible(true);
             } else {
-                // Masquer le message et afficher les trajets
                 noTrajetsLabel.setVisible(false);
                 for (TrajetModel trajet : trajets) {
                     TitledPane trajetPane = createTrajetPane(trajet);
@@ -101,6 +97,7 @@ public class TrajetsProgrammesController implements Initializable {
         }
     }
 
+    @FXML
     public void filterTrajetsByDate() {
         LocalDate selectedDate = datePicker.getValue();
         if (selectedDate != null) {
@@ -109,11 +106,9 @@ public class TrajetsProgrammesController implements Initializable {
                 List<TrajetModel> filteredTrajets = operateurDAO.getTrajetsByDate(selectedDate);
 
                 if (filteredTrajets.isEmpty()) {
-                    // Afficher le message si aucun trajet n'est trouvé
                     noTrajetsLabel.setText("Aucun trajet programmé à partir de cette date : " + selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + ".");
                     noTrajetsLabel.setVisible(true);
                 } else {
-                    // Masquer le message et afficher les trajets
                     noTrajetsLabel.setVisible(false);
                     for (TrajetModel trajet : filteredTrajets) {
                         TitledPane trajetPane = createTrajetPane(trajet);
@@ -125,7 +120,6 @@ public class TrajetsProgrammesController implements Initializable {
                 showAlert("Erreur", "Erreur lors du filtrage des trajets par date.");
             }
         } else {
-            // Si aucune date n'est sélectionnée, recharger tous les trajets
             loadTrajetsProgrammes();
         }
     }
@@ -201,7 +195,6 @@ public class TrajetsProgrammesController implements Initializable {
         infoTitle.setFont(new Font("System Bold", 14));
         infoTitle.setTextFill(Color.web("#2d45c9"));
 
-        // Récupérer les détails du train
         try {
             TrainModel trainDetails = operateurDAO.getTrainDetails(trajet.getTrainImmat());
             if (trainDetails != null) {
@@ -218,7 +211,6 @@ public class TrajetsProgrammesController implements Initializable {
             marqueValue.setText("Erreur");
         }
 
-        // Récupérer le nom du conducteur
         try {
             String conducteurName = operateurDAO.getConducteurName(trajet.getConducteurId());
             conducteurValue.setText(conducteurName != null ? conducteurName : "Inconnu");
@@ -247,14 +239,12 @@ public class TrajetsProgrammesController implements Initializable {
 
     private void handleModifyTrajet(TrajetModel trajet) {
         try {
-            // Load the TrajetForm.fxml file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/operateur/TrajetForm.fxml"));
             Parent content = loader.load();
 
-            // Get the controller and pass the trajet data
             TrajetController controller = loader.getController();
+            controller.setEditMode(trajet);
 
-            // Display the content in the MainController's contentContainer
             if (mainController != null) {
                 mainController.getContentContainer().getChildren().setAll(content);
             } else {
@@ -317,7 +307,6 @@ public class TrajetsProgrammesController implements Initializable {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-        // Formater la date et l'heure
         String formattedDateTime = trajet.getHeureDepart() != null
                 ? trajet.getHeureDepart().format(formatter)
                 : "Inconnu";
@@ -336,6 +325,4 @@ public class TrajetsProgrammesController implements Initializable {
 
         return graphicPane;
     }
-
 }
-

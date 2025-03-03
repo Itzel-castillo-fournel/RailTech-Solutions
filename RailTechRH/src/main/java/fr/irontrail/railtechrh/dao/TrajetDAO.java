@@ -45,7 +45,7 @@ public class TrajetDAO {
         return trajets;
     }
 
-    // Méthode pour récupérer tous les trajets (pour l'opérateur)
+    // Méthode pour récupérer tous les trajets
     public List<TrajetModel> getAllTrajets() throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
         String query = "SELECT * FROM Trajet ORDER BY heureDepart";
@@ -69,14 +69,12 @@ public class TrajetDAO {
         return trajets;
     }
 
-    // Méthode pour créer un nouveau trajet
     public static boolean createTrajet(TrajetModel trajetModel) throws SQLException {
-
         String query = "INSERT INTO Trajet (trainImmat, heureDepart, heureArrivee, arretDepart, arretArrivee) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+             PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, trajetModel.getTrainImmat());
             pstmt.setTimestamp(2, Timestamp.valueOf(trajetModel.getHeureDepart()));
@@ -84,14 +82,26 @@ public class TrajetDAO {
             pstmt.setString(4, trajetModel.getArretDepart().toString());
             pstmt.setString(5, trajetModel.getArretArrivee().toString());
 
-            pstmt.executeUpdate();
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        trajetModel.setId(generatedKeys.getInt(1));
+                    }
+                }
+            }
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
-        return true;
     }
 
     // Méthode pour mettre à jour un trajet existant
-    public void updateTrajet(int trajetId, String trainImmat, LocalDateTime heureDepart, LocalDateTime heureArrivee,
-                             Arret arretDepart, Arret arretArrivee, int conducteurId) throws SQLException {
+    public boolean updateTrajet(int trajetId, String trainImmat, LocalDateTime heureDepart, LocalDateTime heureArrivee,
+                                Arret arretDepart, Arret arretArrivee, int conducteurId) throws SQLException {
 
         String query = "UPDATE Trajet SET trainImmat = ?, heureDepart = ?, heureArrivee = ?, " +
                 "arretDepart = ?, arretArrivee = ?, conducteurId = ? WHERE id = ?";
@@ -108,6 +118,10 @@ public class TrajetDAO {
             pstmt.setInt(7, trajetId);
 
             pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
