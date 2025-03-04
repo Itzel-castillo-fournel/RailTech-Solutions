@@ -1,6 +1,8 @@
 package fr.irontrail.railtechrh.controller;
 
 import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
+import fr.irontrail.railtechrh.controller.technicien.AjouterMaintenance;
+import fr.irontrail.railtechrh.controller.technicien.Notifications;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,7 +72,6 @@ public class MainController {
             System.err.println("Icône non trouvée : " + iconPath);
         }
 
-
         // Appeler loadUserProfile pour le bouton "Mon Profil"
         if (text.equals("Mon Profil")) {
             button.setOnAction(e -> loadUserProfile());
@@ -117,11 +117,12 @@ public class MainController {
         }
     }
 
-    private void loadContent(String fxmlFile) {
+    public void loadContent(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent content = loader.load();
 
+            // Si le contrôleur est PlanningController, passez l'utilisateur actuel
             if (fxmlFile.contains("Planning.fxml")) {
                 PlanningController planningController = loader.getController();
                 planningController.setUser(currentUser);
@@ -132,6 +133,22 @@ public class MainController {
                 TrajetsProgrammesController controller = loader.getController();
                 controller.setMainController(this); // Passez une référence de MainController
             }
+
+            // Si le contrôleur est une instance de Notifications, passez l'ID du technicien
+            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
+                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
+                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
+                notificationsController.setTechnicienId(currentUser.getId()); // Passez l'ID du technicien
+            }
+
+            // Dans la méthode loadContent du MainController
+            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
+                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
+                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
+                notificationsController.setTechnicienId(currentUser.getId()); // Passez l'ID du technicien
+                notificationsController.setMainController(this); // Passez la référence du MainController
+            }
+
 
             contentContainer.getChildren().setAll(content); // Affiche le contenu
         } catch (IOException e) {
@@ -167,5 +184,4 @@ public class MainController {
             e.printStackTrace();
         }
     }
-
 }
