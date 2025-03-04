@@ -1,5 +1,6 @@
 package fr.irontrail.railtechrh.controller;
 
+import fr.irontrail.railtechrh.controller.operateur.AssignerConducteurController;
 import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.fxml.FXML;
@@ -46,7 +47,7 @@ public class MainController {
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/conducteur/Notifications.fxml", "notification-icon.png");
                 break;
             case "OPERATEUR":
-                addMenuButton("Planning Conducteurs", "/fr/irontrail/railtechrh/operateur/Planning.fxml", "planning-icon.png");
+                addMenuButton("Planning Conducteurs", "/fr/irontrail/railtechrh/operateur/AssignerConducteur.fxml", "planning-icon.png" );
                 addMenuButton("Trajets", "/fr/irontrail/railtechrh/operateur/TrajetsProgrammes.fxml", "train-icon.png");
                 addMenuButton("Maintenance", "/fr/irontrail/railtechrh/operateur/MaintenanceList.fxml", "tools-icon.png");
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/operateur/Notifications.fxml", "notification-icon.png");
@@ -117,10 +118,16 @@ public class MainController {
         }
     }
 
-    private void loadContent(String fxmlFile) {
+    public void loadContent(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent content = loader.load();
+
+            // Si le contrôleur est AssignerConducteurController, passez une référence de MainController
+            if (loader.getController() instanceof AssignerConducteurController) {
+                AssignerConducteurController controller = loader.getController();
+                controller.setMainController(this);
+            }
 
             if (fxmlFile.contains("Planning.fxml")) {
                 PlanningController planningController = loader.getController();

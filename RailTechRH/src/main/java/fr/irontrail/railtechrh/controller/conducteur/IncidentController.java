@@ -24,7 +24,6 @@ public class IncidentController {
     @FXML private ChoiceBox<Gravite> cb_gravite;
     @FXML private TextArea ta_description;
     @FXML private IncidentDAO incidentDAO;
-    @FXML private Button b_onClickAddIncident;
     @FXML private Label l_resultText;
 
     public void initialize() throws SQLException {
