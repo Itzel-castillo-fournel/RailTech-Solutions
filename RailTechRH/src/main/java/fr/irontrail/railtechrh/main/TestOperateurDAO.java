@@ -1,11 +1,13 @@
 package fr.irontrail.railtechrh.main;
 
+import fr.irontrail.railtechrh.dao.IncidentDAO;
 import fr.irontrail.railtechrh.dao.OperateurDAO;
 import fr.irontrail.railtechrh.model.MaintenanceModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class TestOperateurDAO {
     public static void main(String[] args) {
@@ -38,6 +40,13 @@ public class TestOperateurDAO {
                 }
             } else {
                 System.out.println("Aucun détail de maintenance trouvé.");
+            }
+
+            // Tester la méthode getMaintenancePercentages
+            Map<String, Integer> percentages = operateurDAO.getMaintenancePercentages();
+            System.out.println("Pourcentages des états de maintenance : ");
+            for (Map.Entry<String, Integer> entry : percentages.entrySet()) {
+                System.out.println(entry.getKey() + " : " + entry.getValue() + "%");
             }
 
         } catch (SQLException e) {

@@ -8,7 +8,9 @@ import fr.irontrail.railtechrh.model.enums.Arret;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OperateurDAO {
 
@@ -132,6 +134,42 @@ public class OperateurDAO {
             }
         }
         return maintenanceDetailsList;
+    }
+
+    public Map<String, Integer> getMaintenancePercentages() throws SQLException {
+        List<MaintenanceModel> maintenanceDetailsList = getMaintenanceDetails();
+        int totalMaintenances = maintenanceDetailsList.size();
+
+        if (totalMaintenances == 0) {
+            return new HashMap<>(); // Return an empty map if there are no maintenances
+        }
+
+        int panneCount = 0;
+        int operationnelCount = 0;
+        int maintenanceCount = 0;
+
+        for (MaintenanceModel maintenance : maintenanceDetailsList) {
+            switch (maintenance.getEtatMaintenance()) {
+                case "PANNE":
+                    panneCount++;
+                    break;
+                case "OPERATIONNEL":
+                    operationnelCount++;
+                    break;
+                case "MAINTENANCE":
+                    maintenanceCount++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Map<String, Integer> percentages = new HashMap<>();
+        percentages.put("PANNE", (int) Math.round((double) panneCount / totalMaintenances * 100));
+        percentages.put("OPÉRATIONNEL", (int) Math.round((double) operationnelCount / totalMaintenances * 100));
+        percentages.put("MAINTENANCE", (int) Math.round((double) maintenanceCount / totalMaintenances * 100));
+
+        return percentages;
     }
 
 }

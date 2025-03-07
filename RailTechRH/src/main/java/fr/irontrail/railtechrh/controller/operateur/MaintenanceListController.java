@@ -10,13 +10,25 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.paint.Color;
 
+import java.net.SocketOption;
 import java.sql.SQLException;
 import java.util.List;
-
+import java.util.Map;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class MaintenanceListController {
 
     @FXML
     private VBox maintenanceListVBox;
+
+    @FXML
+    private Label pannePercentageLabel;
+
+    @FXML
+    private Label maintenancePercentageLabel;
+
+    @FXML
+    private Label operationnelPercentageLabel;
 
     private OperateurDAO operateurDAO;
 
@@ -27,12 +39,12 @@ public class MaintenanceListController {
     @FXML
     public void initialize() {
         loadMaintenanceDetails();
+        updatePercentageLabels();
     }
 
     private void loadMaintenanceDetails() {
         try {
             List<MaintenanceModel> maintenanceDetails = operateurDAO.getMaintenanceDetails();
-
             Platform.runLater(() -> {
                 maintenanceListVBox.getChildren().clear();
 
@@ -52,6 +64,19 @@ public class MaintenanceListController {
         }
     }
 
+    private void updatePercentageLabels() {
+        try {
+            Map<String, Integer> percentages = operateurDAO.getMaintenancePercentages();
+            Platform.runLater(() -> {
+                pannePercentageLabel.setText(percentages.get("PANNE") + "%");
+                maintenancePercentageLabel.setText(percentages.get("MAINTENANCE") + "%");
+                operationnelPercentageLabel.setText(percentages.get("OPÉRATIONNEL") + "%");
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Pane createMaintenancePane(MaintenanceModel maintenance, boolean isLastItem) {
         Pane pane = new Pane();
         pane.setPrefHeight(39.0);
@@ -62,7 +87,7 @@ public class MaintenanceListController {
 
         // Add blue bottom border for all items except the last one
         if (!isLastItem) {
-            pane.setStyle(baseStyle + "-fx-border-color: transparent transparent #1c287c transparent; -fx-border-width: 0 0 1 0;");
+            pane.setStyle(baseStyle + "-fx-border-color: transparent transparent #7281D8 transparent; -fx-border-width: 0 0 1 0;");
         } else {
             pane.setStyle(baseStyle);
         }
@@ -100,28 +125,35 @@ public class MaintenanceListController {
 
         // Immatriculation Label
         Label immatriculationLabel = new Label(maintenance.getNumeroImmatriculationTrain());
+        immatriculationLabel.setStyle("-fx-text-fill: #7281D8");
         immatriculationLabel.setLayoutX(100.0);
         immatriculationLabel.setLayoutY(11.0);
         immatriculationLabel.setPrefWidth(150.0);
 
         // Description Label
         Label descriptionLabel = new Label(maintenance.getDescriptionMaintenance());
-        descriptionLabel.setLayoutX(200.0);
+        descriptionLabel.setStyle("-fx-text-fill: #7281D8");
+        descriptionLabel.setLayoutX(220.0);
         descriptionLabel.setLayoutY(11.0);
         descriptionLabel.setPrefWidth(150.0);
         descriptionLabel.setWrapText(true);
 
         // Technicien Label
         Label technicienLabel = new Label(maintenance.getNomTechnicien() + " " + maintenance.getPrenomTechnicien());
-        technicienLabel.setLayoutX(420.0);
+        technicienLabel.setLayoutX(380.0);
         technicienLabel.setLayoutY(11.0);
         technicienLabel.setPrefWidth(150.0);
+        technicienLabel.setStyle("-fx-text-fill: #7281D8");
 
         // Date de Contrôle Label
-        Label dateControleLabel = new Label(maintenance.getDerniereMiseAJour().toString());
-        dateControleLabel.setLayoutX(570.0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        String formattedDate = maintenance.getDerniereMiseAJour().format(formatter);
+
+        Label dateControleLabel = new Label(formattedDate);
+        dateControleLabel.setLayoutX(520.0);
         dateControleLabel.setLayoutY(11.0);
         dateControleLabel.setPrefWidth(120.0);
+        dateControleLabel.setStyle("-fx-text-fill: #7281D8");
 
         // Add labels to the pane
         pane.getChildren().addAll(immatriculationLabel, descriptionLabel, technicienLabel, dateControleLabel);
