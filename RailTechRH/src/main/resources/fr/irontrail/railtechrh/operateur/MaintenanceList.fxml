@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Maintenance liste"/>
-    <!-- Ajoute d'autres éléments ici -->
-</VBox>
+<AnchorPane prefHeight="736.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.operateur.MaintenanceListController">
+    <children>
+        <Label layoutX="24.0" layoutY="23.0" text="Maintenances" textFill="#1c287c">
+            <font>
+                <Font name="System Bold" size="27.0" />
+            </font>
+        </Label>
+        <Pane layoutX="24.0" layoutY="69.0" prefHeight="39.0" prefWidth="831.0">
+            <children>
+                <Label layoutX="14.0" layoutY="11.0" text="État" textFill="#5267d1">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label layoutX="90.0" layoutY="11.0" text="Immatriculation" textFill="#5267d1">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label layoutX="200.0" layoutY="11.0" text="Problème" textFill="#5267d1">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label layoutX="450.0" layoutY="11.0" text="Technicien" textFill="#5267d1">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label layoutX="580.0" layoutY="11.0" text="Date de Contrôle" textFill="#5267d1">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <SVGPath content="M17.2 20L19 21.5V22H5V21.5L6.8 20H5C3.89543 20 3 19.1046 3 18V7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V18C21 19.1046 20.1046 20 19 20H17.2ZM7 5C5.89543 5 5 5.89543 5 7V18H19V7C19 5.89543 18.1046 5 17 5H7ZM12 17C10.8954 17 10 16.1046 10 15C10 13.8954 10.8954 13 12 13C13.1046 13 14 13.8954 14 15C14 16.1046 13.1046 17 12 17ZM6 7H18V11H6V7Z" fill="#5267d1" layoutX="60.0" layoutY="7.0" style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;" />
+            </children>
+        </Pane>
+        <ScrollPane layoutX="24.0" layoutY="108.0" prefHeight="452.0" prefWidth="838.0" style="-fx-background-color: transparent;">
+            <content>
+                <VBox fx:id="maintenanceListVBox" spacing="10.0" style="-fx-background-color: transparent;" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

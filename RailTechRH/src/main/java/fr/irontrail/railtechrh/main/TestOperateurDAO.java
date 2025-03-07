@@ -1,6 +1,7 @@
 package fr.irontrail.railtechrh.main;
 
 import fr.irontrail.railtechrh.dao.OperateurDAO;
+import fr.irontrail.railtechrh.model.MaintenanceModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 
 import java.sql.SQLException;
@@ -21,8 +22,26 @@ public class TestOperateurDAO {
             } else {
                 System.out.println("Aucun trajet programmé trouvé.");
             }
+
+            // Tester la méthode getMaintenanceDetails
+            List<MaintenanceModel> maintenanceDetailsList = operateurDAO.getMaintenanceDetails();
+            if (!maintenanceDetailsList.isEmpty()) {
+                System.out.println("Détails de maintenance trouvés : ");
+                for (MaintenanceModel details : maintenanceDetailsList) {
+                    System.out.println("État : " + details.getEtatMaintenance());
+                    System.out.println("Numéro d'immatriculation du train : " + details.getNumeroImmatriculationTrain());
+                    System.out.println("Description : " + details.getDescriptionMaintenance());
+                    System.out.println("Nom du technicien : " + details.getNomTechnicien());
+                    System.out.println("Prénom du technicien : " + details.getPrenomTechnicien());
+                    System.out.println("Dernière mise à jour : " + details.getDerniereMiseAJour());
+                    System.out.println("----------------------------------------");
+                }
+            } else {
+                System.out.println("Aucun détail de maintenance trouvé.");
+            }
+
         } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération des trajets : " + e.getMessage());
+            System.err.println("Erreur lors de la récupération des données : " + e.getMessage());
         }
     }
 }

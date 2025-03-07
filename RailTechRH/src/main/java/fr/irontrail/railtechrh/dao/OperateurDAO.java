@@ -1,5 +1,6 @@
 package fr.irontrail.railtechrh.dao;
 
+import fr.irontrail.railtechrh.model.MaintenanceModel;
 import fr.irontrail.railtechrh.model.TrainModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 import fr.irontrail.railtechrh.model.enums.Arret;
@@ -94,6 +95,43 @@ public class OperateurDAO {
             }
         }
         return trajets;
+    }
+
+    public List<MaintenanceModel> getMaintenanceDetails() throws SQLException {
+        List<MaintenanceModel> maintenanceDetailsList = new ArrayList<>();
+        String sql = "" +
+                "SELECT " +
+                "    m.etat AS etat_maintenance, " +
+                "    i.trainImmat AS numero_immatriculation_train, " +
+                "    m.description AS description_maintenance, " +
+                "    u.nom AS nom_technicien, " +
+                "    u.prenom AS prenom_technicien, " +
+                "    m.dateMaintenance AS derniere_mise_a_jour " +
+                "FROM " +
+                "    maintenance m " +
+                "JOIN " +
+                "    incident i ON m.incidentId = i.id " +
+                "LEFT JOIN " +
+                "    utilisateur u ON m.technicienId = u.id " +
+                "ORDER BY " +
+                "    m.dateMaintenance DESC";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                MaintenanceModel details = new MaintenanceModel();
+                details.setEtatMaintenance(resultSet.getString("etat_maintenance"));
+                details.setNumeroImmatriculationTrain(resultSet.getString("numero_immatriculation_train"));
+                details.setDescriptionMaintenance(resultSet.getString("description_maintenance"));
+                details.setNomTechnicien(resultSet.getString("nom_technicien"));
+                details.setPrenomTechnicien(resultSet.getString("prenom_technicien"));
+                details.setDerniereMiseAJour(resultSet.getTimestamp("derniere_mise_a_jour").toLocalDateTime());
+                maintenanceDetailsList.add(details);
+            }
+        }
+        return maintenanceDetailsList;
     }
 
 }

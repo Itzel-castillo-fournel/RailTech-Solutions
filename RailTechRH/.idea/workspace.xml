@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c43037f2-af69-4b48-8065-1e0848c3f0c2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/dao/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/irontrail/railtechrh/dao/DatabaseConnection.java" afterDir="false" />
-    </list>
+    <list default="true" id="c43037f2-af69-4b48-8065-1e0848c3f0c2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +38,7 @@
     "Application.App.executor": "Run",
     "Application.TestConnection.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "listMaintenances",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/libit/IdeaProjects/JAVA_CASTILLO_FOURNEL/RailTech-Solutions/RailTechRH",
     "node.js.detected.package.eslint": "true",
