@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="539.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.operateur.TrajetController">
+    <Label fx:id="l_titrePageTrajet" prefHeight="70.0" prefWidth="608.0" text="Créer un nouveau trajet" textFill="#1c287c">
+        <font>
+            <Font name="System Bold" size="48.0" />
+        </font>
+        <VBox.margin>
+            <Insets bottom="40.0" left="40.0" />
+        </VBox.margin></Label>
+    <Label fx:id="l_resultText" prefHeight="18.0" prefWidth="587.0" textFill="#f70404">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <VBox.margin>
+            <Insets bottom="20.0" left="40.0" />
+        </VBox.margin>
+    </Label>
+    <HBox prefHeight="412.0" prefWidth="691.0">
+        <children>
+            <VBox prefHeight="400.0" prefWidth="676.0">
+                <children>
+                    <Label text="Sélectionnez un train" textFill="#1c287c">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                            <Insets bottom="5.0" />
+                        </VBox.margin>
+                    </Label>
+                    <ChoiceBox fx:id="cb_trainImmat" prefHeight="26.0" prefWidth="227.0" style="-fx-background-color: transparent; -fx-border-color: #1c287c; -fx-background-radius: 8; -fx-border-radius: 8;">
+                        <VBox.margin>
+                            <Insets bottom="40.0" />
+                        </VBox.margin>
+                    </ChoiceBox>
+                    <Label text="Départ " textFill="#1c287c">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                    </Label>
+               <HBox prefHeight="0.0" prefWidth="676.0">
+                  <children>
+                          <Label prefHeight="27.0" prefWidth="150.0" text="Arrêt" textFill="#5c6fd3">
+                              <font>
+                                  <Font name="System Bold" size="14.0" />
+                              </font>
+                        <HBox.margin>
+                           <Insets top="20.0" />
+                        </HBox.margin>
+                          </Label>
+                     <Label prefHeight="6.0" prefWidth="66.0" text="Date " textFill="#5c6fd3">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                        <HBox.margin>
+                           <Insets left="105.0" top="20.0" />
+                        </HBox.margin>
+                     </Label>
+                     <Label layoutX="160.0" layoutY="30.0" prefHeight="6.0" prefWidth="66.0" text="Heure " textFill="#5c6fd3">
+                        <font>
+                           <Font name="System Bold" size="14.0" />
+                        </font>
+                        <HBox.margin>
+                           <Insets left="180.0" top="20.0" />
+                        </HBox.margin>
+                     </Label>
+                  </children>
+               </HBox>
+               <HBox prefHeight="8.0" prefWidth="551.0">
+                  <children>
+                      <ChoiceBox fx:id="cb_arretDepart" prefHeight="32.0" prefWidth="174.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E1E2E6; -fx-border-width: 3;">
+                          <HBox.margin>
+                              <Insets />
+                          </HBox.margin>
+                        <opaqueInsets>
+                           <Insets />
+                        </opaqueInsets>
+                      </ChoiceBox>
+                     <DatePicker fx:id="dp_dateDepart" prefHeight="32.0" prefWidth="167.0" promptText="jj/mm/aaaa" style="-fx-background-color: #E8EBF3; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E1E2E6; -fx-border-width: 3; -fx-prompt-text-fill: #5c6fd3">
+                        <HBox.margin>
+                           <Insets left="80.0" />
+                        </HBox.margin></DatePicker>
+                     <Spinner fx:id="sp_heureDepart" editable="true" prefHeight="32.0" prefWidth="156.0" style="-fx-background-color: #E8EBF3; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E1E2E6; -fx-border-width: 3;">
+                        <HBox.margin>
+                           <Insets left="80.0" />
+                        </HBox.margin></Spinner>
+                  </children>
+               </HBox>
+                    <Label text="Arrivée" textFill="#1c287c">
+                        <font>
+                            <Font name="System Bold" size="18.0" />
+                        </font>
+                  <VBox.margin>
+                     <Insets top="40.0" />
+                  </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="0.0" prefWidth="676.0">
+                        <children>
+                            <Label prefHeight="27.0" prefWidth="150.0" text="Arrêt" textFill="#5c6fd3">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                                <HBox.margin>
+                                    <Insets top="20.0" />
+                                </HBox.margin>
+                            </Label>
+                            <Label prefHeight="6.0" prefWidth="66.0" text="Date " textFill="#5c6fd3">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                                <HBox.margin>
+                                    <Insets left="105.0" top="20.0" />
+                                </HBox.margin>
+                            </Label>
+                            <Label layoutX="160.0" layoutY="30.0" prefHeight="6.0" prefWidth="66.0" text="Heure " textFill="#5c6fd3">
+                                <font>
+                                    <Font name="System Bold" size="14.0" />
+                                </font>
+                                <HBox.margin>
+                                    <Insets left="180.0" top="20.0" />
+                                </HBox.margin>
+                            </Label>
+                        </children>
+                    </HBox>
+                    <HBox prefHeight="8.0" prefWidth="551.0">
+                        <children>
+                            <ChoiceBox fx:id="cb_arretArrive" prefHeight="32.0" prefWidth="174.0" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E1E2E6; -fx-border-width: 3;">
+                                <HBox.margin>
+                                    <Insets />
+                                </HBox.margin>
+                                <opaqueInsets>
+                                    <Insets />
+                                </opaqueInsets>
+                            </ChoiceBox>
+                            <DatePicker fx:id="dp_dateArrive" prefHeight="32.0" prefWidth="167.0" promptText="jj/mm/aaaa" style="-fx-background-color: #E8EBF3; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E1E2E6; -fx-border-width: 3; -fx-prompt-text-fill: #5c6fd3">
+                                <HBox.margin>
+                                    <Insets left="80.0" />
+                                </HBox.margin></DatePicker>
+                            <Spinner fx:id="sp_heureArrivee" editable="true" prefHeight="32.0" prefWidth="156.0" style="-fx-background-color: #E8EBF3; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #E1E2E6; -fx-border-width: 3;">
+                                <HBox.margin>
+                                    <Insets left="80.0" />
+                                </HBox.margin>
+                            </Spinner>
+                        </children>
+                    </HBox>
+                </children>
+                <HBox.margin>
+                    <Insets top="1.0" />
+                </HBox.margin>
+            </VBox>
+        </children>
+        <VBox.margin>
+            <Insets bottom="60.0" left="40.0" />
+        </VBox.margin>
+    </HBox>
+    <Button fx:id="b_onClickAddTrajet" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#b_onClickAddTrajet" prefHeight="39.0" prefWidth="658.0" style="-fx-background-color: #1C287C;" text="Créer le trajet" textAlignment="CENTER" textFill="#fcfafa">
+        <VBox.margin>
+            <Insets bottom="20.0" left="40.0" />
+        </VBox.margin>
+        <font>
+            <Font name="System Bold" size="18.0" />
+        </font>
+    </Button>
+    <!-- Ajoute d'autres éléments ici -->
+</VBox>

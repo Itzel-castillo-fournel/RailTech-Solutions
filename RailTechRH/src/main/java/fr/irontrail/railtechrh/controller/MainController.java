@@ -124,8 +124,14 @@ public class MainController {
 
             // Si le contrôleur est PlanningController, passez l'utilisateur actuel
             if (fxmlFile.contains("Planning.fxml")) {
-                PlanningController planningController = loader.getController();
-                planningController.setUser(currentUser);
+                // Vérifier quel type de PlanningController est chargé
+                if (loader.getController() instanceof fr.irontrail.railtechrh.controller.PlanningController) {
+                    fr.irontrail.railtechrh.controller.PlanningController planningController = loader.getController();
+                    planningController.setUser(currentUser);
+                } else if (loader.getController() instanceof fr.irontrail.railtechrh.controller.operateur.PlanningController) {
+                    fr.irontrail.railtechrh.controller.operateur.PlanningController planningController = loader.getController();
+                    planningController.setMainController(this);
+                }
             }
 
             // Si le contrôleur est TrajetsProgrammesController, passez une référence de MainController

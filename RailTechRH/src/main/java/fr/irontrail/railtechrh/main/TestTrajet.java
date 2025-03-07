@@ -41,15 +41,7 @@ public class TestTrajet {
             LocalDateTime departDateTime = LocalDateTime.now().plusHours(1);
             LocalDateTime arriveeDateTime = departDateTime.plusHours(2);
 
-            trajetDAO.createTrajet(
-                    "T12345",
-                    departDateTime,
-                    arriveeDateTime,
-                    Arret.PARIS,
-                    Arret.LYON,
-                    conducteurId
-            );
-            System.out.println("Trajet créé avec succès!");
+
 
             // Test 3: Récupération d'un trajet par ID
             System.out.println("\n=== Test récupération d'un trajet par ID ===");

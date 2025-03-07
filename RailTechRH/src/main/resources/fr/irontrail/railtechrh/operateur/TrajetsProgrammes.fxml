@@ -10,146 +10,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--<ScrollPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController">-->
-<!--    <VBox fx:id="trajetsContainer" prefHeight="838.0" prefWidth="780.0" spacing="15" style="-fx-padding: 20; -fx-background-color: none;">-->
-<!--      <HBox alignment="TOP_CENTER">-->
-<!--         <children>-->
-<!--              <Label prefHeight="30.0" prefWidth="515.0" text="Trajets programmés" textFill="#1c287c">-->
-<!--               <font>-->
-<!--                  <Font name="System Bold" size="28.0" />-->
-<!--               </font>-->
-<!--            </Label>-->
-<!--            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="174.0" style="-fx-background-color: #1C287C; -fx-padding: 10;" text="CREER UN TRAJET" textFill="WHITE">-->
-<!--               <font>-->
-<!--                  <Font name="System Bold" size="15.0" />-->
-<!--               </font>-->
-<!--            </Button>-->
-<!--         </children>-->
-<!--      </HBox>-->
-<!--      <Pane minWidth="-Infinity" prefHeight="50.0" prefWidth="740.0">-->
-<!--         <children>-->
-<!--            <DatePicker layoutX="153.0" layoutY="14.0" prefHeight="25.0" prefWidth="120.0" promptText="jj/mm/aaaa" />-->
-<!--            <Label layoutX="21.0" layoutY="15.0" text="Filtrer par date : " textFill="#1c287c">-->
-<!--               <font>-->
-<!--                  <Font name="System Bold" size="15.0" />-->
-<!--               </font>-->
-<!--            </Label>-->
-<!--         </children>-->
-<!--      </Pane>-->
-<!--      <VBox prefHeight="282.0" prefWidth="740.0" style="-fx-padding: 10; -fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: none;">-->
-<!--         <children>-->
-<!--          <TitledPane alignment="TOP_LEFT" animated="false" expanded="false" prefHeight="262.0" prefWidth="692.0" style="-fx-background-color: none;" textAlignment="RIGHT">-->
-<!--            <content>-->
-<!--              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="188.0" prefWidth="718.0" style="-fx-background-color: white;">-->
-<!--                     <children>-->
-<!--                        <Pane layoutX="37.0" layoutY="21.0" prefHeight="83.0" prefWidth="645.0" style="-fx-background-color: #E1E2E6; -fx-background-radius: 15; -fx-border-radius: 15;">-->
-<!--                           <children>-->
-<!--                              <Label layoutX="14.0" layoutY="33.0" prefHeight="17.0" prefWidth="102.0" text="Immatriculation : " textFill="#2d45c9" />-->
-<!--                              <Label layoutX="14.0" layoutY="52.0" text="Modèle :" textFill="#2d45c9" />-->
-<!--                              <Label layoutX="278.0" layoutY="52.0" text="Marque :" textFill="#2d45c9" />-->
-<!--                              <Label layoutX="278.0" layoutY="34.0" text="Conducteur :" textFill="#2d45c9" />-->
-<!--                              <Label layoutX="109.0" layoutY="34.0" text="TGV-1234" textFill="#2d45c9">-->
-<!--                                 <font>-->
-<!--                                    <Font name="System Bold" size="12.0" />-->
-<!--                                 </font>-->
-<!--                              </Label>-->
-<!--                              <Label layoutX="67.0" layoutY="52.0" text="TGV 2020" textFill="#2d45c9">-->
-<!--                                 <font>-->
-<!--                                    <Font name="System Bold" size="12.0" />-->
-<!--                                 </font>-->
-<!--                              </Label>-->
-<!--                              <Label layoutX="332.0" layoutY="52.0" text="Alstom" textFill="#2d45c9">-->
-<!--                                 <font>-->
-<!--                                    <Font name="System Bold" size="12.0" />-->
-<!--                                 </font>-->
-<!--                              </Label>-->
-<!--                              <Label layoutX="352.0" layoutY="34.0" text="Pierre Dupont" textFill="#2d45c9">-->
-<!--                                 <font>-->
-<!--                                    <Font name="System Bold" size="12.0" />-->
-<!--                                 </font>-->
-<!--                              </Label>-->
-<!--                              <Label layoutX="14.0" layoutY="9.0" prefHeight="18.0" prefWidth="160.0" text="Informations du train" textFill="#2d45c9">-->
-<!--                                 <font>-->
-<!--                                    <Font name="System Bold" size="14.0" />-->
-<!--                                 </font>-->
-<!--                              </Label>-->
-<!--                           </children>-->
-<!--                        </Pane>-->
-<!--                        <Button layoutX="506.0" layoutY="122.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="176.0" style="-fx-background-color: #1C287C; -fx-padding: 10;" text="MODIFIER" textFill="WHITE">-->
-<!--                           <font>-->
-<!--                              <Font name="System Bold" size="15.0" />-->
-<!--                           </font>-->
-<!--                        </Button>-->
-<!--                        <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="637.0" layoutY="132.0">-->
-<!--                           <image>-->
-<!--                              <Image url="@../../../../../../../../../../Downloads/pencil-line%20(1).png" />-->
-<!--                           </image>-->
-<!--                        </ImageView>-->
-<!--                     </children>-->
-<!--                  </AnchorPane>-->
-<!--            </content>-->
-<!--               <graphic>-->
-<!--                  <Pane>-->
-<!--                     <children>-->
-<!--                        <HBox prefHeight="65.0">-->
-<!--                           <children>-->
-<!--                              <VBox alignment="CENTER" prefHeight="65.0" prefWidth="43.0">-->
-<!--                                 <children>-->
-<!--                                    <SVGPath content="M17.2 20L19 21.5V22H5V21.5L6.8 20H5C3.89543 20 3 19.1046 3 18V7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V18C21 19.1046 20.1046 20 19 20H17.2ZM7 5C5.89543 5 5 5.89543 5 7V18H19V7C19 5.89543 18.1046 5 17 5H7ZM12 17C10.8954 17 10 16.1046 10 15C10 13.8954 10.8954 13 12 13C13.1046 13 14 13.8954 14 15C14 16.1046 13.1046 17 12 17ZM6 7H18V11H6V7Z" fill="#2d45c9" />-->
-<!--                                 </children>-->
-<!--                              </VBox>-->
-<!--                              <VBox alignment="CENTER" prefHeight="65.0" prefWidth="206.0">-->
-<!--                                 <children>-->
-<!--                                    <HBox alignment="CENTER_LEFT" prefHeight="23.0" prefWidth="202.0">-->
-<!--                                       <children>-->
-<!--                                          <Label prefHeight="32.0" prefWidth="46.0" text="PARIS" textFill="#2d45c9">-->
-<!--                                             <font>-->
-<!--                                                <Font name="System Bold" size="14.0" />-->
-<!--                                             </font>-->
-<!--                                             <HBox.margin>-->
-<!--                                                <Insets />-->
-<!--                                             </HBox.margin>-->
-<!--                                          </Label>-->
-<!--                                          <SVGPath content="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z" fill="#2d45c9">-->
-<!--                                             <HBox.margin>-->
-<!--                                                <Insets left="10.0" right="10.0" />-->
-<!--                                             </HBox.margin>-->
-<!--                                          </SVGPath>-->
-<!--                                          <Label prefHeight="30.0" prefWidth="93.0" text="MARSEILLE" textFill="#2d45c9">-->
-<!--                                             <font>-->
-<!--                                                <Font name="System Bold" size="14.0" />-->
-<!--                                             </font>-->
-<!--                                          </Label>-->
-<!--                                       </children>-->
-<!--                                    </HBox>-->
-<!--                                    <Label prefHeight="11.0" prefWidth="202.0" text="Train TGV - T1234" textFill="#2d45c9" />-->
-<!--                                 </children>-->
-<!--                              </VBox>-->
-<!--                              <VBox alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="375.0">-->
-<!--                                 <children>-->
-<!--                                    <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="154.0" text="22/12/2025 08:30" textFill="#2d45c9">-->
-<!--                                       <font>-->
-<!--                                          <Font name="System Bold" size="14.0" />-->
-<!--                                       </font>-->
-<!--                                    </Label>-->
-<!--                                    <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="88.0" text="Départ" textFill="#2d45c9">-->
-<!--                                       <VBox.margin>-->
-<!--                                          <Insets />-->
-<!--                                       </VBox.margin>-->
-<!--                                    </Label>-->
-<!--                                 </children>-->
-<!--                              </VBox>-->
-<!--                           </children>-->
-<!--                        </HBox>-->
-<!--                     </children>-->
-<!--                  </Pane>-->
-<!--               </graphic>-->
-<!--          </TitledPane>-->
-<!--         </children>-->
-<!--      </VBox>-->
-<!--    </VBox>-->
-<!--</ScrollPane>-->
-
 <ScrollPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController">
    <VBox fx:id="mainContainer" prefHeight="838.0" prefWidth="780.0" spacing="15" style="-fx-padding: 20; -fx-background-color: none;">
       <HBox alignment="TOP_CENTER">
@@ -157,8 +17,11 @@
             <font>
                <Font name="System Bold" size="28.0" />
             </font>
+            <HBox.margin>
+               <Insets right="50.0" />
+            </HBox.margin>
          </Label>
-         <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="174.0" style="-fx-background-color: #1C287C; -fx-padding: 10;" text="CREER UN TRAJET" textFill="WHITE" onAction="#handleCreerTrajetButtonClick">
+         <Button fx:id="b_onClickAddTrajet" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#b_onClickAddTrajet" prefHeight="39.0" prefWidth="150.0" style="-fx-background-color: #1C287C;" text="Créer le trajet" textAlignment="CENTER" textFill="#fcfafa">
             <font>
                <Font name="System Bold" size="15.0" />
             </font>
@@ -176,10 +39,8 @@
          </children>
       </Pane>
 
-      <!-- Label pour afficher un message lorsqu'aucun trajet n'est trouvé -->
-      <Label fx:id="noTrajetsLabel" text="" style="-fx-text-fill: red; -fx-font-size: 14; -fx-font-weight: bold;" visible="false" />
+      <Label fx:id="noTrajetsLabel" style="-fx-text-fill: red; -fx-font-size: 14; -fx-font-weight: bold;" text="" visible="false" />
 
-      <!-- Conteneur spécifique pour les trajets -->
       <VBox fx:id="trajetsContainer" spacing="10" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets top="20.0" />
