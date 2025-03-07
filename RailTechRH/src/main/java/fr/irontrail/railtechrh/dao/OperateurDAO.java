@@ -73,6 +73,21 @@ public class OperateurDAO {
         return "Conducteur Inconnu";
     }
 
+    public String getConducteurPrenom(int conducteurId) throws SQLException {
+        String sql = "SELECT prenom FROM utilisateur WHERE id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, conducteurId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("prenom");
+                }
+            }
+        }
+        return "Conducteur Inconnu";
+    }
+
     public List<TrajetModel> getTrajetsByDate(LocalDate date) throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
         String sql = "SELECT * FROM trajet WHERE DATE(heureDepart) >= ?";
@@ -170,6 +185,20 @@ public class OperateurDAO {
         percentages.put("MAINTENANCE", (int) Math.round((double) maintenanceCount / totalMaintenances * 100));
 
         return percentages;
+    }
+
+    public boolean updateTrajet(int trajetId, int conducteurId) throws SQLException {
+        String sql = "UPDATE trajet SET conducteurId = ? WHERE id = ?";
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, conducteurId);
+            stmt.setInt(2, trajetId);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour : " + e.getMessage());
+        }
+        return false;
     }
 
 }

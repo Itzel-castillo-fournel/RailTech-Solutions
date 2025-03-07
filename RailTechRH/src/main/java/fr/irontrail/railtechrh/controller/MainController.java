@@ -1,6 +1,9 @@
 package fr.irontrail.railtechrh.controller;
 
+import fr.irontrail.railtechrh.controller.operateur.AssignerConducteurController;
 import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
+import fr.irontrail.railtechrh.controller.technicien.AjouterMaintenance;
+import fr.irontrail.railtechrh.controller.technicien.Notifications;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +15,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +48,7 @@ public class MainController {
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/conducteur/Notifications.fxml", "notification-icon.png");
                 break;
             case "OPERATEUR":
-                addMenuButton("Planning Conducteurs", "/fr/irontrail/railtechrh/operateur/Planning.fxml", "planning-icon.png");
+                addMenuButton("Planning Conducteurs", "/fr/irontrail/railtechrh/operateur/Planning.fxml", "planning-icon.png" );
                 addMenuButton("Trajets", "/fr/irontrail/railtechrh/operateur/TrajetsProgrammes.fxml", "train-icon.png");
                 addMenuButton("Maintenance", "/fr/irontrail/railtechrh/operateur/MaintenanceList.fxml", "tools-icon.png");
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/operateur/Notifications.fxml", "notification-icon.png");
@@ -60,7 +62,6 @@ public class MainController {
         Button button = new Button(text);
         button.getStyleClass().add("menu-button");
 
-        // Charger l'icône
         InputStream iconStream = getClass().getResourceAsStream("/fr/irontrail/railtechrh/icons/" + iconPath);
         if (iconStream != null) {
             ImageView icon = new ImageView(new Image(iconStream));
@@ -71,8 +72,6 @@ public class MainController {
             System.err.println("Icône non trouvée : " + iconPath);
         }
 
-
-        // Appeler loadUserProfile pour le bouton "Mon Profil"
         if (text.equals("Mon Profil")) {
             button.setOnAction(e -> loadUserProfile());
         } else {
@@ -117,21 +116,44 @@ public class MainController {
         }
     }
 
-    private void loadContent(String fxmlFile) {
+    public void loadContent(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent content = loader.load();
 
-            if (fxmlFile.contains("Planning.fxml")) {
-                PlanningController planningController = loader.getController();
-                planningController.setUser(currentUser);
+            if (loader.getController() instanceof AssignerConducteurController) {
+                AssignerConducteurController controller = loader.getController();
+                controller.setMainController(this);
             }
 
-            // Si le contrôleur est TrajetsProgrammesController, passez une référence de MainController
+            if (fxmlFile.contains("Planning.fxml")) {
+                if (loader.getController() instanceof fr.irontrail.railtechrh.controller.PlanningController) {
+                    fr.irontrail.railtechrh.controller.PlanningController planningController = loader.getController();
+                    planningController.setUser(currentUser);
+                } else if (loader.getController() instanceof fr.irontrail.railtechrh.controller.operateur.PlanningController) {
+                    fr.irontrail.railtechrh.controller.operateur.PlanningController planningController = loader.getController();
+                    planningController.setMainController(this);
+                }
+            }
+
             if (loader.getController() instanceof TrajetsProgrammesController) {
                 TrajetsProgrammesController controller = loader.getController();
-                controller.setMainController(this); // Passez une référence de MainController
+                controller.setMainController(this);
             }
+
+            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
+                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
+                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
+                notificationsController.setTechnicienId(currentUser.getId());
+            }
+
+            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
+                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
+                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
+                notificationsController.setTechnicienId(currentUser.getId());
+                notificationsController.setMainController(this);
+            }
+
 
             contentContainer.getChildren().setAll(content); // Affiche le contenu
         } catch (IOException e) {
@@ -139,29 +161,23 @@ public class MainController {
         }
     }
 
-    private UtilisateurModel currentUser; // Utilisateur actuellement connecté
+    private UtilisateurModel currentUser;
 
-    // Définit l'utilisateur actuellement connecté
     public void setCurrentUser(UtilisateurModel user) {
         this.currentUser = user;
         System.out.println("Utilisateur défini : " + user.getPrenom() + " " + user.getNom()); // Debug
         loadUserProfile();
     }
 
-    // Charge la vue du profil utilisateur
     private void loadUserProfile() {
         try {
-            // Charge la vue FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/UserProfilView.fxml"));
             Parent content = loader.load();
 
-            // Récupère le contrôleur de la vue
             UserProfilController controller = loader.getController();
 
-            // Passe l'utilisateur au contrôleur
             controller.setUser(currentUser);
 
-            // Affiche la vue dans le conteneur
             contentContainer.getChildren().setAll(content);
         } catch (IOException e) {
             e.printStackTrace();

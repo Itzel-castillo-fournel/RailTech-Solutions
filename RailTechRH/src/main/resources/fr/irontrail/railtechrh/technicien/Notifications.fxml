@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Notifications technicien"/>
-    <!-- Ajoute d'autres éléments ici -->
-</VBox>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.Notifications">
+    <children>
+        <Label layoutX="25.0" layoutY="27.0" text="Notifications" textFill="#1c287c">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+        </Label>
+        <ScrollPane layoutX="25.0" layoutY="132.0" prefHeight="639.0" prefWidth="750.0" style="-fx-border-color: transparent; -fx-background-color: transparent;">
+            <content>
+                <VBox fx:id="incidentContainer" spacing="10.0">
+                    <!-- Les incidents seront ajoutés ici dynamiquement -->
+                </VBox>
+            </content>
+        </ScrollPane>
+      <ChoiceBox fx:id="graviteFilter" layoutX="25.0" layoutY="94.0" prefHeight="26.0" prefWidth="171.0" />
+      <Label  layoutX="25.0" layoutY="73.0" text="Filtrer par gravité :" textFill="#1c287c">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

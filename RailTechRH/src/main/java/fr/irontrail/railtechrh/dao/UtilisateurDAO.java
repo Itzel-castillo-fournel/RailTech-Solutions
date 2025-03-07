@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UtilisateurDAO {
     private static final String INSERT_USER = "INSERT INTO Utilisateur (nom, prenom, email, mdp, role) VALUES (?, ?, ?, ?, ?)";
@@ -109,5 +111,27 @@ public class UtilisateurDAO {
         }
 
         return null; // Retourne null si aucune spécialité n'est trouvée
+    }
+
+    public List<UtilisateurModel> getAllConducteurs() throws SQLException {
+        List<UtilisateurModel> conducteurs = new ArrayList<>();
+        String query = "SELECT id, nom, prenom, email FROM utilisateur WHERE role = 'CONDUCTEUR' ORDER BY nom, prenom";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                UtilisateurModel conducteur = new UtilisateurModel();
+                conducteur.setId(resultSet.getInt("id"));
+                conducteur.setNom(resultSet.getString("nom"));
+                conducteur.setPrenom(resultSet.getString("prenom"));
+                conducteur.setEmail(resultSet.getString("email"));
+                conducteur.setRole(Role.valueOf("CONDUCTEUR"));
+                conducteurs.add(conducteur);
+            }
+        }
+
+        return conducteurs;
     }
 }

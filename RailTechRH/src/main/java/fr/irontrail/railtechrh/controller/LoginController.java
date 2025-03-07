@@ -1,6 +1,5 @@
 package fr.irontrail.railtechrh.controller;
 
-import fr.irontrail.railtechrh.controller.MainController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,13 +21,14 @@ public class LoginController {
     @FXML
     private Label errorLabel;
 
-    private UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
+    @FXML
+    private UtilisateurDAO utilisateurDAO;
 
     @FXML
     public void handleConnexion() {
         String email = emailField.getText();
         String motDePasse = motDePasseField.getText();
-
+        utilisateurDAO = new UtilisateurDAO();
         UtilisateurModel utilisateur = utilisateurDAO.findByEmail(email);
 
         if (utilisateur != null && utilisateur.getMdp().equals(motDePasse)) {

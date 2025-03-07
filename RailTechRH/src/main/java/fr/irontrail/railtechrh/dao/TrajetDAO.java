@@ -1,7 +1,11 @@
 package fr.irontrail.railtechrh.dao;
 
+import fr.irontrail.railtechrh.model.TrainModel;
 import fr.irontrail.railtechrh.model.TrajetModel;
 import fr.irontrail.railtechrh.model.enums.Arret;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,6 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrajetDAO {
+
+    private static final String GET_TRAIN = "SELECT immatriculation FROM Train";
+    private static final String GET_TRAIN_BY_IMMAT = "SELECT immatriculation, modele, marque FROM Train WHERE immatriculation = ?";
+    private static Connection connection = null;
+
     public List<TrajetModel> getTrajetsConducteurParDate(int conducteurId, LocalDate date) throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
         String query = "SELECT * FROM Trajet WHERE conducteurId = ? AND DATE(heureDepart) = ? ORDER BY heureDepart";
@@ -36,7 +45,7 @@ public class TrajetDAO {
         return trajets;
     }
 
-    // Méthode pour récupérer tous les trajets (pour l'opérateur)
+    // Méthode pour récupérer tous les trajets
     public List<TrajetModel> getAllTrajets() throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
         String query = "SELECT * FROM Trajet ORDER BY heureDepart";
@@ -60,30 +69,39 @@ public class TrajetDAO {
         return trajets;
     }
 
-    // Méthode pour créer un nouveau trajet
-    public void createTrajet(String trainImmat, LocalDateTime heureDepart, LocalDateTime heureArrivee,
-                             Arret arretDepart, Arret arretArrivee, int conducteurId) throws SQLException {
-
-        String query = "INSERT INTO Trajet (trainImmat, heureDepart, heureArrivee, arretDepart, arretArrivee, conducteurId) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+    public static boolean createTrajet(TrajetModel trajetModel) throws SQLException {
+        String query = "INSERT INTO Trajet (trainImmat, heureDepart, heureArrivee, arretDepart, arretArrivee) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+             PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(1, trainImmat);
-            pstmt.setTimestamp(2, Timestamp.valueOf(heureDepart));
-            pstmt.setTimestamp(3, Timestamp.valueOf(heureArrivee));
-            pstmt.setString(4, arretDepart.toString());
-            pstmt.setString(5, arretArrivee.toString());
-            pstmt.setInt(6, conducteurId);
+            pstmt.setString(1, trajetModel.getTrainImmat());
+            pstmt.setTimestamp(2, Timestamp.valueOf(trajetModel.getHeureDepart()));
+            pstmt.setTimestamp(3, Timestamp.valueOf(trajetModel.getHeureArrivee()));
+            pstmt.setString(4, trajetModel.getArretDepart().toString());
+            pstmt.setString(5, trajetModel.getArretArrivee().toString());
 
-            pstmt.executeUpdate();
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        trajetModel.setId(generatedKeys.getInt(1));
+                    }
+                }
+            }
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
     // Méthode pour mettre à jour un trajet existant
-    public void updateTrajet(int trajetId, String trainImmat, LocalDateTime heureDepart, LocalDateTime heureArrivee,
-                             Arret arretDepart, Arret arretArrivee, int conducteurId) throws SQLException {
+    public boolean updateTrajet(int trajetId, String trainImmat, LocalDateTime heureDepart, LocalDateTime heureArrivee,
+                                Arret arretDepart, Arret arretArrivee, int conducteurId) throws SQLException {
 
         String query = "UPDATE Trajet SET trainImmat = ?, heureDepart = ?, heureArrivee = ?, " +
                 "arretDepart = ?, arretArrivee = ?, conducteurId = ? WHERE id = ?";
@@ -100,6 +118,10 @@ public class TrajetDAO {
             pstmt.setInt(7, trajetId);
 
             pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -139,5 +161,59 @@ public class TrajetDAO {
             pstmt.setInt(1, trajetId);
             pstmt.executeUpdate();
         }
+    }
+
+    public ObservableList<String> getTrain() throws SQLException {
+        ObservableList<String> train = FXCollections.observableArrayList();
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_TRAIN);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String trainImmat = resultSet.getString("immatriculation");
+                train.add(trainImmat);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting train : " + e.getMessage());
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error closing connection : " + e.getMessage());
+            }
+        }
+        return train;
+    }
+
+    public static TrainModel getTrainByImmat(String immat) throws SQLException {
+
+        TrainModel train = null;
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_TRAIN_BY_IMMAT);
+            statement.setString(1, immat);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                train = new TrainModel();
+                train.setImmatriculation(resultSet.getString("immatriculation"));
+                train.setMarque(resultSet.getString("marque"));
+                train.setModele(resultSet.getString("modele"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error getting train : " + e.getMessage());
+
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error closing connection : " + e.getMessage());
+            }
+        }
+        return train;
     }
 }

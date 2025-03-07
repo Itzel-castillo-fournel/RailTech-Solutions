@@ -56,7 +56,8 @@ DROP TABLE IF EXISTS `maintenance`;
 CREATE TABLE IF NOT EXISTS `maintenance` (
   `dateMaintenance` datetime DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `etat` enum('PANNE','MAINTENANCE','OPERATIONNEL') DEFAULT NULL,
+    `probleme` enum('PANNE_TECHNIQUE','RETARD_TRAIN','VOIE_ENDOMMAGEE','INCIDENT_A_BORD') DEFAULT NULL,
+    `etat` enum('PANNE','MAINTENANCE','OPERATIONNEL') DEFAULT NULL,
   `incidentId` int(11) NOT NULL,
   `technicienId` int(11) DEFAULT NULL,
   PRIMARY KEY (`incidentId`),

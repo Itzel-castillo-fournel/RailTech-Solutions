@@ -17,8 +17,11 @@
             <font>
                <Font name="System Bold" size="28.0" />
             </font>
+            <HBox.margin>
+               <Insets right="50.0" />
+            </HBox.margin>
          </Label>
-         <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="174.0" style="-fx-background-color: #1C287C; -fx-padding: 10;" text="CREER UN TRAJET" textFill="WHITE" onAction="#handleCreerTrajetButtonClick">
+         <Button fx:id="b_onClickAddTrajet" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#b_onClickAddTrajet" prefHeight="39.0" prefWidth="150.0" style="-fx-background-color: #1C287C;" text="Créer le trajet" textAlignment="CENTER" textFill="#fcfafa">
             <font>
                <Font name="System Bold" size="15.0" />
             </font>
@@ -36,10 +39,8 @@
          </children>
       </Pane>
 
-      <!-- Label pour afficher un message lorsqu'aucun trajet n'est trouvé -->
-      <Label fx:id="noTrajetsLabel" text="" style="-fx-text-fill: red; -fx-font-size: 14; -fx-font-weight: bold;" visible="false" />
+      <Label fx:id="noTrajetsLabel" style="-fx-text-fill: red; -fx-font-size: 14; -fx-font-weight: bold;" text="" visible="false" />
 
-      <!-- Conteneur spécifique pour les trajets -->
       <VBox fx:id="trajetsContainer" spacing="10" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets top="20.0" />
