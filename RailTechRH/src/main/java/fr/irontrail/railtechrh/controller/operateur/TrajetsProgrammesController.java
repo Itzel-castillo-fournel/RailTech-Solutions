@@ -132,6 +132,7 @@ public class TrajetsProgrammesController implements Initializable {
         alert.showAndWait();
     }
 
+    //Affiche les détails du trajet
     private TitledPane createTrajetPane(TrajetModel trajet) {
         TitledPane titledPane = new TitledPane();
         titledPane.setStyle("-fx-background-color: none;");
@@ -256,6 +257,7 @@ public class TrajetsProgrammesController implements Initializable {
         }
     }
 
+    //Trajet de base
     private Pane createGraphicPane(TrajetModel trajet) {
         Pane graphicPane = new Pane();
 

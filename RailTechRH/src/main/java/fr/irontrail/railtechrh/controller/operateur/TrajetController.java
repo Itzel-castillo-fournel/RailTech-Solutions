@@ -48,7 +48,6 @@ public class TrajetController {
         updateUIForMode();
     }
 
-    // Méthode pour définir le mode édition et le trajet à modifier
     public void setEditMode(TrajetModel trajet) {
         if (trajet != null) {
             this.editMode = true;
@@ -97,7 +96,7 @@ public class TrajetController {
             @Override
             public void decrement(int steps) {
                 LocalTime time = getValue();
-                setValue(time.minusMinutes(steps * 15)); // Par incréments de 15 minutes
+                setValue(time.minusMinutes(steps * 15));
             }
 
             @Override
@@ -137,7 +136,6 @@ public class TrajetController {
         spinner.setEditable(true);
     }
 
-    // Méthode pour récupérer le LocalDateTime complet
     private LocalDateTime getDateTimeDepart() {
         LocalDate date = dp_dateDepart.getValue();
         LocalTime time = sp_heureDepart.getValue();
