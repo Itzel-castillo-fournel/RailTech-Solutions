@@ -19,6 +19,5 @@ module fr.irontrail.railtechrh {
     exports fr.irontrail.railtechrh.controller.technicien;
     opens fr.irontrail.railtechrh.controller.technicien to javafx.fxml;
 
-    opens fr.irontrail.railtechrh.controller.operateur to javafx.fxml;
     opens fr.irontrail.railtechrh.main; // Ouvre le package pour la réflexion
 }
