@@ -134,4 +134,28 @@ public class UtilisateurDAO {
 
         return conducteurs;
     }
+
+    public boolean addUser(UtilisateurModel utilisateur) {
+        String query = "INSERT INTO utilisateur (nom, prenom, email, mdp, role) VALUES (?, ?, ?, SHA2(?, 256), ?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            // Remplir les paramètres de la requête
+            preparedStatement.setString(1, utilisateur.getNom());
+            preparedStatement.setString(2, utilisateur.getPrenom());
+            preparedStatement.setString(3, utilisateur.getEmail());
+            preparedStatement.setString(4, utilisateur.getMdp()); // Mot de passe en clair qui sera hashé par SHA2
+            preparedStatement.setString(5, utilisateur.getRole().toString());
+
+            // Exécuter la requête
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Retourner true si une ligne a été affectée (insertion réussie)
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Retourner false en cas d'erreur
+        }
+    }
 }
