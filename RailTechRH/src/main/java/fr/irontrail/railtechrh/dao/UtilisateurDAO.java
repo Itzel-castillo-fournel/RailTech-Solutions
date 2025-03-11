@@ -2,6 +2,7 @@ package fr.irontrail.railtechrh.dao;
 
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import fr.irontrail.railtechrh.model.enums.Role;
+import fr.irontrail.railtechrh.model.enums.Specialite;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -135,27 +136,47 @@ public class UtilisateurDAO {
         return conducteurs;
     }
 
-    public boolean addUser(UtilisateurModel utilisateur) {
+    public int addUser(UtilisateurModel utilisateur) {
         String query = "INSERT INTO utilisateur (nom, prenom, email, mdp, role) VALUES (?, ?, ?, SHA2(?, 256), ?)";
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             // Ajouter RETURN_GENERATED_KEYS ici
+             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            // Remplir les paramètres de la requête
             preparedStatement.setString(1, utilisateur.getNom());
             preparedStatement.setString(2, utilisateur.getPrenom());
             preparedStatement.setString(3, utilisateur.getEmail());
-            preparedStatement.setString(4, utilisateur.getMdp()); // Mot de passe en clair qui sera hashé par SHA2
+            preparedStatement.setString(4, utilisateur.getMdp());
             preparedStatement.setString(5, utilisateur.getRole().toString());
 
-            // Exécuter la requête
             int rowsAffected = preparedStatement.executeUpdate();
 
-            // Retourner true si une ligne a été affectée (insertion réussie)
+            if (rowsAffected > 0) {
+                // Récupérer les clés générées
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1); // Retourne l'ID de l'utilisateur ajouté
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Retourne -1 en cas d'échec
+    }
+
+    public boolean addTechnicien(int id, Specialite specialite) {
+        String sql = "INSERT INTO technicien (id, specialite) VALUES (?, ?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, String.valueOf(specialite));
+
+            int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // Retourner false en cas d'erreur
+            return false;
         }
     }
 }

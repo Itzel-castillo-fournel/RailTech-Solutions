@@ -3,6 +3,7 @@ package fr.irontrail.railtechrh.main;
 import fr.irontrail.railtechrh.dao.UtilisateurDAO;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import fr.irontrail.railtechrh.model.enums.Role;
+import fr.irontrail.railtechrh.model.enums.Specialite;
 
 public class TestUtilisateurDAO {
     public static void main(String[] args) {
@@ -18,6 +19,9 @@ public class TestUtilisateurDAO {
 
         // Test de la méthode addUser
         testAddUser(utilisateurDAO);
+
+        // Test de l'ajout d'un technicien
+        testAddTechnicien(utilisateurDAO);
     }
 
     /**
@@ -35,10 +39,10 @@ public class TestUtilisateurDAO {
         nouvelUtilisateur.setRole(Role.CONDUCTEUR);
 
         // Ajout de l'utilisateur
-        boolean result = utilisateurDAO.addUser(nouvelUtilisateur);
+        int utilisateurId = utilisateurDAO.addUser(nouvelUtilisateur);
 
-        if (result) {
-            System.out.println("Test addUser : Utilisateur ajouté avec succès !");
+        if (utilisateurId != -1) {
+            System.out.println("Test addUser : Utilisateur ajouté avec succès ! ID : " + utilisateurId);
 
             // Vérification que l'utilisateur a bien été ajouté
             UtilisateurModel utilisateurAjoute = utilisateurDAO.findByEmail("martin.dupres@example.com");
@@ -49,6 +53,38 @@ public class TestUtilisateurDAO {
             }
         } else {
             System.out.println("Test addUser : Échec de l'ajout de l'utilisateur.");
+        }
+    }
+
+    /**
+     * Teste l'ajout d'un technicien dans la table technicien.
+     *
+     * @param utilisateurDAO L'instance de UtilisateurDAO à tester.
+     */
+    public static void testAddTechnicien(UtilisateurDAO utilisateurDAO) {
+        // Création d'un nouvel utilisateur technicien
+        UtilisateurModel nouvelUtilisateur = new UtilisateurModel();
+        nouvelUtilisateur.setNom("Dupont");
+        nouvelUtilisateur.setPrenom("Jean");
+        nouvelUtilisateur.setEmail("jean.dupont@example.com");
+        nouvelUtilisateur.setMdp("password123");
+        nouvelUtilisateur.setRole(Role.TECHNICIEN);
+
+        // Ajout de l'utilisateur
+        int utilisateurId = utilisateurDAO.addUser(nouvelUtilisateur);
+
+        if (utilisateurId != -1) {
+            System.out.println("Utilisateur technicien ajouté avec succès ! ID : " + utilisateurId);
+
+            // Ajout de la spécialité du technicien
+            boolean ajoutReussi = utilisateurDAO.addTechnicien(utilisateurId, Specialite.ELECTRIQUE);
+            if (ajoutReussi) {
+                System.out.println("Technicien ajouté avec succès !");
+            } else {
+                System.out.println("Échec de l'ajout du technicien.");
+            }
+        } else {
+            System.out.println("Échec de l'ajout de l'utilisateur technicien.");
         }
     }
 }

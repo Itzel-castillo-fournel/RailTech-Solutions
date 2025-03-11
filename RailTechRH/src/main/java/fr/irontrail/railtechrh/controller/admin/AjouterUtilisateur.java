@@ -3,11 +3,12 @@ package fr.irontrail.railtechrh.controller.admin;
 import fr.irontrail.railtechrh.dao.UtilisateurDAO;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import fr.irontrail.railtechrh.model.enums.Role;
+import fr.irontrail.railtechrh.model.enums.Specialite;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class AjouterUtilisateur {
 
@@ -27,10 +28,16 @@ public class AjouterUtilisateur {
     private ChoiceBox<Role> roleChoiceBox;
 
     @FXML
+    private ChoiceBox<Specialite> specialiteChoiceBox; // Nouveau ChoiceBox pour la spécialité
+
+    @FXML
+    private Label specialiteLabel; // Nouveau Label pour la spécialité
+
+    @FXML
     private Button ajouterButton;
 
     @FXML
-    private Label infoLabel; // Label pour afficher les informations
+    private Label infoLabel;
 
     private UtilisateurDAO utilisateurDAO;
 
@@ -40,8 +47,24 @@ public class AjouterUtilisateur {
 
     @FXML
     public void initialize() {
-        // Initialiser le ChoiceBox avec les valeurs de l'énumération Role
+        // Initialiser le ChoiceBox des rôles
         roleChoiceBox.getItems().setAll(Role.values());
+
+        // Initialiser le ChoiceBox des spécialités
+        specialiteChoiceBox.getItems().setAll(Specialite.values());
+
+        // Ajouter un écouteur sur le ChoiceBox des rôles
+        roleChoiceBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == Role.TECHNICIEN) {
+                // Afficher les éléments de spécialité
+                specialiteLabel.setVisible(true);
+                specialiteChoiceBox.setVisible(true);
+            } else {
+                // Masquer les éléments de spécialité
+                specialiteLabel.setVisible(false);
+                specialiteChoiceBox.setVisible(false);
+            }
+        });
     }
 
     @FXML
@@ -56,8 +79,19 @@ public class AjouterUtilisateur {
         // Vérifier que tous les champs sont remplis
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || mdp.isEmpty() || role == null) {
             infoLabel.setText("Erreur : Tous les champs doivent être remplis.");
-            infoLabel.setStyle("-fx-text-fill: red;"); // Texte en rouge pour les erreurs
+            infoLabel.setStyle("-fx-text-fill: red;");
             return;
+        }
+
+        // Si le rôle est TECHNICIEN, vérifier que la spécialité est sélectionnée
+        Specialite specialite = null;
+        if (role == Role.TECHNICIEN) {
+            specialite = specialiteChoiceBox.getValue();
+            if (specialite == null) {
+                infoLabel.setText("Erreur : La spécialité doit être sélectionnée pour un technicien.");
+                infoLabel.setStyle("-fx-text-fill: red;");
+                return;
+            }
         }
 
         // Créer un nouvel utilisateur
@@ -69,9 +103,19 @@ public class AjouterUtilisateur {
         nouvelUtilisateur.setRole(role);
 
         // Ajouter l'utilisateur à la base de données
-        boolean success = utilisateurDAO.addUser(nouvelUtilisateur);
+        int utilisateurId = utilisateurDAO.addUser(nouvelUtilisateur);
 
-        if (success) {
+        if (utilisateurId != -1) {
+            // Si l'utilisateur est un technicien, ajouter sa spécialité
+            if (role == Role.TECHNICIEN) {
+                boolean technicienAjoute = utilisateurDAO.addTechnicien(utilisateurId, specialite);
+                if (!technicienAjoute) {
+                    infoLabel.setText("Erreur : L'ajout du technicien a échoué.");
+                    infoLabel.setStyle("-fx-text-fill: red;");
+                    return;
+                }
+            }
+
             // Afficher les informations de l'utilisateur ajouté dans le Label
             String message = String.format(
                     "Utilisateur ajouté avec succès : %s %s (%s, %s)",
@@ -81,11 +125,11 @@ public class AjouterUtilisateur {
                     nouvelUtilisateur.getRole()
             );
             infoLabel.setText(message);
-            infoLabel.setStyle("-fx-text-fill: green;"); // Texte en vert pour le succès
+            infoLabel.setStyle("-fx-text-fill: green;");
             clearFields(); // Vider les champs après l'ajout
         } else {
             infoLabel.setText("Erreur : L'ajout de l'utilisateur a échoué.");
-            infoLabel.setStyle("-fx-text-fill: red;"); // Texte en rouge pour les erreurs
+            infoLabel.setStyle("-fx-text-fill: red;");
         }
     }
 
@@ -98,5 +142,8 @@ public class AjouterUtilisateur {
         emailField.clear();
         mdpField.clear();
         roleChoiceBox.setValue(null);
+        specialiteChoiceBox.setValue(null);
+        specialiteLabel.setVisible(false);
+        specialiteChoiceBox.setVisible(false);
     }
 }
