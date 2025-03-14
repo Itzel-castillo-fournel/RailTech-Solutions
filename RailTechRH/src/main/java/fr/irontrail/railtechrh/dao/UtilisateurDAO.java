@@ -179,4 +179,44 @@ public class UtilisateurDAO {
             return false;
         }
     }
+
+    public List<UtilisateurModel> getAllUsers() {
+        List<UtilisateurModel> utilisateurs = new ArrayList<>();
+        String query = "SELECT id, nom, prenom, email, role FROM utilisateur ORDER BY id";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                UtilisateurModel utilisateur = new UtilisateurModel();
+                utilisateur.setId(resultSet.getInt("id"));
+                utilisateur.setNom(resultSet.getString("nom"));
+                utilisateur.setPrenom(resultSet.getString("prenom"));
+                utilisateur.setEmail(resultSet.getString("email"));
+                utilisateur.setRole(Role.valueOf(resultSet.getString("role")));
+                utilisateurs.add(utilisateur);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return utilisateurs;
+    }
+
+    public boolean deleteUser(int userId) {
+        String query = "DELETE FROM utilisateur WHERE id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, userId);
+            int rowsAffected = statement.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

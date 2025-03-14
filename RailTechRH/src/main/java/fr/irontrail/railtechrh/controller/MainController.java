@@ -36,7 +36,6 @@ public class MainController {
         switch (role) {
             case "ADMIN":
                 addMenuButton("Utilisateurs", "/fr/irontrail/railtechrh/admin/GestionUtilisateurs.fxml", "people-icon.png");
-                addMenuButton("Ajout utilisateur", "/fr/irontrail/railtechrh/admin/AjouterUtilisateur.fxml", "people-icon.png");
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/admin/Notifications.fxml", "notification-icon.png");
                 break;
             case "TECHNICIEN":
@@ -155,6 +154,12 @@ public class MainController {
                 notificationsController.setMainController(this);
             }
 
+            if (fxmlFile.contains("GestionUtilisateurs.fxml")) {
+                fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController controller =
+                        (fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController) loader.getController();
+                controller.setCurrentUser(currentUser);
+                controller.setMainController(this); // Ajouter cette ligne
+            }
 
             contentContainer.getChildren().setAll(content); // Affiche le contenu
         } catch (IOException e) {
