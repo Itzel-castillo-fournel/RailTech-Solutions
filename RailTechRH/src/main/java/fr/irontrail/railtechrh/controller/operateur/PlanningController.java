@@ -314,7 +314,7 @@ public class PlanningController implements Initializable {
         departLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2D45C9;");
 
         Label departValue = new Label(trajet.getArretDepart().toString());
-        departValue.setStyle("-fx-text-fill: #2D45C9;");
+        departValue.setStyle("-fx-text-fill: #2D45C9; -fx-font-size: 10px;");
         departValue.setPrefWidth(100);
         departValue.setWrapText(true);
 
@@ -326,7 +326,7 @@ public class PlanningController implements Initializable {
         arriveeLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #2D45C9;");
 
         Label arriveeValue = new Label(trajet.getArretArrivee().toString());
-        arriveeValue.setStyle("-fx-text-fill: #2D45C9;");
+        arriveeValue.setStyle("-fx-text-fill: #2D45C9; -fx-font-size: 10px;");
         arriveeValue.setPrefWidth(100);
         arriveeValue.setWrapText(true);
 
