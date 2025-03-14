@@ -1,12 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Maintenance list"/>
-    <!-- Ajoute d'autres éléments ici -->
-</VBox>
+<AnchorPane prefHeight="736.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController">
+<children>
+    <Label layoutX="24.0" layoutY="23.0" text="Maintenances" textFill="#1c287c">
+        <font>
+            <Font name="System Bold" size="27.0" />
+        </font>
+    </Label>
+    <Pane layoutX="24.0" layoutY="69.0" prefHeight="39.0" prefWidth="747.0" style="-fx-border-color: #7281D8 #7281D8 #7281D8 #7281D8; -fx-border-width: 1 1 1 1;">
+        <children>
+            <Label layoutX="14.0" layoutY="11.0" text="État" textFill="#5267d1">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <Label layoutX="90.0" layoutY="11.0" text="Immatriculation" textFill="#5267d1">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <Label layoutX="231.0" layoutY="11.0" text="Problème" textFill="#5267d1">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <Label layoutX="370.0" layoutY="11.0" text="Technicien assigné" textFill="#5267d1">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <SVGPath content="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z" fill="#5267d1" layoutX="503.0" layoutY="8.0" />
+            <Label layoutX="536.0" layoutY="11.0" text="Date de dernière maintenance" textFill="#5267d1">
+                <font>
+                    <Font name="System Bold" size="12.0" />
+                </font>
+            </Label>
+            <SVGPath content="M17.2 20L19 21.5V22H5V21.5L6.8 20H5C3.89543 20 3 19.1046 3 18V7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V18C21 19.1046 20.1046 20 19 20H17.2ZM7 5C5.89543 5 5 5.89543 5 7V18H19V7C19 5.89543 18.1046 5 17 5H7ZM12 17C10.8954 17 10 16.1046 10 15C10 13.8954 10.8954 13 12 13C13.1046 13 14 13.8954 14 15C14 16.1046 13.1046 17 12 17ZM6 7H18V11H6V7Z" fill="#5267d1" layoutX="60.0" layoutY="7.0" style="-fx-scale-x: 0.8; -fx-scale-y: 0.8;" />
+            <SVGPath content="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM11 7H13V13H11V7Z" fill="#5267d1" layoutX="202.0" layoutY="7.0" />
+            <SVGPath content="M12 14V22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM14.5946 18.8115C14.5327 18.5511 14.5 18.2794 14.5 18C14.5 17.7207 14.5327 17.449 14.5945 17.1886L13.6029 16.6161L14.6029 14.884L15.5952 15.4569C15.9883 15.0851 16.4676 14.8034 17 14.6449V13.5H19V14.6449C19.5324 14.8034 20.0116 15.0851 20.4047 15.4569L21.3971 14.8839L22.3972 16.616L21.4055 17.1885C21.4673 17.449 21.5 17.7207 21.5 18C21.5 18.2793 21.4673 18.551 21.4055 18.8114L22.3972 19.3839L21.3972 21.116L20.4048 20.543C20.0117 20.9149 19.5325 21.1966 19.0001 21.355V22.5H17.0001V21.3551C16.4677 21.1967 15.9884 20.915 15.5953 20.5431L14.603 21.1161L13.6029 19.384L14.5946 18.8115ZM18 17C17.4477 17 17 17.4477 17 18C17 18.5523 17.4477 19 18 19C18.5523 19 19 18.5523 19 18C19 17.4477 18.5523 17 18 17Z" fill="#5267d1" layoutX="339.0" layoutY="7.0" />
+        </children>
+    </Pane>
+    <ScrollPane hbarPolicy="NEVER" layoutX="24.0" layoutY="108.0" prefHeight="466.0" prefWidth="747.0" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS">
+        <content>
+            <VBox fx:id="maintenanceListVBox" spacing="10.0" style="-fx-background-color: transparent;" />
+        </content>
+    </ScrollPane>
+    <Circle fill="#1f93ff00" layoutX="197.0" layoutY="666.0" radius="56.0" stroke="#e70000" strokeType="INSIDE" strokeWidth="2.0" />
+    <Circle fill="#1f93ff00" layoutX="373.0" layoutY="666.0" radius="56.0" stroke="#ff5300" strokeType="INSIDE" strokeWidth="2.0" />
+    <Circle fill="#1f93ff00" layoutX="544.0" layoutY="666.0" radius="56.0" stroke="#1bc704" strokeType="INSIDE" strokeWidth="2.0" />
+    <Label fx:id="pannePercentageLabel" layoutX="173.0" layoutY="635.0" text="70%" textFill="RED">
+        <font>
+            <Font name="System Bold" size="30.0" />
+        </font>
+    </Label>
+    <Label fx:id="maintenancePercentageLabel" layoutX="347.0" layoutY="635.0" text="70%" textFill="#ff5300">
+        <font>
+            <Font name="System Bold" size="30.0" />
+        </font>
+    </Label>
+    <Label fx:id="operationnelPercentageLabel" layoutX="517.0" layoutY="635.0" text="70%" textFill="#1bc704">
+        <font>
+            <Font name="System Bold" size="30.0" />
+        </font>
+    </Label>
+    <Label layoutX="504.0" layoutY="671.0" text="opérationnel" textFill="#1bc704">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Label>
+    <Label layoutX="334.0" layoutY="671.0" text="maintenance" textFill="#ff5300">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Label>
+    <Label layoutX="168.0" layoutY="671.0" text="en panne" textFill="#e70000">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Label>
+</children>
+</AnchorPane>

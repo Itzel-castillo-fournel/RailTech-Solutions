@@ -1,6 +1,7 @@
 package fr.irontrail.railtechrh.dao;
 
 import fr.irontrail.railtechrh.model.IncidentModel;
+import fr.irontrail.railtechrh.model.MaintenanceModel;
 import fr.irontrail.railtechrh.model.TrainModel;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import fr.irontrail.railtechrh.model.enums.Gravite;
@@ -14,7 +15,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TechnicienDAO {
 
@@ -104,6 +107,79 @@ public class TechnicienDAO {
         }
 
         return incidents;
+    }
+
+    public List<MaintenanceModel> getMaintenanceDetails() throws SQLException {
+        List<MaintenanceModel> maintenanceDetailsList = new ArrayList<>();
+        String sql = "" +
+                "SELECT " +
+                "    m.etat AS etat_maintenance, " +
+                "    i.trainImmat AS numero_immatriculation_train, " +
+                "    m.description AS description_maintenance, " +
+                "    u.nom AS nom_technicien, " +
+                "    u.prenom AS prenom_technicien, " +
+                "    m.dateMaintenance AS derniere_mise_a_jour " +
+                "FROM " +
+                "    maintenance m " +
+                "JOIN " +
+                "    incident i ON m.incidentId = i.id " +
+                "LEFT JOIN " +
+                "    utilisateur u ON m.technicienId = u.id " +
+                "ORDER BY " +
+                "    m.dateMaintenance DESC";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                MaintenanceModel details = new MaintenanceModel();
+                details.setEtatMaintenance(resultSet.getString("etat_maintenance"));
+                details.setNumeroImmatriculationTrain(resultSet.getString("numero_immatriculation_train"));
+                details.setDescriptionMaintenance(resultSet.getString("description_maintenance"));
+                details.setNomTechnicien(resultSet.getString("nom_technicien"));
+                details.setPrenomTechnicien(resultSet.getString("prenom_technicien"));
+                details.setDerniereMiseAJour(resultSet.getTimestamp("derniere_mise_a_jour").toLocalDateTime());
+                maintenanceDetailsList.add(details);
+            }
+        }
+        return maintenanceDetailsList;
+    }
+
+    public Map<String, Integer> getMaintenancePercentages() throws SQLException {
+        List<MaintenanceModel> maintenanceDetailsList = getMaintenanceDetails();
+        int totalMaintenances = maintenanceDetailsList.size();
+
+        if (totalMaintenances == 0) {
+            return new HashMap<>(); // Return an empty map if there are no maintenances
+        }
+
+        int panneCount = 0;
+        int operationnelCount = 0;
+        int maintenanceCount = 0;
+
+        for (MaintenanceModel maintenance : maintenanceDetailsList) {
+            switch (maintenance.getEtatMaintenance()) {
+                case "PANNE":
+                    panneCount++;
+                    break;
+                case "OPERATIONNEL":
+                    operationnelCount++;
+                    break;
+                case "MAINTENANCE":
+                    maintenanceCount++;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Map<String, Integer> percentages = new HashMap<>();
+        percentages.put("PANNE", (int) Math.round((double) panneCount / totalMaintenances * 100));
+        percentages.put("OPÉRATIONNEL", (int) Math.round((double) operationnelCount / totalMaintenances * 100));
+        percentages.put("MAINTENANCE", (int) Math.round((double) maintenanceCount / totalMaintenances * 100));
+
+        return percentages;
     }
 
 }
