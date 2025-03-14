@@ -2,6 +2,7 @@ package fr.irontrail.railtechrh.dao;
 
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import fr.irontrail.railtechrh.model.enums.Role;
+import fr.irontrail.railtechrh.model.enums.Specialite;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -133,5 +134,89 @@ public class UtilisateurDAO {
         }
 
         return conducteurs;
+    }
+
+    public int addUser(UtilisateurModel utilisateur) {
+        String query = "INSERT INTO utilisateur (nom, prenom, email, mdp, role) VALUES (?, ?, ?, SHA2(?, 256), ?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             // Ajouter RETURN_GENERATED_KEYS ici
+             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            preparedStatement.setString(1, utilisateur.getNom());
+            preparedStatement.setString(2, utilisateur.getPrenom());
+            preparedStatement.setString(3, utilisateur.getEmail());
+            preparedStatement.setString(4, utilisateur.getMdp());
+            preparedStatement.setString(5, utilisateur.getRole().toString());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                // Récupérer les clés générées
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1); // Retourne l'ID de l'utilisateur ajouté
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Retourne -1 en cas d'échec
+    }
+
+    public boolean addTechnicien(int id, Specialite specialite) {
+        String sql = "INSERT INTO technicien (id, specialite) VALUES (?, ?)";
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, String.valueOf(specialite));
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<UtilisateurModel> getAllUsers() {
+        List<UtilisateurModel> utilisateurs = new ArrayList<>();
+        String query = "SELECT id, nom, prenom, email, role FROM utilisateur ORDER BY id";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                UtilisateurModel utilisateur = new UtilisateurModel();
+                utilisateur.setId(resultSet.getInt("id"));
+                utilisateur.setNom(resultSet.getString("nom"));
+                utilisateur.setPrenom(resultSet.getString("prenom"));
+                utilisateur.setEmail(resultSet.getString("email"));
+                utilisateur.setRole(Role.valueOf(resultSet.getString("role")));
+                utilisateurs.add(utilisateur);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return utilisateurs;
+    }
+
+    public boolean deleteUser(int userId) {
+        String query = "DELETE FROM utilisateur WHERE id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, userId);
+            int rowsAffected = statement.executeUpdate();
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

@@ -1,12 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label text="Gestion des utilisateurs"/>
-    <!-- Ajoute d'autres éléments ici -->
-</VBox>
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController">
+    <VBox fx:id="mainContainer" prefHeight="600.0" prefWidth="800.0" spacing="15" style="-fx-padding: 20; -fx-background-color: #EEF1F6;">
+        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="760.0">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <ImageView fitHeight="32.0" fitWidth="32.0">
+                    <Image url="@../icons/people-icon.png" />
+                </ImageView>
+                <Label prefHeight="40.0" prefWidth="520.0" style="-fx-font-weight: bold; -fx-font-size: 32px; -fx-text-fill: #1a237e;" text="Gestion des utilisateurs" textFill="#1a237e">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+            </HBox>
+            <Button fx:id="ajouterButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAjouterButton" prefHeight="39.0" prefWidth="100.0" style="-fx-background-color: #1C287C; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="AJOUTER" textAlignment="CENTER" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="15.0" />
+                </font>
+            </Button>
+            <HBox.margin>
+                <Insets right="50.0" />
+            </HBox.margin>
+        </HBox>
+
+        <Pane minWidth="-Infinity" prefHeight="50.0" prefWidth="760.0">
+            <children>
+                <ChoiceBox fx:id="utilisateurChoiceBox" layoutY="10.0" prefHeight="25.0" prefWidth="400.0" style="-fx-background-color: transparent; -fx-border-color: #1c287c; -fx-border-radius: 5px; -fx-pref-height: 40px; -fx-pref-width: 400px;" />
+            </children>
+        </Pane>
+
+        <Label fx:id="infoLabel" style="-fx-text-fill: green; -fx-font-size: 14px; -fx-font-weight: bold;" />
+
+        <VBox fx:id="detailsContainer" spacing="20" style="-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #2D45C9; -fx-border-width: 1; -fx-padding: 20;" visible="false">
+            <GridPane hgap="20" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="150.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="300.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                    <Label text="ID :" textFill="#1c287c" GridPane.rowIndex="0">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="idLabel" text="" textFill="#1c287c" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+
+                    <Label text="Nom :" textFill="#1c287c" GridPane.rowIndex="1">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="nomLabel" text="" textFill="#1c287c" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+
+                    <Label text="Prénom :" textFill="#1c287c" GridPane.rowIndex="2">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="prenomLabel" text="" textFill="#1c287c" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+
+                    <Label text="Email :" textFill="#1c287c" GridPane.rowIndex="3">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="emailLabel" text="" textFill="#1c287c" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+
+                    <Label text="Rôle :" textFill="#1c287c" GridPane.rowIndex="4">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="roleLabel" text="" textFill="#1c287c" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <font>
+                            <Font size="16.0" />
+                        </font>
+                    </Label>
+                </children>
+            </GridPane>
+
+            <HBox alignment="CENTER" spacing="20">
+                <Button fx:id="supprimerButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSupprimerButton" prefHeight="39.0" prefWidth="150.0" style="-fx-background-color: #ff5252; -fx-border-radius: 8px; -fx-background-radius: 8px;" text="SUPPRIMER" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Button>
+            </HBox>
+
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </VBox>
+</ScrollPane>

@@ -154,6 +154,12 @@ public class MainController {
                 notificationsController.setMainController(this);
             }
 
+            if (fxmlFile.contains("GestionUtilisateurs.fxml")) {
+                fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController controller =
+                        (fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController) loader.getController();
+                controller.setCurrentUser(currentUser);
+                controller.setMainController(this); // Ajouter cette ligne
+            }
 
             contentContainer.getChildren().setAll(content); // Affiche le contenu
         } catch (IOException e) {
