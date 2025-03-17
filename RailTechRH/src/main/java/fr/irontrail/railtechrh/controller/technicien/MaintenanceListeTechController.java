@@ -3,12 +3,17 @@ import fr.irontrail.railtechrh.dao.TechnicienDAO;
 import fr.irontrail.railtechrh.model.MaintenanceModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -153,8 +158,52 @@ public class MaintenanceListeTechController {
         dateControleLabel.setPrefWidth(120.0);
         dateControleLabel.setStyle("-fx-text-fill: #7281D8");
 
+        SVGPath svgIcon2 = new SVGPath();
+        svgIcon2.setLayoutX(680.0);
+        svgIcon2.setLayoutY(7.0);
+        svgIcon2.setScaleX(0.8);
+        svgIcon2.setScaleY(0.8);
+
+        svgIcon2.setContent("M7.24264 17.9967H3V13.754L14.435 2.319C14.8256 1.92848 15.4587 1.92848 15.8492 2.319L18.6777 5.14743C19.0682 5.53795 19.0682 6.17112 18.6777 6.56164L7.24264 17.9967ZM3 19.9967H21V21.9967H3V19.9967Z");
+        svgIcon2.setFill(Color.web("#7281D8"));
+        svgIcon2.setId("svg_onActionModify");
+
+        // Créer un bouton avec l'icône
+        Button modifyButton = new Button();
+        modifyButton.setGraphic(svgIcon2);
+
+        // Ajouter une action au bouton
+        modifyButton.setOnAction(event -> {
+            try {
+                // Charger la vue ModifierMaintenance.fxml
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/technicien/ModifierMaintenance.fxml"));
+                AnchorPane maintenancePane = loader.load();
+
+                // Obtenir le contrôleur de la vue
+                ModifierMaintenanceController controller = loader.getController();
+
+                // Passer les informations nécessaires au contrôleur
+                controller.setImmatriculation(incident.getTrainImmat().getImmatriculation());
+                controller.setTypeProbleme(incident.getTypeIncident().toString());
+                controller.setIncidentId(incident.getId());
+
+                // In the createIncidentPane method of Notifications class
+                controller.setMainController(this.mainController);
+
+                // Utiliser le contentContainer du MainController pour charger la nouvelle vue
+                if (mainController != null) {
+                    mainController.getContentContainer().getChildren().setAll(maintenancePane);
+                } else {
+                    // Fallback si mainController n'est pas disponible
+                    System.err.println("MainController non disponible. Impossible de charger la vue.");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         // Add labels to the pane
-        pane.getChildren().addAll(immatriculationLabel, descriptionLabel, technicienLabel, dateControleLabel);
+        pane.getChildren().addAll(immatriculationLabel, descriptionLabel, technicienLabel, dateControleLabel, svgIcon2);
 
         return pane;
     }

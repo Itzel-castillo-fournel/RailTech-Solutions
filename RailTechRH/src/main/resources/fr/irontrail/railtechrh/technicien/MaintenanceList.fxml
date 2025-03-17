@@ -12,7 +12,7 @@
             <Font name="System Bold" size="27.0" />
         </font>
     </Label>
-    <Pane layoutX="24.0" layoutY="69.0" prefHeight="39.0" prefWidth="747.0" style="-fx-border-color: #7281D8 #7281D8 #7281D8 #7281D8; -fx-border-width: 1 1 1 1;">
+    <Pane layoutX="24.0" layoutY="69.0" prefHeight="39.0" prefWidth="713.0" style="-fx-border-color: #7281D8 #7281D8 #7281D8 #7281D8; -fx-border-width: 1 1 1 1;">
         <children>
             <Label layoutX="14.0" layoutY="11.0" text="État" textFill="#5267d1">
                 <font>
@@ -35,7 +35,7 @@
                 </font>
             </Label>
             <SVGPath content="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z" fill="#5267d1" layoutX="503.0" layoutY="8.0" />
-            <Label layoutX="536.0" layoutY="11.0" text="Date de dernière maintenance" textFill="#5267d1">
+            <Label layoutX="536.0" layoutY="11.0" text="Dernière maintenance" textFill="#5267d1">
                 <font>
                     <Font name="System Bold" size="12.0" />
                 </font>
@@ -45,7 +45,7 @@
             <SVGPath content="M12 14V22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM14.5946 18.8115C14.5327 18.5511 14.5 18.2794 14.5 18C14.5 17.7207 14.5327 17.449 14.5945 17.1886L13.6029 16.6161L14.6029 14.884L15.5952 15.4569C15.9883 15.0851 16.4676 14.8034 17 14.6449V13.5H19V14.6449C19.5324 14.8034 20.0116 15.0851 20.4047 15.4569L21.3971 14.8839L22.3972 16.616L21.4055 17.1885C21.4673 17.449 21.5 17.7207 21.5 18C21.5 18.2793 21.4673 18.551 21.4055 18.8114L22.3972 19.3839L21.3972 21.116L20.4048 20.543C20.0117 20.9149 19.5325 21.1966 19.0001 21.355V22.5H17.0001V21.3551C16.4677 21.1967 15.9884 20.915 15.5953 20.5431L14.603 21.1161L13.6029 19.384L14.5946 18.8115ZM18 17C17.4477 17 17 17.4477 17 18C17 18.5523 17.4477 19 18 19C18.5523 19 19 18.5523 19 18C19 17.4477 18.5523 17 18 17Z" fill="#5267d1" layoutX="339.0" layoutY="7.0" />
         </children>
     </Pane>
-    <ScrollPane hbarPolicy="NEVER" layoutX="24.0" layoutY="108.0" prefHeight="466.0" prefWidth="747.0" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS">
+    <ScrollPane hbarPolicy="NEVER" layoutX="24.0" layoutY="108.0" prefHeight="466.0" prefWidth="727.0" style="-fx-background-color: transparent;" vbarPolicy="ALWAYS">
         <content>
             <VBox fx:id="maintenanceListVBox" spacing="10.0" style="-fx-background-color: transparent;" />
         </content>

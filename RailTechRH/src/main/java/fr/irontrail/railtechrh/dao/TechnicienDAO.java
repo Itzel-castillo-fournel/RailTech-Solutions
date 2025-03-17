@@ -182,4 +182,26 @@ public class TechnicienDAO {
         return percentages;
     }
 
+    public boolean modifierMaintenance(String description, String etat, int incidentId) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateMaintenance = now.format(formatter);
+
+        String query = "UPDATE maintenance SET dateMaintenance = ?, description = ?, etat = ? WHERE incidentId = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            preparedStatement.setString(1, dateMaintenance);
+            preparedStatement.setString(2, description);
+            preparedStatement.setString(3, etat);
+            preparedStatement.setInt(4, incidentId);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

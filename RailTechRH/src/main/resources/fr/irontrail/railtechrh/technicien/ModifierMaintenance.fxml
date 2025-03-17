@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="592.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.ModifierMaintenanceController">
+    <children>
+        <Pane layoutX="14.0" layoutY="14.0" prefHeight="470.0" prefWidth="838.0">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="Modifier la maintenance" textFill="#1c287c">
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+                <Label layoutX="14.0" layoutY="67.0" text="Immatriculation du train :" textFill="#1c287c">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="14.0" layoutY="137.0" text="Etat :" textFill="#1c287c">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="14.0" layoutY="221.0" text="Description : " textFill="#1c287c">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="descriptionTextArea" layoutX="14.0" layoutY="260.0" prefHeight="95.0" prefWidth="733.0" />
+                <Label layoutX="517.0" layoutY="67.0" text="Problème :" textFill="#1c287c">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Button fx:id="envoyerButton" layoutX="597.0" layoutY="369.0" mnemonicParsing="false" onAction="#majMaintenance" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #1C287C;" text="ENVOYER" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="19.0" />
+                    </font>
+                </Button>
+                <ChoiceBox fx:id="etatChoiceBox" layoutX="14.0" layoutY="167.0" prefHeight="30.0" prefWidth="220.0" />
+                <Label layoutX="517.0" layoutY="136.0" text="Technicien assigné :" textFill="#1c287c">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label fx:id="immatriculationLabel" layoutX="14.0" layoutY="101.0" text="Immatriculation" />
+                <Label fx:id="typeProblemeLabel" layoutX="517.0" layoutY="101.0" text="Type de problème" />
+            <Label fx:id="l_technicienMaintenance" layoutX="517.0" layoutY="167.0" prefHeight="30.0" prefWidth="124.0" text="Technicien assigné" />
+            <Label fx:id="l_pkMaintenance" layoutX="14.0" layoutY="439.0" style="-fx-background-color: transparent; -fx-opacity: 0;" text="id maintenance" />
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
