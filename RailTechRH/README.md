@@ -23,7 +23,7 @@
 
    - Ajoutez .env à votre .gitignore (clique droit sur .env > git > Add to .gitignore)
 
-3. importer le sql de `bdd.sql` dans la base de donnée "railtechrh"
+3. importer le sql de `bddV2.sql` dans la base de donnée "railtechrh"
 4. clique-droit sur `pom.xml` -> `Maven` -> `Reload Project` pour installer les dépendances (au cas où)
 5. lancer `TestConnection` et vérifier si l'utilisateur a bien été ajouté.
 
