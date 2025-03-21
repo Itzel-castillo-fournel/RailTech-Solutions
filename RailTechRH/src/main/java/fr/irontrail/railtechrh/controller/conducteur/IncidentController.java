@@ -18,7 +18,8 @@ import javafx.util.Duration;
 
 import java.sql.SQLException;
 
-public class IncidentController {
+public class
+IncidentController {
     @FXML private ChoiceBox<TypeIncident> cb_typeIncident;
     @FXML private ChoiceBox<String> cb_train;
     @FXML private ChoiceBox<Gravite> cb_gravite;

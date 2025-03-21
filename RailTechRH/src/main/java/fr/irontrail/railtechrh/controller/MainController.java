@@ -175,7 +175,7 @@ public class MainController {
         loadUserProfile();
     }
 
-    private void loadUserProfile() {
+    public void loadUserProfile() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/UserProfilView.fxml"));
             Parent content = loader.load();
@@ -183,6 +183,7 @@ public class MainController {
             UserProfilController controller = loader.getController();
 
             controller.setUser(currentUser);
+            controller.setMainController(this); // Passer la référence du MainController
 
             contentContainer.getChildren().setAll(content);
         } catch (IOException e) {
