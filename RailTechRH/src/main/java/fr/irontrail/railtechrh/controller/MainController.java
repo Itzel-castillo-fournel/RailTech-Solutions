@@ -3,6 +3,7 @@ package fr.irontrail.railtechrh.controller;
 import fr.irontrail.railtechrh.controller.operateur.AssignerConducteurController;
 import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
 import fr.irontrail.railtechrh.controller.technicien.AjouterMaintenance;
+import fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController;
 import fr.irontrail.railtechrh.controller.technicien.Notifications;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.fxml.FXML;
@@ -152,6 +153,11 @@ public class MainController {
                         (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
                 notificationsController.setTechnicienId(currentUser.getId());
                 notificationsController.setMainController(this);
+            }
+
+            if (loader.getController() instanceof MaintenanceListeTechController) {
+                MaintenanceListeTechController controller = loader.getController();
+                controller.setMainController(this);
             }
 
             if (fxmlFile.contains("GestionUtilisateurs.fxml")) {
