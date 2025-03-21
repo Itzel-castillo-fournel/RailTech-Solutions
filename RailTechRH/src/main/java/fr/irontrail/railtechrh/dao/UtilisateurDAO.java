@@ -219,4 +219,57 @@ public class UtilisateurDAO {
             return false;
         }
     }
+
+    public boolean verifyPassword(int userId, String password) {
+        String query = "SELECT mdp FROM utilisateur WHERE id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String storedPassword = resultSet.getString("mdp");
+
+                if (password.equals(storedPassword)) {
+                    return true;
+                }
+
+                String hashedPasswordQuery = "SELECT SHA2(?, 256) as hashed_password";
+                try (PreparedStatement hashedStmt = connection.prepareStatement(hashedPasswordQuery)) {
+                    hashedStmt.setString(1, password);
+                    ResultSet hashedResult = hashedStmt.executeQuery();
+
+                    if (hashedResult.next()) {
+                        String hashedInput = hashedResult.getString("hashed_password");
+                        return hashedInput.equals(storedPassword);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean updatePassword(int userId, String newPassword) {
+        String query = "UPDATE utilisateur SET mdp = SHA2(?, 256) WHERE id = ?";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, newPassword);
+            statement.setInt(2, userId);
+
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
