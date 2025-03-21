@@ -1,4 +1,5 @@
 package fr.irontrail.railtechrh.controller.technicien;
+import fr.irontrail.railtechrh.controller.MainController;
 import fr.irontrail.railtechrh.dao.TechnicienDAO;
 import fr.irontrail.railtechrh.model.MaintenanceModel;
 import javafx.application.Platform;
@@ -15,6 +16,7 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.time.format.DateTimeFormatter;
@@ -34,10 +36,12 @@ public class MaintenanceListeTechController {
     private Label operationnelPercentageLabel;
 
     private TechnicienDAO technicienDAO;
+    private MainController mainController;
 
     public MaintenanceListeTechController() {
         this.technicienDAO = new TechnicienDAO();
     }
+    public void setMainController(MainController mainController) { this.mainController = mainController;}
 
     @FXML
     public void initialize() {
@@ -51,10 +55,15 @@ public class MaintenanceListeTechController {
             Platform.runLater(() -> {
                 maintenanceListVBox.getChildren().clear();
 
-                for (int i = 0; i < maintenanceDetails.size(); i++) {
-                    MaintenanceModel maintenance = maintenanceDetails.get(i);
+                //Filtre pour ne pas afficher les train opérationnel
+                List<MaintenanceModel> filteredMaintenanceDetails = maintenanceDetails.stream()
+                        .filter(maintenance -> !"OPERATIONNEL".equals(maintenance.getEtatMaintenance()))
+                        .toList();
+
+                for (int i = 0; i < filteredMaintenanceDetails.size(); i++) {
+                    MaintenanceModel maintenance = filteredMaintenanceDetails.get(i);
                     Pane maintenancePane = createMaintenancePane(maintenance,
-                            i == maintenanceDetails.size() - 1); // Check if it's the last item
+                            i == filteredMaintenanceDetails.size() - 1); // Check if it's the last item
                     maintenanceListVBox.getChildren().add(maintenancePane);
                 }
             });
@@ -171,9 +180,15 @@ public class MaintenanceListeTechController {
         // Créer un bouton avec l'icône
         Button modifyButton = new Button();
         modifyButton.setGraphic(svgIcon2);
+        modifyButton.setLayoutX(670.0);
+        modifyButton.setLayoutY(11.0);
+        modifyButton.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
+        System.out.println("Bouton cliqué");
+
 
         // Ajouter une action au bouton
         modifyButton.setOnAction(event -> {
+            System.out.println("Action déclenchée");
             try {
                 // Charger la vue ModifierMaintenance.fxml
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/technicien/ModifierMaintenance.fxml"));
@@ -181,14 +196,16 @@ public class MaintenanceListeTechController {
 
                 // Obtenir le contrôleur de la vue
                 ModifierMaintenanceController controller = loader.getController();
+                controller.setMainController(this.mainController);
 
                 // Passer les informations nécessaires au contrôleur
-                controller.setImmatriculation(incident.getTrainImmat().getImmatriculation());
-                controller.setTypeProbleme(incident.getTypeIncident().toString());
-                controller.setIncidentId(incident.getId());
-
-                // In the createIncidentPane method of Notifications class
-                controller.setMainController(this.mainController);
+                controller.setImmatriculation(maintenance.getNumeroImmatriculationTrain());
+                controller.setTypeProbleme(maintenance.getDescriptionMaintenance());
+                controller.setTechnicienMaintenance(maintenance.getNomTechnicien() + " " + maintenance.getPrenomTechnicien());
+                controller.setIncidentId(maintenance.getIncidentId());
+                controller.setEtatMaintenance(maintenance.getEtatMaintenance());
+                controller.setDescription(maintenance.getDescriptionMaintenance());
+                System.out.println(maintenance.getIncidentId());
 
                 // Utiliser le contentContainer du MainController pour charger la nouvelle vue
                 if (mainController != null) {
@@ -203,7 +220,7 @@ public class MaintenanceListeTechController {
         });
 
         // Add labels to the pane
-        pane.getChildren().addAll(immatriculationLabel, descriptionLabel, technicienLabel, dateControleLabel, svgIcon2);
+        pane.getChildren().addAll(immatriculationLabel, descriptionLabel, technicienLabel, dateControleLabel, modifyButton);
 
         return pane;
     }

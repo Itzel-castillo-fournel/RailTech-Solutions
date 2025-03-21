@@ -9,8 +9,11 @@ public class MaintenanceModel {
     private String nomTechnicien;
     private String prenomTechnicien;
     private LocalDateTime derniereMiseAJour;
+    private int incidentId;
 
     // Getters et setters
+    public int getIncidentId() {return incidentId;}
+
     public String getEtatMaintenance() {
         return etatMaintenance;
     }
@@ -58,4 +61,6 @@ public class MaintenanceModel {
     public void setDerniereMiseAJour(LocalDateTime derniereMiseAJour) {
         this.derniereMiseAJour = derniereMiseAJour;
     }
+
+    public void setIncidentId(int incidentId)  { this.incidentId = incidentId;}
 }

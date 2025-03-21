@@ -49,6 +49,7 @@ public class ModifierMaintenanceController implements Initializable {
             etatChoiceBox.getItems().add(etat.toString());
         }
 
+
     }
 
     public void setImmatriculation(String immatriculation) {
@@ -63,22 +64,26 @@ public class ModifierMaintenanceController implements Initializable {
         this.incidentId = incidentId;
     }
 
-    public void setL_technicienMaintenance(String technicien) {
+    public void setTechnicienMaintenance(String technicien) {
         this.l_technicienMaintenance.setText(technicien);
     }
+
+    public void setDescription(String description) {this.descriptionTextArea.setText(description);}
+
+    public void setEtatMaintenance(String etatMaintenance) {this.etatChoiceBox.setValue(etatMaintenance);}
+
 
     public void majMaintenance() {
         String etat = etatChoiceBox.getValue();
         String description = descriptionTextArea.getText();
 
-        // On vérifie que ces 3 champs ne sont pas vides
+
+        // On vérifie que ces 2 champs ne sont pas vides
         if (etat == null || description.isEmpty()) {
             showAlert("Erreur", "Veuillez remplir tous les champs.", false);
             return;
         }
 
-        // On récupére l'ID du technicien
-        int technicienId = getTechnicienIdFromName(technicien);
 
         // On ajoute la maintenance à la base de données
         boolean success = technicienDAO.modifierMaintenance(description, etat, incidentId);
@@ -86,7 +91,7 @@ public class ModifierMaintenanceController implements Initializable {
         if (success) {
             showAlert("Succès", "La maintenance a été ajoutée avec succès.", true);
         } else {
-            showAlert("Erreur", "Une erreur s'est produite lors de l'ajout de la maintenance.", false);
+            showAlert("Erreur", "Une erreur s'est produite lors de l'ajout de la maintenance." , false);
         }
     }
 
@@ -108,9 +113,10 @@ public class ModifierMaintenanceController implements Initializable {
 
         // Si la redirection est demandée et que mainController est disponible
         if (redirectToNotifications && mainController != null) {
-            alert.setOnCloseRequest(event -> mainController.loadContent("/fr/irontrail/railtechrh/technicien/Notifications.fxml"));
+            alert.setOnCloseRequest(event -> mainController.loadContent("/fr/irontrail/railtechrh/technicien/MaintenanceList.fxml"));
         }
 
         alert.showAndWait();
     }
+
 }

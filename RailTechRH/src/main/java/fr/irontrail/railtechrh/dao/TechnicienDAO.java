@@ -118,7 +118,8 @@ public class TechnicienDAO {
                 "    m.description AS description_maintenance, " +
                 "    u.nom AS nom_technicien, " +
                 "    u.prenom AS prenom_technicien, " +
-                "    m.dateMaintenance AS derniere_mise_a_jour " +
+                "    m.dateMaintenance AS derniere_mise_a_jour, " +
+                "    m.incidentId AS incident_id " +
                 "FROM " +
                 "    maintenance m " +
                 "JOIN " +
@@ -140,6 +141,7 @@ public class TechnicienDAO {
                 details.setNomTechnicien(resultSet.getString("nom_technicien"));
                 details.setPrenomTechnicien(resultSet.getString("prenom_technicien"));
                 details.setDerniereMiseAJour(resultSet.getTimestamp("derniere_mise_a_jour").toLocalDateTime());
+                details.setIncidentId(resultSet.getInt("incident_id"));
                 maintenanceDetailsList.add(details);
             }
         }
