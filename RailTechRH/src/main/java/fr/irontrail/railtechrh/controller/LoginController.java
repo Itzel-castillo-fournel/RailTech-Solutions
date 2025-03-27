@@ -31,7 +31,7 @@ public class LoginController {
         utilisateurDAO = new UtilisateurDAO();
         UtilisateurModel utilisateur = utilisateurDAO.findByEmail(email);
 
-        if (utilisateur != null && utilisateur.getMdp().equals(motDePasse)) {
+        if (utilisateur != null && utilisateurDAO.verifyPassword(utilisateur.getId(), motDePasse)) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fr/irontrail/railtechrh/MainView.fxml"));
                 Parent root = loader.load();
