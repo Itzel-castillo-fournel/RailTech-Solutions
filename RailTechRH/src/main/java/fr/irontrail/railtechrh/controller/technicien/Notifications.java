@@ -98,18 +98,10 @@ public class Notifications implements Initializable {
         // Efface les incidents précédemment affichés
         incidentContainer.getChildren().clear();
 
-        // Charge les notifications masquées depuis les préférences
-        loadMasqueIncidentIds();
-
         // Charge les données des incidents
         List<IncidentModel> incidents = technicienDAO.getIncidents();
 
         for (IncidentModel incident : incidents) {
-            // Vérifie si l'incident a déjà été masqué
-            if (masqueIncidentIds.contains(incident.getId())) {
-                continue; // Ne pas afficher cet incident
-            }
-
             // Crée un Pane pour chaque incident
             Pane incidentPane = createIncidentPane(incident);
 
@@ -133,11 +125,6 @@ public class Notifications implements Initializable {
         List<IncidentModel> incidents = technicienDAO.getIncidents();
 
         for (IncidentModel incident : incidents) {
-            // Vérifie si l'incident a déjà été masqué
-            if (masqueIncidentIds.contains(incident.getId())) {
-                continue; // Ne pas afficher cet incident
-            }
-
             // Vérifie si l'incident correspond à la gravité sélectionnée
             if (!selectedGravite.equals("Tous") && !incident.getGravite().toString().equals(selectedGravite)) {
                 continue; // Ne pas afficher cet incident
@@ -196,26 +183,6 @@ public class Notifications implements Initializable {
         Label trainLabel = new Label(incident.getTypeIncident() + " - " + incident.getTrainImmat().getImmatriculation());
         trainLabel.setLayoutX(45.0);
         trainLabel.setLayoutY(36.0);
-
-        // Crée l'icône de croix
-        SVGPath closeIcon = new SVGPath();
-        closeIcon.setContent("M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"); // Exemple de croix simple
-        closeIcon.setStrokeWidth(2);
-        closeIcon.setLayoutX(650.0);
-        closeIcon.setLayoutY(10.0);
-        closeIcon.setStyle("-fx-cursor: hand;");
-
-        // Gestion de l'événement de clic sur l'icône de croix
-        closeIcon.setOnMouseClicked(event -> {
-            // Ajoute l'ID de l'incident à la liste des incidents masqués
-            masqueIncidentIds.add(incident.getId());
-
-            // Enregistre les notifications masquées dans les préférences
-            saveMasqueIncidentIds();
-
-            // Supprime l'incident de l'interface utilisateur
-            incidentContainer.getChildren().remove(incidentPane);
-        });
 
         // Crée le bouton "Ajouter"
         Button ajouterButton = new Button("Ajouter une maintenance");
@@ -287,54 +254,9 @@ public class Notifications implements Initializable {
         });
 
         // Ajoute les labels, les icônes et le bouton au Pane
-        incidentPane.getChildren().addAll(toolIcon, descriptionLabel, graviteLabel, trainLabel, closeIcon, ajouterButton);
+        incidentPane.getChildren().addAll(toolIcon, descriptionLabel, graviteLabel, trainLabel, ajouterButton);
 
         return incidentPane;
     }
 
-    /**
-     * Charge les IDs des incidents masqués depuis les préférences utilisateur.
-     * Exemple : Lorsque loadMasqueIncidentIds() est appelée, elle récupère la chaîne "101,102,103" depuis les préférences utilisateur en utilisant la même clé.
-     * Elle divise cette chaîne en un tableau d'IDs et les ajoute à la collection masqueIncidentIds. [101, 102, 103, 104]
-     */
-    private void loadMasqueIncidentIds() {
-        masqueIncidentIds.clear(); // Vider la collection avant de charger
-
-        Preferences prefs = Preferences.userNodeForPackage(Notifications.class);
-        String masqueIdsString = prefs.get(getPrefsKeyForTechnicien(technicienId), "");
-
-        if (!masqueIdsString.isEmpty()) {
-            String[] ids = masqueIdsString.split(",");
-            for (String id : ids) {
-                try {
-                    masqueIncidentIds.add(Integer.parseInt(id.trim()));
-                } catch (NumberFormatException e) {
-                    System.err.println("Format invalide d'ID d'incident masqué: " + id);
-                }
-            }
-        }
-    }
-
-    /**
-     * Enregistre les IDs des incidents masqués dans les préférences utilisateur.
-     * Exemple : Supposons que les IDs des incidents masqués pour ce technicien sont [101, 102, 103].
-     * Lorsque saveMasqueIncidentIds() est appelée, elle convertit cette liste en une chaîne : "101,102,103".
-     * Elle enregistre cette chaîne dans les préférences utilisateur sous la clé "masqueIncidentIds_technicien_456".
-     */
-    private void saveMasqueIncidentIds() {
-        Preferences prefs = Preferences.userNodeForPackage(Notifications.class);
-        String masqueIdsString = masqueIncidentIds.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(","));
-        prefs.put(getPrefsKeyForTechnicien(technicienId), masqueIdsString);
-    }
-
-    /**
-     * Génère une clé de préférence spécifique au technicien.
-     * Exemple : Supposons que nous avons un technicien avec l'ID 456.
-     * Lorsque getPrefsKeyForTechnicien(456) est appelée, elle retourne la clé : "masqueIncidentIds_technicien_456".
-     */
-    private String getPrefsKeyForTechnicien(int technicienId) {
-        return "masqueIncidentIds_technicien_" + technicienId;
-    }
 }
