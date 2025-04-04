@@ -16,7 +16,7 @@ public class OperateurDAO {
 
     public List<TrajetModel> getTrajetsProgrammes() throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
-        String sql = "SELECT * FROM trajet WHERE heureDepart >= CURDATE()";
+        String sql = "SELECT id, heureDepart, heureArrivee, arretDepart, arretArrivee, trainImmat, conducteurId FROM trajet WHERE heureDepart >= CURDATE()";
 
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql);
@@ -90,7 +90,7 @@ public class OperateurDAO {
 
     public List<TrajetModel> getTrajetsByDate(LocalDate date) throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
-        String sql = "SELECT * FROM trajet WHERE DATE(heureDepart) >= ?";
+        String sql = "SELECT id, heureDepart, heureArrivee, arretDepart, arretArrivee, trainImmat, conducteurId FROM trajet WHERE DATE(heureDepart) >= ?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setDate(1, Date.valueOf(date));
