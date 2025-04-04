@@ -11,12 +11,12 @@ import java.sql.*;
 
 
 public class IncidentDAO {
-    private static final String INSERT_INCIDENT = "INSERT INTO Incident (description, typeIncident, gravite, trainImmat) VALUES (?,?,?,?)";
+    private static final String INSERT_INCIDENT = "INSERT INTO incident (description, typeIncident, gravite, trainImmat) VALUES (?,?,?,?)";
     private static final String GET_INCIDENT = "SELECT id, description, typeIncident, gravite, trainImmat FROM Incident WHERE id = ?";
     private static final String UPDATE_INCIDENT = "UPDATE Incident SET descritpion = ?, typeIncident = ?, gravite = ?, trainImmat = ? WHERE id = ?";
     private static final String DELETE_INCIDENT = "DELETE FROM Incident WHERE id = ?";
-    private static final String GET_TRAIN = "SELECT immatriculation FROM Train";
-    private static final String GET_TRAIN_BY_IMMAT = "SELECT immatriculation, modele, marque FROM Train WHERE immatriculation = ?";
+    private static final String GET_TRAIN = "SELECT immatriculation FROM train";
+    private static final String GET_TRAIN_BY_IMMAT = "SELECT immatriculation, modele, marque FROM train WHERE immatriculation = ?";
 
     private static Connection connection = null;
 
