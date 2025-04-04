@@ -37,7 +37,6 @@ public class MainController {
         switch (role) {
             case "ADMIN":
                 addMenuButton("Utilisateurs", "/fr/irontrail/railtechrh/admin/GestionUtilisateurs.fxml", "people-icon.png");
-                addMenuButton("Notifications", "/fr/irontrail/railtechrh/admin/Notifications.fxml", "notification-icon.png");
                 break;
             case "TECHNICIEN":
                 addMenuButton("Maintenance", "/fr/irontrail/railtechrh/technicien/MaintenanceList.fxml", "tools-icon.png");
