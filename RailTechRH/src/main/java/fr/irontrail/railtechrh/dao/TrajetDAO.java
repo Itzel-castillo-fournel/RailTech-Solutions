@@ -20,7 +20,7 @@ public class TrajetDAO {
 
     public List<TrajetModel> getTrajetsConducteurParDate(int conducteurId, LocalDate date) throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
-        String query = "SELECT * FROM Trajet WHERE conducteurId = ? AND DATE(heureDepart) = ? ORDER BY heureDepart";
+        String query = "SELECT * FROM trajet WHERE conducteurId = ? AND DATE(heureDepart) = ? ORDER BY heureDepart";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -48,7 +48,7 @@ public class TrajetDAO {
     // Méthode pour récupérer tous les trajets
     public List<TrajetModel> getAllTrajets() throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
-        String query = "SELECT * FROM Trajet ORDER BY heureDepart";
+        String query = "SELECT * FROM trajet ORDER BY heureDepart";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query);
@@ -103,7 +103,7 @@ public class TrajetDAO {
     public boolean updateTrajet(int trajetId, String trainImmat, LocalDateTime heureDepart, LocalDateTime heureArrivee,
                                 Arret arretDepart, Arret arretArrivee, int conducteurId) throws SQLException {
 
-        String query = "UPDATE Trajet SET trainImmat = ?, heureDepart = ?, heureArrivee = ?, " +
+        String query = "UPDATE trajet SET trainImmat = ?, heureDepart = ?, heureArrivee = ?, " +
                 "arretDepart = ?, arretArrivee = ?, conducteurId = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -127,7 +127,7 @@ public class TrajetDAO {
 
     // Méthode pour récupérer un trajet par son ID
     public TrajetModel getTrajetById(int trajetId) throws SQLException {
-        String query = "SELECT * FROM Trajet WHERE id = ?";
+        String query = "SELECT * FROM trajet WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -153,7 +153,7 @@ public class TrajetDAO {
 
     // Méthode pour supprimer un trajet
     public void deleteTrajet(int trajetId) throws SQLException {
-        String query = "DELETE FROM Trajet WHERE id = ?";
+        String query = "DELETE FROM trajet WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
