@@ -7,7 +7,6 @@ import fr.irontrail.railtechrh.dao.TechnicienDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -16,8 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,10 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-import java.util.prefs.Preferences;
-import java.util.stream.Collectors;
 
-public class Notifications implements Initializable {
+public class NotificationsController implements Initializable {
 
     @FXML
     private VBox incidentContainer;
@@ -55,7 +50,7 @@ public class Notifications implements Initializable {
     }
 
     // Constructeur sans arguments requis par JavaFX
-    public Notifications() {
+    public NotificationsController() {
     }
 
     // Méthode pour définir l'ID du technicien

@@ -68,7 +68,7 @@ public class NotificationDAO {
      */
     public List<NotificationModel> getNotificationsUtilisateur(int utilisateurId) {
         List<NotificationModel> notifications = new ArrayList<>();
-        String query = "SELECT id, titre, utilisateur_id, incident_id, date FROM notification WHERE utilisateur_id = ? ORDER BY date DESC";
+        String query = "SELECT id, titre, utilisateur_id, incident_id, date FROM notification WHERE utilisateur_id = ? AND afficher = TRUE ORDER BY date DESC";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -165,5 +165,17 @@ public class NotificationDAO {
         }
 
         return null;
+    }
+    public boolean masquerNotification(int id) {
+        String query = "UPDATE notification SET afficher = FALSE WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

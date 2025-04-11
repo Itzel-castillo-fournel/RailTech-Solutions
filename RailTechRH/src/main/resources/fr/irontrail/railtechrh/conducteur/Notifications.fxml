@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="fr.irontrail.railtechrh.controller.NotificationsController"
-      spacing="15" styleClass="container">
+<VBox spacing="15" styleClass="container" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.NotificationsController">
 
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
     <children>
-        <Label text="Notifications" styleClass="title">
+        <Label style="-fx-font-size: 32px; -fx-text-fill: #1a237e; -fx-font-weight: bold;" styleClass="title" text="Notifications" textFill="#1c287c">
             <font>
-                <Font name="System Bold" size="24.0"/>
+                <Font name="System Bold" size="40.0" />
             </font>
         </Label>
 
         <!-- Conteneur des notifications -->
         <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
-            <VBox fx:id="notificationsContainer" spacing="10"/>
+            <VBox fx:id="notificationsContainer" spacing="10" />
         </ScrollPane>
     </children>
 </VBox>

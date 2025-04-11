@@ -61,65 +61,65 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent content = loader.load();
 
-            // Gestion spécifique des notifications, quelle que soit leur source
-            if (fxmlFile.contains("Notifications.fxml")) {
+            Object controller = loader.getController();
+
+            // ✅ Notifications Conducteur
+            if (controller instanceof fr.irontrail.railtechrh.controller.NotificationsController) {
                 fr.irontrail.railtechrh.controller.NotificationsController notificationsController =
-                        (fr.irontrail.railtechrh.controller.NotificationsController) loader.getController();
+                        (fr.irontrail.railtechrh.controller.NotificationsController) controller;
                 notificationsController.setUtilisateurId(currentUser.getId());
                 notificationsController.setMainController(this);
             }
 
-            // Autres contrôleurs spécifiques
-            if (loader.getController() instanceof AssignerConducteurController) {
-                AssignerConducteurController controller = loader.getController();
-                controller.setMainController(this);
-            }
-
-            if (fxmlFile.contains("Planning.fxml")) {
-                if (loader.getController() instanceof fr.irontrail.railtechrh.controller.PlanningController) {
-                    fr.irontrail.railtechrh.controller.PlanningController planningController = loader.getController();
-                    planningController.setUser(currentUser);
-                } else if (loader.getController() instanceof fr.irontrail.railtechrh.controller.operateur.PlanningController) {
-                    fr.irontrail.railtechrh.controller.operateur.PlanningController planningController = loader.getController();
-                    planningController.setMainController(this);
-                }
-            }
-
-            if (loader.getController() instanceof TrajetsProgrammesController) {
-                TrajetsProgrammesController controller = loader.getController();
-                controller.setMainController(this);
-            }
-
-            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
-                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
-                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
-                notificationsController.setTechnicienId(currentUser.getId());
-            }
-
-            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
-                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
-                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
+            // ✅ Notifications Technicien
+            if (controller instanceof fr.irontrail.railtechrh.controller.technicien.NotificationsController) {
+                fr.irontrail.railtechrh.controller.technicien.NotificationsController notificationsController =
+                        (fr.irontrail.railtechrh.controller.technicien.NotificationsController) controller;
                 notificationsController.setTechnicienId(currentUser.getId());
                 notificationsController.setMainController(this);
             }
 
-            if (loader.getController() instanceof MaintenanceListeTechController) {
-                MaintenanceListeTechController controller = loader.getController();
-                controller.setMainController(this);
+            // ✅ AssignerConducteurController
+            if (controller instanceof AssignerConducteurController) {
+                AssignerConducteurController c = (AssignerConducteurController) controller;
+                c.setMainController(this);
             }
 
+            // ✅ Planning (conducteur et opérateur)
+            if (fxmlFile.contains("Planning.fxml")) {
+                if (controller instanceof fr.irontrail.railtechrh.controller.PlanningController) {
+                    ((fr.irontrail.railtechrh.controller.PlanningController) controller).setUser(currentUser);
+                } else if (controller instanceof fr.irontrail.railtechrh.controller.operateur.PlanningController) {
+                    ((fr.irontrail.railtechrh.controller.operateur.PlanningController) controller).setMainController(this);
+                }
+            }
+
+            // ✅ Trajets Programmes
+            if (controller instanceof TrajetsProgrammesController) {
+                ((TrajetsProgrammesController) controller).setMainController(this);
+            }
+
+            // ✅ Maintenance Technicien
+            if (controller instanceof MaintenanceListeTechController) {
+                ((MaintenanceListeTechController) controller).setMainController(this);
+            }
+
+            // ✅ Gestion Utilisateurs
             if (fxmlFile.contains("GestionUtilisateurs.fxml")) {
-                fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController controller =
-                        (fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController) loader.getController();
-                controller.setCurrentUser(currentUser);
-                controller.setMainController(this);
+                fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController gestionController =
+                        (fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController) controller;
+                gestionController.setCurrentUser(currentUser);
+                gestionController.setMainController(this);
             }
 
-            contentContainer.getChildren().setAll(content); // Affiche le contenu
+            // ✅ Affichage final
+            contentContainer.getChildren().setAll(content);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     private void addMenuButton(String text, String fxmlFile, String iconPath) {
         Button button = new Button(text);
