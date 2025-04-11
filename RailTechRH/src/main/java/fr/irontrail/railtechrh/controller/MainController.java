@@ -2,9 +2,7 @@ package fr.irontrail.railtechrh.controller;
 
 import fr.irontrail.railtechrh.controller.operateur.AssignerConducteurController;
 import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
-import fr.irontrail.railtechrh.controller.technicien.AjouterMaintenance;
 import fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController;
-import fr.irontrail.railtechrh.controller.technicien.Notifications;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +38,7 @@ public class MainController {
                 break;
             case "TECHNICIEN":
                 addMenuButton("Maintenance", "/fr/irontrail/railtechrh/technicien/MaintenanceList.fxml", "tools-icon.png");
-                addMenuButton("Notifications", "/fr/irontrail/railtechrh/technicien/Notifications.fxml", "profile-icon.png");
+                addMenuButton("Notifications", "/fr/irontrail/railtechrh/technicien/NotificationsTechnicien.fxml", "profile-icon.png");
                 break;
             case "CONDUCTEUR":
                 addMenuButton("Mon Planning", "/fr/irontrail/railtechrh/conducteur/Planning.fxml", "planning-icon.png");

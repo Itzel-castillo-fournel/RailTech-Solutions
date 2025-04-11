@@ -109,7 +109,7 @@ public class AjouterMaintenance implements Initializable {
 
         // Si la redirection est demandée et que mainController est disponible
         if (redirectToNotifications && mainController != null) {
-            alert.setOnCloseRequest(event -> mainController.loadContent("/fr/irontrail/railtechrh/technicien/Notifications.fxml"));
+            alert.setOnCloseRequest(event -> mainController.loadContent("/fr/irontrail/railtechrh/technicien/NotificationsTechnicien.fxml"));
         }
 
         alert.showAndWait();
