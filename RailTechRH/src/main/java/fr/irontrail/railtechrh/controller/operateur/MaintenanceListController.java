@@ -51,7 +51,7 @@ public class MaintenanceListController {
                 for (int i = 0; i < maintenanceDetails.size(); i++) {
                     MaintenanceModel maintenance = maintenanceDetails.get(i);
                     Pane maintenancePane = createMaintenancePane(maintenance,
-                            i == maintenanceDetails.size() - 1); // Check if it's the last item
+                            i == maintenanceDetails.size() - 1);
                     maintenanceListVBox.getChildren().add(maintenancePane);
                 }
             });
@@ -80,19 +80,16 @@ public class MaintenanceListController {
     private Pane createMaintenancePane(MaintenanceModel maintenance, boolean isLastItem) {
         Pane pane = new Pane();
         pane.setPrefHeight(39.0);
-        pane.setPrefWidth(700.0); // Ajustez la largeur pour inclure les nouvelles colonnes
+        pane.setPrefWidth(700.0);
 
-        // Set background and base style
         String baseStyle = "-fx-background-color: transparent;";
 
-        // Add blue bottom border for all items except the last one
         if (!isLastItem) {
             pane.setStyle(baseStyle + "-fx-border-color: transparent transparent #7281D8 transparent; -fx-border-width: 0 0 1 0;");
         } else {
             pane.setStyle(baseStyle);
         }
 
-        // État Label - replace with SVGPath if PANNE or MAINTENANCE
         SVGPath svgIcon = new SVGPath();
         svgIcon.setLayoutX(10.0);
         svgIcon.setLayoutY(7.0);
@@ -155,7 +152,6 @@ public class MaintenanceListController {
         dateControleLabel.setPrefWidth(120.0);
         dateControleLabel.setStyle("-fx-text-fill: #7281D8");
 
-        // Add labels to the pane
         pane.getChildren().addAll(immatriculationLabel, descriptionLabel, technicienLabel, dateControleLabel);
 
         return pane;

@@ -201,4 +201,36 @@ public class OperateurDAO {
         return false;
     }
 
+    public boolean assignerConducteur(int trajetId, int conducteurId) throws SQLException {
+        // Récupérer d'abord le trajet pour avoir l'ancien conducteur
+        TrajetDAO trajetDAO = new TrajetDAO();
+        TrajetModel trajet = trajetDAO.getTrajetById(trajetId);
+
+        if (trajet == null) {
+            return false;
+        }
+
+        // Sauvegarder l'ID de l'ancien conducteur
+        int ancienConducteurId = trajet.getConducteurId();
+
+        // Mettre à jour le trajet avec le nouveau conducteur
+        boolean success = updateTrajet(trajetId, conducteurId);
+
+        if (success) {
+            // Si un ancien conducteur était assigné, lui envoyer une notification de désassignation
+            if (ancienConducteurId > 0) {
+                String titreAncien = "Trajet retiré: " + trajet.getArretDepart() + " → " + trajet.getArretArrivee();
+                NotificationDAO.creerNotification(titreAncien, ancienConducteurId, trajet.getHeureDepart());
+            }
+
+            // Si un nouveau conducteur est assigné, lui envoyer une notification
+            if (conducteurId > 0) {
+                String titreNouveau = "Nouveau trajet assigné: " + trajet.getArretDepart() + " → " + trajet.getArretArrivee();
+                NotificationDAO.creerNotification(titreNouveau, conducteurId, trajet.getHeureDepart());
+            }
+        }
+
+        return success;
+    }
+
 }

@@ -235,9 +235,9 @@ public class AssignerConducteurController {
             return;
         }
 
-        boolean updateTrajet = operateurDAO.updateTrajet(selectedTrajet.getId(), conducteurId);
+        boolean success = operateurDAO.assignerConducteur(selectedTrajet.getId(), conducteurId);
 
-        if (updateTrajet) {
+        if (success) {
             mainController.loadContent("/fr/irontrail/railtechrh/operateur/Planning.fxml");
         } else {
             showTemporaryMessage(l_noTrajetFound, "Erreur lors de l'assignation du conducteur.", Paint.valueOf("red"), 10);

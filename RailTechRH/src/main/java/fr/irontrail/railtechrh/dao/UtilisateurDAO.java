@@ -272,4 +272,30 @@ public class UtilisateurDAO {
             return false;
         }
     }
+
+    public List<UtilisateurModel> getUtilisateursByRole(Role role) {
+        List<UtilisateurModel> utilisateurs = new ArrayList<>();
+        String query = "SELECT id, nom, prenom, email FROM utilisateur WHERE role = ? ORDER BY nom, prenom";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setString(1, role.toString());
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                UtilisateurModel utilisateur = new UtilisateurModel();
+                utilisateur.setId(resultSet.getInt("id"));
+                utilisateur.setNom(resultSet.getString("nom"));
+                utilisateur.setPrenom(resultSet.getString("prenom"));
+                utilisateur.setEmail(resultSet.getString("email"));
+                utilisateur.setRole(role);
+                utilisateurs.add(utilisateur);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return utilisateurs;
+    }
 }

@@ -58,6 +58,71 @@ public class MainController {
         addLogoutButton("logout-icon.png");
     }
 
+    public void loadContent(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent content = loader.load();
+
+            // Gestion spécifique des notifications, quelle que soit leur source
+            if (fxmlFile.contains("Notifications.fxml")) {
+                fr.irontrail.railtechrh.controller.NotificationsController notificationsController =
+                        (fr.irontrail.railtechrh.controller.NotificationsController) loader.getController();
+                notificationsController.setUtilisateurId(currentUser.getId());
+                notificationsController.setMainController(this);
+            }
+
+            // Autres contrôleurs spécifiques
+            if (loader.getController() instanceof AssignerConducteurController) {
+                AssignerConducteurController controller = loader.getController();
+                controller.setMainController(this);
+            }
+
+            if (fxmlFile.contains("Planning.fxml")) {
+                if (loader.getController() instanceof fr.irontrail.railtechrh.controller.PlanningController) {
+                    fr.irontrail.railtechrh.controller.PlanningController planningController = loader.getController();
+                    planningController.setUser(currentUser);
+                } else if (loader.getController() instanceof fr.irontrail.railtechrh.controller.operateur.PlanningController) {
+                    fr.irontrail.railtechrh.controller.operateur.PlanningController planningController = loader.getController();
+                    planningController.setMainController(this);
+                }
+            }
+
+            if (loader.getController() instanceof TrajetsProgrammesController) {
+                TrajetsProgrammesController controller = loader.getController();
+                controller.setMainController(this);
+            }
+
+            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
+                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
+                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
+                notificationsController.setTechnicienId(currentUser.getId());
+            }
+
+            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
+                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
+                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
+                notificationsController.setTechnicienId(currentUser.getId());
+                notificationsController.setMainController(this);
+            }
+
+            if (loader.getController() instanceof MaintenanceListeTechController) {
+                MaintenanceListeTechController controller = loader.getController();
+                controller.setMainController(this);
+            }
+
+            if (fxmlFile.contains("GestionUtilisateurs.fxml")) {
+                fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController controller =
+                        (fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController) loader.getController();
+                controller.setCurrentUser(currentUser);
+                controller.setMainController(this);
+            }
+
+            contentContainer.getChildren().setAll(content); // Affiche le contenu
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void addMenuButton(String text, String fxmlFile, String iconPath) {
         Button button = new Button(text);
         button.getStyleClass().add("menu-button");
@@ -116,61 +181,7 @@ public class MainController {
         }
     }
 
-    public void loadContent(String fxmlFile) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Parent content = loader.load();
 
-            if (loader.getController() instanceof AssignerConducteurController) {
-                AssignerConducteurController controller = loader.getController();
-                controller.setMainController(this);
-            }
-
-            if (fxmlFile.contains("Planning.fxml")) {
-                if (loader.getController() instanceof fr.irontrail.railtechrh.controller.PlanningController) {
-                    fr.irontrail.railtechrh.controller.PlanningController planningController = loader.getController();
-                    planningController.setUser(currentUser);
-                } else if (loader.getController() instanceof fr.irontrail.railtechrh.controller.operateur.PlanningController) {
-                    fr.irontrail.railtechrh.controller.operateur.PlanningController planningController = loader.getController();
-                    planningController.setMainController(this);
-                }
-            }
-
-            if (loader.getController() instanceof TrajetsProgrammesController) {
-                TrajetsProgrammesController controller = loader.getController();
-                controller.setMainController(this);
-            }
-
-            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
-                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
-                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
-                notificationsController.setTechnicienId(currentUser.getId());
-            }
-
-            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
-                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
-                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
-                notificationsController.setTechnicienId(currentUser.getId());
-                notificationsController.setMainController(this);
-            }
-
-            if (loader.getController() instanceof MaintenanceListeTechController) {
-                MaintenanceListeTechController controller = loader.getController();
-                controller.setMainController(this);
-            }
-
-            if (fxmlFile.contains("GestionUtilisateurs.fxml")) {
-                fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController controller =
-                        (fr.irontrail.railtechrh.controller.admin.GestionUtilisateursController) loader.getController();
-                controller.setCurrentUser(currentUser);
-                controller.setMainController(this); // Ajouter cette ligne
-            }
-
-            contentContainer.getChildren().setAll(content); // Affiche le contenu
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private UtilisateurModel currentUser;
 
