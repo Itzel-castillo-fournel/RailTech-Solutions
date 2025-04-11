@@ -14,13 +14,13 @@ import java.util.List;
 
 public class TrajetDAO {
 
-    private static final String GET_TRAIN = "SELECT immatriculation FROM Train";
+    private static final String GET_TRAIN = "SELECT immatriculation FROM train";
     private static final String GET_TRAIN_BY_IMMAT = "SELECT immatriculation, modele, marque FROM Train WHERE immatriculation = ?";
     private static Connection connection = null;
 
     public List<TrajetModel> getTrajetsConducteurParDate(int conducteurId, LocalDate date) throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
-        String query = "SELECT * FROM Trajet WHERE conducteurId = ? AND DATE(heureDepart) = ? ORDER BY heureDepart";
+        String query = "SELECT * FROM trajet WHERE conducteurId = ? AND DATE(heureDepart) = ? ORDER BY heureDepart";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -48,7 +48,7 @@ public class TrajetDAO {
     // Méthode pour récupérer tous les trajets
     public List<TrajetModel> getAllTrajets() throws SQLException {
         List<TrajetModel> trajets = new ArrayList<>();
-        String query = "SELECT * FROM Trajet ORDER BY heureDepart";
+        String query = "SELECT * FROM trajet ORDER BY heureDepart";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query);
@@ -70,7 +70,7 @@ public class TrajetDAO {
     }
 
     public static boolean createTrajet(TrajetModel trajetModel) throws SQLException {
-        String query = "INSERT INTO Trajet (trainImmat, heureDepart, heureArrivee, arretDepart, arretArrivee) " +
+        String query = "INSERT INTO trajet (trainImmat, heureDepart, heureArrivee, arretDepart, arretArrivee) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -120,7 +120,7 @@ public class TrajetDAO {
         TrajetModel ancienTrajet = getTrajetById(trajetId);
         boolean changementConducteur = (ancienTrajet != null && ancienTrajet.getConducteurId() != conducteurId);
 
-        String query = "UPDATE Trajet SET trainImmat = ?, heureDepart = ?, heureArrivee = ?, " +
+        String query = "UPDATE trajet SET trainImmat = ?, heureDepart = ?, heureArrivee = ?, " +
                 "arretDepart = ?, arretArrivee = ?, conducteurId = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -164,7 +164,7 @@ public class TrajetDAO {
 
     // Méthode pour récupérer un trajet par son ID
     public TrajetModel getTrajetById(int trajetId) throws SQLException {
-        String query = "SELECT * FROM Trajet WHERE id = ?";
+        String query = "SELECT * FROM trajet WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
