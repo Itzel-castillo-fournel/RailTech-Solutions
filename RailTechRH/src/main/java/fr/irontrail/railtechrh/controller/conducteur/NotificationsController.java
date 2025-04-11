@@ -43,8 +43,8 @@ public class NotificationsController {
 
         List<NotificationModel> notifications;
 
-        if (roleUtilisateur == Role.TECHNICIEN) {
-            notifications = notificationDAO.getNotificationsTechniciens();
+        if (roleUtilisateur == Role.OPERATEUR) {
+            notifications = notificationDAO.getNotificationsOperateurs();
         } else {
             notifications = notificationDAO.getNotificationsUtilisateur(utilisateurId);
         }
