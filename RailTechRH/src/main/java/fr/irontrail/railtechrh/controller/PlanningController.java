@@ -14,8 +14,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -98,9 +100,20 @@ public class PlanningController {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        Label statusLabel = new Label("À venir");
-        statusLabel.setStyle("-fx-text-fill: rgb(28, 40, 124); -fx-background-color: rgba(28, 40, 124, 0.33); " +
-                "-fx-padding: 5px 10px; -fx-background-radius: 8; -fx-font-weight: bold; -fx-font-size: 12px;");
+        LocalDateTime now = LocalDateTime.now();
+        Label statusLabel = new Label();
+        statusLabel.setStyle("-fx-padding: 5px 10px; -fx-background-radius: 8; -fx-font-weight: bold; -fx-font-size: 12px;");
+
+        if (trajet.getHeureDepart().isAfter(now)) {
+            statusLabel.setText("À venir");
+            statusLabel.setStyle(statusLabel.getStyle() + "-fx-text-fill: rgb(28, 40, 124); -fx-background-color: rgba(28, 40, 124, 0.33);");
+        } else if (trajet.getHeureArrivee().isBefore(now)) {
+            statusLabel.setText("Terminé");
+            statusLabel.setStyle(statusLabel.getStyle() + "-fx-text-fill: #999999; -fx-background-color: #f0f0f0;");
+        } else {
+            statusLabel.setText("En cours");
+            statusLabel.setStyle(statusLabel.getStyle() + "-fx-text-fill: #ffffff; -fx-background-color: #43a047;");
+        }
 
         enTete.getChildren().addAll(trainIcon, trainLabel, spacer, statusLabel);
 
