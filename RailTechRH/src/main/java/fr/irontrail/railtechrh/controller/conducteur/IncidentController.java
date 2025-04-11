@@ -1,7 +1,9 @@
 package fr.irontrail.railtechrh.controller.conducteur;
 
 import fr.irontrail.railtechrh.dao.IncidentDAO;
+import fr.irontrail.railtechrh.dao.NotificationDAO;
 import fr.irontrail.railtechrh.model.IncidentModel;
+import fr.irontrail.railtechrh.model.NotificationModel;
 import fr.irontrail.railtechrh.model.enums.Gravite;
 import fr.irontrail.railtechrh.model.enums.TypeIncident;
 import javafx.animation.KeyFrame;
@@ -16,6 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 
+import java.sql.Date;
 import java.sql.SQLException;
 
 public class
@@ -51,7 +54,12 @@ IncidentController {
             newIncident.setTrainImmat(IncidentDAO.getTrainByImmat(cb_train.getValue()));
             newIncident.setTypeIncident(cb_typeIncident.getValue());
             newIncident.setDescription(ta_description.getText());
+
+            NotificationModel newNotification = new NotificationModel();
+            newNotification.setTitre(ta_description.getText());
+            newNotification.setIncidentId(newIncident.getId());
             boolean ajoutIncident = IncidentDAO.addIncident(newIncident);
+            boolean ajoutNotification = IncidentDAO.ajouterNotification(ta_description.getText(), newIncident.getId());
             if (ajoutIncident) {
                 cb_typeIncident.setValue(null);
                 cb_train.setValue(null);

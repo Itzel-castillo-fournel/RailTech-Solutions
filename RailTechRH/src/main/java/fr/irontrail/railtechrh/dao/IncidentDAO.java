@@ -7,7 +7,8 @@ import javafx.collections.ObservableList;
 
 
 import java.sql.*;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class IncidentDAO {
@@ -108,5 +109,38 @@ public class IncidentDAO {
             }
         }
         return train;
+    }
+
+    // Cette méthode permet d'ajouter une notification.
+    public static boolean ajouterNotification(String titre, int incident_id) {
+        // On ajoute la date du jour de la notification
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateNotification = now.format(formatter);
+        Integer utilisateur_id = null;
+
+
+        String query = "INSERT INTO notification (date, titre, incident_id, utilisateur_id) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            preparedStatement.setString(1, dateNotification);
+            preparedStatement.setString(2, titre);
+            preparedStatement.setString(3, String.valueOf(incident_id));
+            if (utilisateur_id == null) {
+                preparedStatement.setNull(4, Types.INTEGER);
+            } else {
+                preparedStatement.setInt(4, utilisateur_id);
+            }
+
+
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

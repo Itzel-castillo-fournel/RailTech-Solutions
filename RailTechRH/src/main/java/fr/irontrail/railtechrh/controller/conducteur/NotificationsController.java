@@ -96,6 +96,7 @@ public class NotificationsController {
             IncidentModel incident = getIncidentFromId(notification.getIncidentId());
             if (incident != null) {
                 gravite = incident.getGravite();
+                System.out.println("Gravité : " + gravite);
                 trainImmat = incident.getTrainImmat().getImmatriculation();
                 typeIncident = incident.getTypeIncident().toString();
             }
@@ -216,6 +217,8 @@ public class NotificationsController {
                 return "#FF0F3C";
             case MODERE:
                 return "#170FFF";
+            case MINEUR:
+                return "#00FF00";
             default:
                 return "#170FFF"; // Couleur par défaut pour gravité modérée
         }
