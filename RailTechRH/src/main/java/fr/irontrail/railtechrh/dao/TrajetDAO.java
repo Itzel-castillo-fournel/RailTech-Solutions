@@ -70,8 +70,8 @@ public class TrajetDAO {
     }
 
     public static boolean createTrajet(TrajetModel trajetModel) throws SQLException {
-        String query = "INSERT INTO Trajet (trainImmat, heureDepart, heureArrivee, arretDepart, arretArrivee, conducteurId) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO Trajet (trainImmat, heureDepart, heureArrivee, arretDepart, arretArrivee) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -144,12 +144,10 @@ public class TrajetDAO {
             int affectedRows = pstmt.executeUpdate();
 
             if (affectedRows > 0) {
-                // Si le conducteur a changé, notifier le nouveau conducteur
                 if (changementConducteur && conducteurId > 0) {
                     String titre = "Nouveau trajet assigné: " + arretDepart + " → " + arretArrivee;
                     NotificationDAO.creerNotification(titre, conducteurId, heureDepart);
                 }
-                // Sinon, si c'est le même conducteur, l'informer de la modification
                 else if (conducteurId > 0) {
                     String titre = "Trajet modifié: " + arretDepart + " → " + arretArrivee;
                     NotificationDAO.creerNotification(titre, conducteurId, heureDepart);
@@ -201,6 +199,37 @@ public class TrajetDAO {
             }
         } catch (SQLException e) {
             System.out.println("Error getting train : " + e.getMessage());
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Error closing connection : " + e.getMessage());
+            }
+        }
+        return train;
+    }
+
+    public static TrainModel getTrainByImmat(String immat) throws SQLException {
+
+        TrainModel train = null;
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(GET_TRAIN_BY_IMMAT);
+            statement.setString(1, immat);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                train = new TrainModel();
+                train.setImmatriculation(resultSet.getString("immatriculation"));
+                train.setMarque(resultSet.getString("marque"));
+                train.setModele(resultSet.getString("modele"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error getting train : " + e.getMessage());
+
         } finally {
             try {
                 if (connection != null) {
