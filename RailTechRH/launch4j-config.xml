@@ -1,20 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
-  <icon>Railtech-Solutions.ico</icon>
   <dontWrapJar>false</dontWrapJar>
   <headerType>console</headerType>
-  <jar>target/railtechrh-1.0-SNAPSHOT.jar</jar>
-  <outfile>C:/Users/MoPiM/Desktop/RTRH/RailTech-Solutions/RailTechRH/RailTechRH.exe</outfile>
+  <jar>target\railtechrh-1.0-SNAPSHOT.jar</jar>
+  <outfile>C:\Users\MoPiM\Desktop\RTRH\RailTech-Solutions\RailTechRH\RailTechRH.exe</outfile>
   <errTitle>Erreur RailTechRH</errTitle>
+  <cmdLine></cmdLine>
   <chdir>.</chdir>
   <priority>normal</priority>
   <downloadUrl>https://adoptium.net</downloadUrl>
+  <supportUrl></supportUrl>
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
-  <manifest />
+  <manifest></manifest>
+  <icon>Railtech-Solutions.ico</icon>
   <jre>
-    <path>C:/Users/MoPiM/.jdks/openjdk-23.0.2</path>
+    <path>jre\bin</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>true</requires64Bit>
     <minVersion>23</minVersion>
-    <jdkPreference>preferJdk</jdkPreference>
-    <runtimeBits>64</runtimeBits>
+    <maxVersion></maxVersion>
   </jre>
 </launch4jConfig>

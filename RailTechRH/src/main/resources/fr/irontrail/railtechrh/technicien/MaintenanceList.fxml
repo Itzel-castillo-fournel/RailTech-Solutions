@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="736.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController">
+<AnchorPane prefHeight="736.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController">
 <children>
-    <Label layoutX="24.0" layoutY="23.0" text="Maintenances" textFill="#1c287c">
+    <Label layoutX="24.0" layoutY="23.0" text="Maintenances" textFill="#1a237e">
         <font>
-            <Font name="System Bold" size="27.0" />
+            <Font name="System Bold" size="32.0" />
         </font>
     </Label>
     <Pane layoutX="24.0" layoutY="69.0" prefHeight="39.0" prefWidth="713.0" style="-fx-border-color: #7281D8 #7281D8 #7281D8 #7281D8; -fx-border-width: 1 1 1 1;">

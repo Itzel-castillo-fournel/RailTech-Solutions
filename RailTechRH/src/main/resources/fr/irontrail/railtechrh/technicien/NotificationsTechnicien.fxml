@@ -9,9 +9,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.NotificationsController">
     <children>
-        <Label layoutX="25.0" layoutY="27.0" text="Notifications" textFill="#1c287c">
+        <Label layoutX="25.0" layoutY="27.0" text="Notifications" textFill="#1a237e">
             <font>
-                <Font name="System Bold" size="28.0" />
+                <Font name="System Bold" size="32.0" />
             </font>
         </Label>
         <ScrollPane layoutX="25.0" layoutY="132.0" prefHeight="639.0" prefWidth="750.0" style="-fx-border-color: transparent; -fx-background-color: transparent;">
@@ -22,7 +22,7 @@
             </content>
         </ScrollPane>
       <ChoiceBox fx:id="graviteFilter" layoutX="25.0" layoutY="94.0" prefHeight="26.0" prefWidth="171.0" />
-      <Label  layoutX="25.0" layoutY="73.0" text="Filtrer par gravité :" textFill="#1c287c">
+      <Label layoutX="25.0" layoutY="73.0" text="Filtrer par gravité :" textFill="#1c287c">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

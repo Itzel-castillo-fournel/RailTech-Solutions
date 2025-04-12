@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
-
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-<VBox spacing="20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.UserProfilController">
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.UserProfilController">
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <Label text="Mon Profil" style="-fx-font-size: 24; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;">
+    <Label style="-fx-font-size: 32; -fx-text-fill: #1a237e; -fx-font-weight: bold;" text="Mon Profil">
         <font>
             <Font name="Konkhmer Sleokchher" size="24.0" />
         </font>
@@ -27,60 +27,60 @@
         <!-- Informations de l'utilisateur à gauche -->
         <AnchorPane style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-radius: 15;">
             <effect>
-                <DropShadow color="#00000020" offsetY="2" offsetX="0" radius="8"/>
+                <DropShadow color="#00000020" offsetX="0" offsetY="2" radius="8" />
             </effect>
 
-            <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+            <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
                 <!-- Avatar Circle -->
                 <StackPane>
-                    <Circle radius="40" fill="#4051b5"/>
-                    <Label text="👤" style="-fx-font-size: 40; -fx-text-fill: white; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                    <Circle fill="#4051b5" radius="40" />
+                    <Label style="-fx-font-size: 40; -fx-text-fill: white; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="👤" />
                 </StackPane>
 
                 <!-- Nom et Prénom centrés -->
-                <Label fx:id="prenomNomLabel" style="-fx-font-size: 16; -fx-text-fill: #4051b5; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                <Label fx:id="prenomNomLabel" style="-fx-font-size: 16; -fx-text-fill: #4051b5; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" />
 
                 <!-- Autres informations utilisateur -->
-                <VBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 0 0 10 0;">
-                    <Label text="Adresse mail :" style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
-                    <Label fx:id="emailLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
-                    <Label text="Poste :" style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-padding: 10 0 0 0; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
-                    <Label fx:id="roleLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
-                    <Label fx:id="specialiteTitle" text="Spécialité :" style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-padding: 10 0 0 0; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
-                    <Label fx:id="specialiteLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                <VBox alignment="CENTER_LEFT" spacing="8" style="-fx-padding: 0 0 10 0;">
+                    <Label style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Adresse mail :" />
+                    <Label fx:id="emailLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" />
+                    <Label style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-padding: 10 0 0 0; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Poste :" />
+                    <Label fx:id="roleLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" />
+                    <Label fx:id="specialiteTitle" style="-fx-font-size: 14; -fx-text-fill: #4051b5; -fx-padding: 10 0 0 0; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Spécialité :" />
+                    <Label fx:id="specialiteLabel" style="-fx-font-size: 14; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" />
                 </VBox>
 
                 <!-- Bouton modifier mot de passe -->
-                <Button fx:id="modifierMdpButton" text="Modifier mot de passe" style="-fx-background-color: #1a237e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10 20; -fx-cursor: hand; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;">
+                <Button fx:id="modifierMdpButton" style="-fx-background-color: #1a237e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10 20; -fx-cursor: hand; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Modifier mot de passe">
                     <graphic>
-                        <Label text="✎" style="-fx-text-fill: white; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                        <Label style="-fx-text-fill: white; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="✎" />
                     </graphic>
                 </Button>
 
                 <!-- Formulaire de changement de mot de passe (invisible par défaut) -->
-                <VBox fx:id="passwordChangeContainer" spacing="15" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #f0f0f0; -fx-background-radius: 5;" visible="false">
-                    <Label text="Changer le mot de passe" style="-fx-font-size: 16; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                <VBox fx:id="passwordChangeContainer" alignment="CENTER" spacing="15" style="-fx-padding: 10; -fx-background-color: #f0f0f0; -fx-background-radius: 5;" visible="false">
+                    <Label style="-fx-font-size: 16; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Changer le mot de passe" />
 
                     <VBox spacing="5">
-                        <Label text="Mot de passe actuel :" style="-fx-font-size: 12; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher';"/>
-                        <PasswordField fx:id="currentPasswordField" style="-fx-background-radius: 5;"/>
+                        <Label style="-fx-font-size: 12; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher';" text="Mot de passe actuel :" />
+                        <PasswordField fx:id="currentPasswordField" style="-fx-background-radius: 5;" />
                     </VBox>
 
                     <VBox spacing="5">
-                        <Label text="Nouveau mot de passe :" style="-fx-font-size: 12; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher';"/>
-                        <PasswordField fx:id="newPasswordField" style="-fx-background-radius: 5;"/>
+                        <Label style="-fx-font-size: 12; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher';" text="Nouveau mot de passe :" />
+                        <PasswordField fx:id="newPasswordField" style="-fx-background-radius: 5;" />
                     </VBox>
 
                     <VBox spacing="5">
-                        <Label text="Confirmer le mot de passe :" style="-fx-font-size: 12; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher';"/>
-                        <PasswordField fx:id="confirmPasswordField" style="-fx-background-radius: 5;"/>
+                        <Label style="-fx-font-size: 12; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher';" text="Confirmer le mot de passe :" />
+                        <PasswordField fx:id="confirmPasswordField" style="-fx-background-radius: 5;" />
                     </VBox>
 
-                    <Label fx:id="passwordChangeStatusLabel" style="-fx-font-size: 12; -fx-text-fill: red; -fx-font-family: 'Konkhmer Sleokchher';"/>
+                    <Label fx:id="passwordChangeStatusLabel" style="-fx-font-size: 12; -fx-text-fill: red; -fx-font-family: 'Konkhmer Sleokchher';" />
 
-                    <HBox spacing="10" alignment="CENTER">
-                        <Button fx:id="savePasswordButton" text="Enregistrer" style="-fx-background-color: #1a237e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10; -fx-cursor: hand; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
-                        <Button fx:id="cancelPasswordButton" text="Annuler" style="-fx-background-color: #ff5252; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10; -fx-cursor: hand; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                    <HBox alignment="CENTER" spacing="10">
+                        <Button fx:id="savePasswordButton" style="-fx-background-color: #1a237e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10; -fx-cursor: hand; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Enregistrer" />
+                        <Button fx:id="cancelPasswordButton" style="-fx-background-color: #ff5252; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 5 10; -fx-cursor: hand; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Annuler" />
                     </HBox>
                 </VBox>
             </VBox>
@@ -90,26 +90,26 @@
         <VBox spacing="20">
             <!-- Nombre de trajets effectués ce mois -->
             <AnchorPane fx:id="trajetsAnchorPane" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-radius: 15;">
-                <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+                <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
                     <StackPane>
-                        <Circle radius="40" fill="#4051b5"/>
-                        <Label fx:id="trajetsLabel" style="-fx-text-fill: #ffffff; -fx-font-size: 24; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                        <Circle fill="#4051b5" radius="40" />
+                        <Label fx:id="trajetsLabel" style="-fx-text-fill: #ffffff; -fx-font-size: 24; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" />
                     </StackPane>
-                    <VBox spacing="8" alignment="CENTER" style="-fx-padding: 0 0 10 0;">
-                        <Label text="Trajets effectués ce mois :" style="-fx-font-size: 14; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                    <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 10 0;">
+                        <Label style="-fx-font-size: 14; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Trajets effectués ce mois :" />
                     </VBox>
                 </VBox>
             </AnchorPane>
 
             <!-- Nombre d'heures travaillées ce mois -->
             <AnchorPane fx:id="heuresAnchorPane" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-radius: 15;" visible="false">
-                <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20">
+                <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
                     <StackPane>
-                        <Circle radius="40" fill="#4051b5"/>
-                        <Label fx:id="heuresLabel" style="-fx-text-fill: #ffffff; -fx-font-size: 24; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                        <Circle fill="#4051b5" radius="40" />
+                        <Label fx:id="heuresLabel" style="-fx-text-fill: #ffffff; -fx-font-size: 24; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" />
                     </StackPane>
-                    <VBox spacing="8" alignment="CENTER" style="-fx-padding: 0 0 10 0;">
-                        <Label text="Heures travaillées ce mois :" style="-fx-font-size: 14; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;"/>
+                    <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 10 0;">
+                        <Label style="-fx-font-size: 14; -fx-text-fill: #1a237e; -fx-font-family: 'Konkhmer Sleokchher'; -fx-font-weight: bold;" text="Heures travaillées ce mois :" />
                     </VBox>
                 </VBox>
             </AnchorPane>
