@@ -134,7 +134,7 @@ public class NotificationsController {
 
         // Ajouter le bouton supprimer (repris du premier fichier)
         Button supprimerBtn = new Button("✕");
-        supprimerBtn.setStyle("-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-font-size: 14px;");
+        supprimerBtn.setStyle("-fx-background-color: transparent; -fx-text-fill:  #4051b5; -fx-font-size: 14px;");
         supprimerBtn.setLayoutX(650.0);
         supprimerBtn.setLayoutY(10.0);
         supprimerBtn.setOnAction(e -> {

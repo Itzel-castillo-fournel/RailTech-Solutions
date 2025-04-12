@@ -113,7 +113,7 @@ public class NotificationDAO {
                 "JOIN incident i ON n.incident_id = i.id " +
                 "WHERE i.id NOT IN (SELECT incidentId FROM maintenance) " +
                 "AND i.typeIncident IN ('PANNE_TECHNIQUE', 'VOIE_ENDOMMAGEE') " +
-                "AND n.afficher = TRUE" +
+                "AND n.afficher = TRUE " +
                 "ORDER BY n.date DESC";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -191,7 +191,7 @@ public class NotificationDAO {
                 "JOIN incident i ON n.incident_id = i.id " +
                 "WHERE i.id NOT IN (SELECT incidentId FROM maintenance) " +
                 "AND n.incident_id IS NOT NULL " +
-                "AND n.afficher = TRUE" +
+                "AND n.afficher = TRUE " +
                 "ORDER BY n.date DESC";
 
         try (Connection conn = DatabaseConnection.getConnection();
