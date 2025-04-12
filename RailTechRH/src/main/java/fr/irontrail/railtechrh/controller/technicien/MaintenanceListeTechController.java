@@ -183,7 +183,6 @@ public class MaintenanceListeTechController {
         modifyButton.setLayoutX(670.0);
         modifyButton.setLayoutY(11.0);
         modifyButton.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
-        System.out.println("Bouton cliqué");
 
 
         // Ajouter une action au bouton

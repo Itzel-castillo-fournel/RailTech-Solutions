@@ -1,0 +1,18 @@
+
+
+Version:	3.50
+CmdLine:	C:\Users\MoPiM\Desktop\RTRH\RailTech-Solutions\RailTechRH\RailTechRH.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\MoPiM\Desktop\RTRH\RailTech-Solutions\RailTechRH\.
+Requires JDK:	No
+Requires 64-Bit: Yes
+Java min ver:	1.023.000
+Java max ver:	
+JRE paths:	C:\Users\MoPiM\.jdks\openjdk-23.0.2
+Check launcher:	C:\Users\MoPiM\.jdks\openjdk-23.0.2\bin\javaw.exe (OK)
+Version string: 1.023.000_002 / 64-Bit (OK)
+Launcher:	C:\Users\MoPiM\.jdks\openjdk-23.0.2\bin\javaw.exe
+Launcher args:	-jar "C:\Users\MoPiM\Desktop\RTRH\RailTech-Solutions\RailTechRH\RailTechRH.exe"
+Args length:	79/32768 chars
+Exit code:	0
