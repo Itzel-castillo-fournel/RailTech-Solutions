@@ -59,17 +59,16 @@ public class TechnicienDAO {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String dateMaintenance = now.format(formatter);
 
-        String query = "INSERT INTO maintenance (dateMaintenance, description, probleme, etat, incidentId, technicienId) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO maintenance (dateMaintenance, description, etat, incidentId, technicienId) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
             preparedStatement.setString(1, dateMaintenance);
             preparedStatement.setString(2, description);
-            preparedStatement.setString(3, probleme);
-            preparedStatement.setString(4, etat);
-            preparedStatement.setInt(5, incidentId);
-            preparedStatement.setInt(6, technicienId);
+            preparedStatement.setString(3, etat);
+            preparedStatement.setInt(4, incidentId);
+            preparedStatement.setInt(5, technicienId);
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
