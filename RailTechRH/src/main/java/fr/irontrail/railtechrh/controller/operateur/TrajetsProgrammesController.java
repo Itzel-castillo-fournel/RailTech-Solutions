@@ -245,6 +245,7 @@ public class TrajetsProgrammesController implements Initializable {
 
             TrajetController controller = loader.getController();
             controller.setEditMode(trajet);
+            controller.setMainController(this.mainController);
 
             if (mainController != null) {
                 mainController.getContentContainer().getChildren().setAll(content);

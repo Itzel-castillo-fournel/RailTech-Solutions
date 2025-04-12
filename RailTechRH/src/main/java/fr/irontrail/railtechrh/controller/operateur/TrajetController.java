@@ -1,5 +1,6 @@
 package fr.irontrail.railtechrh.controller.operateur;
 
+import fr.irontrail.railtechrh.controller.MainController;
 import fr.irontrail.railtechrh.dao.TrajetDAO;
 import fr.irontrail.railtechrh.model.TrajetModel;
 import fr.irontrail.railtechrh.model.enums.Arret;
@@ -36,6 +37,10 @@ public class TrajetController {
     private boolean editMode = false;
     private TrajetModel trajetToEdit = null;
     private int trajetId = -1;
+    private MainController mainController;
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
 
     public void initialize() throws SQLException {
         this.trajetDAO = new TrajetDAO();
@@ -208,6 +213,24 @@ public class TrajetController {
                 showTemporaryMessage(l_resultText, "Trajet modifié avec succès. Numéro de trajet : " + trajet.getId(), Paint.valueOf("green"), 5);
 
                 trajetToEdit = trajet;
+
+                final MainController mainControllerRef = this.mainController;
+                new java.util.Timer().schedule(
+                        new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                javafx.application.Platform.runLater(() -> {
+                                    if (mainControllerRef != null) {
+                                        mainControllerRef.loadContent("/fr/irontrail/railtechrh/operateur/TrajetsProgrammes.fxml");
+                                    } else {
+                                        System.err.println("MainController reference is null");
+                                    }
+                                });
+                            }
+                        },
+                        1500 // Délai de 1.5 secondes
+                );
+
             } else {
                 cb_arretDepart.setValue(null);
                 cb_arretArrive.setValue(null);
@@ -219,6 +242,7 @@ public class TrajetController {
                 configureTimeSpinner(sp_heureArrivee);
 
                 showTemporaryMessage(l_resultText, "Trajet créé. Numéro de trajet : " + trajet.getId(), Paint.valueOf("green"), 5);
+
             }
         } else {
             showTemporaryMessage(l_resultText, "Erreur dans la " + (editMode ? "modification" : "création") + " du trajet : veuillez vérifier que toutes les informations sont saisies correctement.", Paint.valueOf("red"), 10);

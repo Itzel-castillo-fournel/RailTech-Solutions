@@ -1,6 +1,7 @@
 package fr.irontrail.railtechrh.controller;
 
 import fr.irontrail.railtechrh.controller.operateur.AssignerConducteurController;
+import fr.irontrail.railtechrh.controller.operateur.TrajetController;
 import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
 import fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
@@ -69,6 +70,7 @@ public class MainController {
                 notificationsController.setMainController(this);
             }
 
+
             // Autres contrôleurs spécifiques
             if (loader.getController() instanceof AssignerConducteurController) {
                 AssignerConducteurController controller = loader.getController();
@@ -90,10 +92,9 @@ public class MainController {
                 controller.setMainController(this);
             }
 
-            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
-                fr.irontrail.railtechrh.controller.technicien.Notifications notificationsController =
-                        (fr.irontrail.railtechrh.controller.technicien.Notifications) loader.getController();
-                notificationsController.setTechnicienId(currentUser.getId());
+            if (loader.getController() instanceof TrajetController) {
+                TrajetController controller = loader.getController();
+                controller.setMainController(this);
             }
 
             if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.Notifications) {
