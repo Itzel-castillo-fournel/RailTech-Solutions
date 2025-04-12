@@ -1,6 +1,7 @@
 package fr.irontrail.railtechrh.controller;
 
 import fr.irontrail.railtechrh.controller.operateur.AssignerConducteurController;
+import fr.irontrail.railtechrh.controller.operateur.TrajetController;
 import fr.irontrail.railtechrh.controller.operateur.TrajetsProgrammesController;
 import fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
@@ -71,10 +72,36 @@ public class MainController {
                 notificationsController.setMainController(this);
             }
 
-            // ✅ Notifications Technicien
-            if (controller instanceof fr.irontrail.railtechrh.controller.technicien.NotificationsController) {
+
+            // Autres contrôleurs spécifiques
+            if (loader.getController() instanceof AssignerConducteurController) {
+                AssignerConducteurController controllerConducteur = loader.getController();
+                controllerConducteur.setMainController(this);
+            }
+
+            if (fxmlFile.contains("Planning.fxml")) {
+                if (loader.getController() instanceof fr.irontrail.railtechrh.controller.PlanningController) {
+                    fr.irontrail.railtechrh.controller.PlanningController planningController = loader.getController();
+                    planningController.setUser(currentUser);
+                } else if (loader.getController() instanceof fr.irontrail.railtechrh.controller.operateur.PlanningController) {
+                    fr.irontrail.railtechrh.controller.operateur.PlanningController planningController = loader.getController();
+                    planningController.setMainController(this);
+                }
+            }
+
+            if (loader.getController() instanceof TrajetsProgrammesController) {
+                TrajetsProgrammesController controllerTrajetP = loader.getController();
+                controllerTrajetP.setMainController(this);
+            }
+
+            if (loader.getController() instanceof TrajetController) {
+                TrajetController controllerTrajet = loader.getController();
+                controllerTrajet.setMainController(this);
+            }
+
+            if (loader.getController() instanceof fr.irontrail.railtechrh.controller.technicien.NotificationsController) {
                 fr.irontrail.railtechrh.controller.technicien.NotificationsController notificationsController =
-                        (fr.irontrail.railtechrh.controller.technicien.NotificationsController) controller;
+                        (fr.irontrail.railtechrh.controller.technicien.NotificationsController) loader.getController();
                 notificationsController.setTechnicienId(currentUser.getId());
                 notificationsController.setMainController(this);
             }
@@ -119,7 +146,6 @@ public class MainController {
             e.printStackTrace();
         }
     }
-
 
     private void addMenuButton(String text, String fxmlFile, String iconPath) {
         Button button = new Button(text);

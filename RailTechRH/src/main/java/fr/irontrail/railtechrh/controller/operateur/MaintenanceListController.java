@@ -1,6 +1,7 @@
 package fr.irontrail.railtechrh.controller.operateur;
 
 import fr.irontrail.railtechrh.dao.OperateurDAO;
+import fr.irontrail.railtechrh.dao.UtilisateurDAO;
 import fr.irontrail.railtechrh.model.MaintenanceModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

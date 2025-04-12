@@ -113,6 +113,7 @@ public class NotificationDAO {
                 "JOIN incident i ON n.incident_id = i.id " +
                 "WHERE i.id NOT IN (SELECT incidentId FROM maintenance) " +
                 "AND i.typeIncident IN ('PANNE_TECHNIQUE', 'VOIE_ENDOMMAGEE') " +
+                "AND n.afficher = TRUE" +
                 "ORDER BY n.date DESC";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -178,4 +179,46 @@ public class NotificationDAO {
             return false;
         }
     }
+
+    /**
+     * Récupère toutes les notifications pour les opérateurs concernant les incidents non traités
+     * @return La liste des notifications pour les opérateur
+     */
+    public List<NotificationModel> getNotificationsOperateurs() {
+        List<NotificationModel> notifications = new ArrayList<>();
+        String query = "SELECT n.id, n.titre, n.utilisateur_id, n.incident_id, n.date " +
+                "FROM notification n " +
+                "JOIN incident i ON n.incident_id = i.id " +
+                "WHERE i.id NOT IN (SELECT incidentId FROM maintenance) " +
+                "AND n.incident_id IS NOT NULL " +
+                "AND n.afficher = TRUE" +
+                "ORDER BY n.date DESC";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                NotificationModel notification = new NotificationModel();
+                notification.setId(rs.getInt("id"));
+                notification.setTitre(rs.getString("titre"));
+                notification.setUtilisateurId(rs.getInt("utilisateur_id"));
+
+                if (rs.getObject("incident_id") != null) {
+                    notification.setIncidentId(rs.getInt("incident_id"));
+                }
+
+                if (rs.getTimestamp("date") != null) {
+                    notification.setDate(rs.getTimestamp("date").toLocalDateTime());
+                }
+
+                notifications.add(notification);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return notifications;
+    }
+
 }
