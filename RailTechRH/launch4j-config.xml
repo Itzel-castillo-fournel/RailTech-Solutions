@@ -1,24 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>console</headerType>
-  <jar>target/railtechrh-1.0-SNAPSHOT.jar</jar>
+  <jar>target\railtechrh-1.0-SNAPSHOT.jar</jar>
   <outfile>RailTechRH.exe</outfile>
   <errTitle>Erreur RailTechRH</errTitle>
+  <cmdLine></cmdLine>
   <chdir>.</chdir>
   <priority>normal</priority>
   <downloadUrl>https://adoptium.net</downloadUrl>
   <supportUrl></supportUrl>
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
-
-  <!-- JRE config -->
+  <manifest></manifest>
+  <icon>RailTech-Solutions.ico</icon>
   <jre>
     <path>./jre-custom</path>
-    <bundledJre64Bit>true</bundledJre64Bit>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>true</requires64Bit>
     <minVersion>1.8.0</minVersion>
     <maxVersion></maxVersion>
-
-    <!-- Ceci remplace jvmOptions -->
     <opt>-Djava.home=./jre-custom</opt>
   </jre>
 </launch4jConfig>
