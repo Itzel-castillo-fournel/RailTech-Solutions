@@ -178,6 +178,24 @@ public class TrajetController {
             return;
         }
 
+        if (getDateTimeDepart().isAfter(getDateTimeArrivee()) || getDateTimeDepart().isEqual(getDateTimeArrivee())){
+            l_resultText.setText("Erreur : La date départ ne peut pas être supérieur à la date d'arrivée");
+            l_resultText.setTextFill(Paint.valueOf("red"));
+            return;
+        }
+
+        if (getDateTimeDepart().isEqual(getDateTimeArrivee())){
+            l_resultText.setText("Erreur : L'heure de départ ne peut pas être égale à l'heure d'arrivée");
+            l_resultText.setTextFill(Paint.valueOf("red"));
+            return;
+        }
+
+        if (cb_arretArrive.getValue() == cb_arretDepart.getValue()){
+            l_resultText.setText("Erreur : La ville de départ ne peut pas être identique à la ville d'arrivée");
+            l_resultText.setTextFill(Paint.valueOf("red"));
+            return;
+        }
+
         TrajetModel trajet = new TrajetModel();
         trajet.setArretDepart(cb_arretDepart.getValue());
         trajet.setArretArrivee(cb_arretArrive.getValue());

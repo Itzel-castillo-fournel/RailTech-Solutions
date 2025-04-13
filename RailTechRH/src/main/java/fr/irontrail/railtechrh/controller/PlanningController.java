@@ -121,7 +121,7 @@ public class PlanningController {
 
         HBox infoTrajet = new HBox();
         infoTrajet.setAlignment(Pos.CENTER_LEFT);
-        infoTrajet.setSpacing(80);
+        infoTrajet.setSpacing(40);
         infoTrajet.setPrefHeight(60);
         infoTrajet.setStyle("-fx-padding: 10px;");
 
