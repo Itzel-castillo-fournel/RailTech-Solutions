@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="592.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.AjouterMaintenance">
    <children>
       <Pane layoutX="14.0" layoutY="14.0" prefHeight="470.0" prefWidth="838.0">
@@ -50,7 +49,11 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="technicienChoiceBox" layoutX="517.0" layoutY="168.0" prefHeight="30.0" prefWidth="220.0" />
+            <Label fx:id="technicienLabel" layoutX="517.0" layoutY="168.0" prefHeight="30.0" prefWidth="220.0" text="Nom Prénom">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
             <Label fx:id="immatriculationLabel" layoutX="14.0" layoutY="101.0" text="Immatriculation" />
             <Label fx:id="typeProblemeLabel" layoutX="517.0" layoutY="101.0" text="Type de problème" />
          </children>

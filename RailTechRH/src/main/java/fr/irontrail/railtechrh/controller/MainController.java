@@ -27,6 +27,10 @@ public class MainController {
         return contentContainer;
     }
 
+    public UtilisateurModel getUser() {
+        return this.currentUser;
+    }
+
     public void setRole(String role) {
         menuContainer.getChildren().clear(); // Vide le menu
 
@@ -40,6 +44,7 @@ public class MainController {
             case "TECHNICIEN":
                 addMenuButton("Maintenance", "/fr/irontrail/railtechrh/technicien/MaintenanceList.fxml", "tools-icon.png");
                 addMenuButton("Notifications", "/fr/irontrail/railtechrh/technicien/NotificationsTechnicien.fxml", "profile-icon.png");
+                addMenuButton("Examen", "/fr/irontrail/railtechrh/Examen.fxml","profile-icon.png" );
                 break;
             case "CONDUCTEUR":
                 addMenuButton("Mon Planning", "/fr/irontrail/railtechrh/conducteur/Planning.fxml", "planning-icon.png");
@@ -129,6 +134,11 @@ public class MainController {
             // ✅ Maintenance Technicien
             if (controller instanceof MaintenanceListeTechController) {
                 ((MaintenanceListeTechController) controller).setMainController(this);
+                fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController MaintenanceListeTechController =
+                        (fr.irontrail.railtechrh.controller.technicien.MaintenanceListeTechController) controller;
+                MaintenanceListeTechController.setCurrentUser(currentUser);
+                MaintenanceListeTechController.setMainController(this);
+
             }
 
             // ✅ Gestion Utilisateurs

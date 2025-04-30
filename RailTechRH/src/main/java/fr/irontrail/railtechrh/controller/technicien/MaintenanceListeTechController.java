@@ -2,6 +2,7 @@ package fr.irontrail.railtechrh.controller.technicien;
 import fr.irontrail.railtechrh.controller.MainController;
 import fr.irontrail.railtechrh.dao.TechnicienDAO;
 import fr.irontrail.railtechrh.model.MaintenanceModel;
+import fr.irontrail.railtechrh.model.UtilisateurModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,7 @@ public class MaintenanceListeTechController {
 
     private TechnicienDAO technicienDAO;
     private MainController mainController;
+    private UtilisateurModel currentUser;
 
     public MaintenanceListeTechController() {
         this.technicienDAO = new TechnicienDAO();
@@ -204,6 +206,7 @@ public class MaintenanceListeTechController {
                 controller.setIncidentId(maintenance.getIncidentId());
                 controller.setEtatMaintenance(maintenance.getEtatMaintenance());
                 controller.setDescription(maintenance.getDescriptionMaintenance());
+                controller.setUser(this.currentUser);
                 System.out.println(maintenance.getIncidentId());
 
                 // Utiliser le contentContainer du MainController pour charger la nouvelle vue
@@ -222,5 +225,9 @@ public class MaintenanceListeTechController {
         pane.getChildren().addAll(immatriculationLabel, descriptionLabel, technicienLabel, dateControleLabel, modifyButton);
 
         return pane;
+    }
+
+    public void setCurrentUser(UtilisateurModel currentUser) {
+        this.currentUser = currentUser;
     }
 }

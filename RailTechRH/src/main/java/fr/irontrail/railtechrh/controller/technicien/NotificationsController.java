@@ -232,6 +232,7 @@ public class NotificationsController implements Initializable {
                 controller.setImmatriculation(incident.getTrainImmat().getImmatriculation());
                 controller.setTypeProbleme(incident.getTypeIncident().toString());
                 controller.setIncidentId(incident.getId());
+                controller.setUser(this.mainController.getUser());
 
                 // In the createIncidentPane method of Notifications class
                 controller.setMainController(this.mainController);

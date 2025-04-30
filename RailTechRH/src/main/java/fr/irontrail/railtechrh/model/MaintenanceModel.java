@@ -1,6 +1,7 @@
 package fr.irontrail.railtechrh.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class MaintenanceModel {
     private String etatMaintenance;
@@ -8,6 +9,7 @@ public class MaintenanceModel {
     private String descriptionMaintenance;
     private String nomTechnicien;
     private String prenomTechnicien;
+    private List<CommentaireModel> listCommentaire;
     private LocalDateTime derniereMiseAJour;
     private int incidentId;
 
@@ -63,4 +65,10 @@ public class MaintenanceModel {
     }
 
     public void setIncidentId(int incidentId)  { this.incidentId = incidentId;}
+
+    public List<CommentaireModel> getListCommentaire() {
+        return listCommentaire;
+    }
+
+    public void setListCommentaire(List<CommentaireModel> listCommentaire) {this.listCommentaire = listCommentaire;}
 }

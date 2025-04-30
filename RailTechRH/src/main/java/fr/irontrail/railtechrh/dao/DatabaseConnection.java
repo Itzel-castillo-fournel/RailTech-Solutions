@@ -6,7 +6,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class DatabaseConnection {
     private static final Dotenv dotenv = Dotenv.configure()
-            .directory(System.getProperty("user.dir"))
+            .directory("RailTechRH")
             .filename(".env")
             .load();
     private static final String URL = dotenv.get("DB_URL");

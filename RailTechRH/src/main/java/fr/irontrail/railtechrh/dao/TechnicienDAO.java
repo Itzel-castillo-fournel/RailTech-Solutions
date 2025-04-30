@@ -1,9 +1,6 @@
 package fr.irontrail.railtechrh.dao;
 
-import fr.irontrail.railtechrh.model.IncidentModel;
-import fr.irontrail.railtechrh.model.MaintenanceModel;
-import fr.irontrail.railtechrh.model.TrainModel;
-import fr.irontrail.railtechrh.model.UtilisateurModel;
+import fr.irontrail.railtechrh.model.*;
 import fr.irontrail.railtechrh.model.enums.Gravite;
 import fr.irontrail.railtechrh.model.enums.Role;
 import fr.irontrail.railtechrh.model.enums.TypeIncident;
@@ -123,7 +120,7 @@ public class TechnicienDAO {
                 "    maintenance m " +
                 "JOIN " +
                 "    incident i ON m.incidentId = i.id " +
-                "LEFT JOIN " +
+                "JOIN " +
                 "    utilisateur u ON m.technicienId = u.id " +
                 "ORDER BY " +
                 "    m.dateMaintenance DESC";
@@ -141,10 +138,55 @@ public class TechnicienDAO {
                 details.setPrenomTechnicien(resultSet.getString("prenom_technicien"));
                 details.setDerniereMiseAJour(resultSet.getTimestamp("derniere_mise_a_jour").toLocalDateTime());
                 details.setIncidentId(resultSet.getInt("incident_id"));
+                details.setListCommentaire(getCommentairesByMaintenanceId(details.getIncidentId()));
                 maintenanceDetailsList.add(details);
             }
         }
         return maintenanceDetailsList;
+    }
+
+    public List<CommentaireModel> getCommentairesByMaintenanceId(int incidentId) throws SQLException {
+        List<CommentaireModel> commentaireList = new ArrayList<>();
+        String query = "SELECT " +
+                        "   c.commentaire, " +
+                        "   c.date, " +
+                        "   u.id AS technicien_id, " +
+                        "   u.nom, " +
+                        "   u.prenom " +
+                        "FROM " +
+                        "   commentaire c " +
+                        "JOIN " +
+                        "   utilisateur u ON c.id_technicien = u.id " +
+                        "WHERE " +
+                        "   c.id_maintenance= ? " +
+                        "ORDER BY " +
+                        "   c.date DESC";
+
+        try (Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, incidentId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+
+                    UtilisateurModel utilisateur = new UtilisateurModel();
+                    utilisateur.setId(resultSet.getInt("technicien_id"));
+                    utilisateur.setNom(resultSet.getString("nom"));
+                    utilisateur.setPrenom(resultSet.getString("prenom"));
+
+                    LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
+                    String description = resultSet.getString("commentaire");
+
+                    CommentaireModel commentaire = new CommentaireModel(utilisateur, date, description);
+
+                    commentaireList.add(commentaire);
+
+                }
+            }
+        }
+
+        return commentaireList;
     }
 
     public Map<String, Integer> getMaintenancePercentages() throws SQLException {
@@ -205,4 +247,23 @@ public class TechnicienDAO {
             return false;
         }
     }
+
+    public void nouveauCommentaire(String description, int incidentId, int id) {
+        String query = "INSERT INTO commentaire (id_maintenance, id_technicien, commentaire) VALUES (?, ?, ?)";;
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, incidentId);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(3, description);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+
 }

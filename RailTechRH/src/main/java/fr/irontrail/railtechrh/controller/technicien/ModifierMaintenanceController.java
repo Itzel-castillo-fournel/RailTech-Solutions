@@ -2,16 +2,23 @@ package fr.irontrail.railtechrh.controller.technicien;
 
 import fr.irontrail.railtechrh.controller.MainController;
 import fr.irontrail.railtechrh.dao.TechnicienDAO;
+import fr.irontrail.railtechrh.model.CommentaireModel;
 import fr.irontrail.railtechrh.model.UtilisateurModel;
 import fr.irontrail.railtechrh.model.enums.Etat;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -29,6 +36,10 @@ public class ModifierMaintenanceController implements Initializable {
     private TextArea descriptionTextArea;
     @FXML
     private Label l_pkMaintenance;
+    @FXML
+    private ScrollPane commentairesScrollPane;
+    @FXML
+    private VBox commentairesVBox;
 
     // Variable qui stocke l'id d'un incident
     private int incidentId;
@@ -37,6 +48,7 @@ public class ModifierMaintenanceController implements Initializable {
 
     // Référence au MainController
     private MainController mainController;
+    private UtilisateurModel currentUser;
 
     // Méthode pour définir le MainController
     public void setMainController(MainController mainController) {
@@ -62,6 +74,7 @@ public class ModifierMaintenanceController implements Initializable {
 
     public void setIncidentId(int incidentId) {
         this.incidentId = incidentId;
+        chargerCommentaires();
     }
 
     public void setTechnicienMaintenance(String technicien) {
@@ -72,11 +85,69 @@ public class ModifierMaintenanceController implements Initializable {
 
     public void setEtatMaintenance(String etatMaintenance) {this.etatChoiceBox.setValue(etatMaintenance);}
 
+    public void setUser(UtilisateurModel utilisateur) {
+        this.currentUser = utilisateur;
+    }
 
+
+    // Méthode pour charger les commentaires
+    private void chargerCommentaires() {
+        try {
+            List<CommentaireModel> commentaires = technicienDAO.getCommentairesByMaintenanceId(incidentId);
+            commentairesVBox.getChildren().clear();
+
+            if (commentaires.isEmpty()) {
+                Label noCommentLabel = new Label("Aucun commentaire pour cette maintenance");
+                noCommentLabel.setStyle("-fx-text-fill: #757575; -fx-font-style: italic;");
+                commentairesVBox.getChildren().add(noCommentLabel);
+                return;
+            }
+
+            for (CommentaireModel commentaire : commentaires) {
+                // Créer un conteneur pour chaque commentaire
+                VBox commentaireBox = new VBox();
+                commentaireBox.setSpacing(5);
+                commentaireBox.setPadding(new Insets(10));
+                commentaireBox.setStyle("-fx-background-color: #f0f0f0; -fx-background-radius: 5;");
+
+                // En-tête avec le nom du technicien et la date
+                HBox headerBox = new HBox();
+                headerBox.setSpacing(5);
+
+                UtilisateurModel technicien = commentaire.getTechnicienMaintenance();
+                Label technicienLabel = new Label(technicien.getNom() + " " + technicien.getPrenom());
+                technicienLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
+                technicienLabel.setTextFill(Color.web("#1c287c"));
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                Label dateLabel = new Label(commentaire.getDate().format(formatter));
+                dateLabel.setFont(Font.font("System", 12));
+
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+                headerBox.getChildren().addAll(technicienLabel, spacer, dateLabel);
+
+                // Contenu du commentaire
+                Label commentaireLabel = new Label(commentaire.getCommentaire());
+                commentaireLabel.setWrapText(true);
+
+                // Ajouter les éléments au conteneur
+                commentaireBox.getChildren().addAll(headerBox, commentaireLabel);
+
+                // Ajouter le conteneur à la VBox principale
+                commentairesVBox.getChildren().add(commentaireBox);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Une erreur s'est produite lors du chargement des commentaires.", false);
+        }
+    }
+
+    // Mettre à jour la méthode majMaintenance pour recharger les commentaires après l'ajout
     public void majMaintenance() {
         String etat = etatChoiceBox.getValue();
         String description = descriptionTextArea.getText();
-
 
         // On vérifie que ces 2 champs ne sont pas vides
         if (etat == null || description.isEmpty()) {
@@ -84,26 +155,23 @@ public class ModifierMaintenanceController implements Initializable {
             return;
         }
 
-
-        // On ajoute la maintenance à la base de données
+        // On modifie la maintenance dans la base de données
         boolean success = technicienDAO.modifierMaintenance(description, etat, incidentId);
 
+        // On ajoute un commentaire pour la modification
+        if (!description.isEmpty()) {
+            technicienDAO.nouveauCommentaire(description, incidentId, currentUser.getId());
+        }
+
         if (success) {
-            showAlert("Succès", "La maintenance a été ajoutée avec succès.", true);
+            showAlert("Succès", "La maintenance a été modifiée avec succès.", true);
+            // Recharger les commentaires après l'ajout d'un nouveau
+            chargerCommentaires();
         } else {
-            showAlert("Erreur", "Une erreur s'est produite lors de l'ajout de la maintenance." , false);
+            showAlert("Erreur", "Une erreur s'est produite lors de la modification de la maintenance.", false);
         }
     }
 
-    private int getTechnicienIdFromName(String fullName) {
-        List<UtilisateurModel> techniciens = technicienDAO.getTechniciens();
-        for (UtilisateurModel technicien : techniciens) {
-            if ((technicien.getNom() + " " + technicien.getPrenom()).equals(fullName)) {
-                return technicien.getId();
-            }
-        }
-        return -1; // Retourne -1 si le technicien n'est pas trouvé
-    }
 
     private void showAlert(String title, String message, boolean redirectToNotifications) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

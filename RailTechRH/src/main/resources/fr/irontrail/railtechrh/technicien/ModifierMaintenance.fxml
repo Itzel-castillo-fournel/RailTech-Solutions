@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="592.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.ModifierMaintenanceController">
+<AnchorPane prefHeight="880.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.irontrail.railtechrh.controller.technicien.ModifierMaintenanceController">
     <children>
         <Pane layoutX="14.0" layoutY="14.0" prefHeight="470.0" prefWidth="838.0">
             <children>
@@ -47,9 +47,19 @@
                 </Label>
                 <Label fx:id="immatriculationLabel" layoutX="14.0" layoutY="101.0" text="Immatriculation" />
                 <Label fx:id="typeProblemeLabel" layoutX="517.0" layoutY="101.0" text="Type de problème" />
-            <Label fx:id="l_technicienMaintenance" layoutX="517.0" layoutY="167.0" prefHeight="30.0" prefWidth="124.0" text="Technicien assigné" />
-            <Label fx:id="l_pkMaintenance" layoutX="14.0" layoutY="439.0" style="-fx-background-color: transparent; -fx-opacity: 0;" text="id maintenance" />
+                <Label fx:id="l_technicienMaintenance" layoutX="517.0" layoutY="167.0" prefHeight="30.0" prefWidth="124.0" text="Technicien assigné" />
+                <Label fx:id="l_pkMaintenance" layoutX="14.0" layoutY="439.0" style="-fx-background-color: transparent; -fx-opacity: 0;" text="id maintenance" />
             </children>
         </Pane>
+        <Label layoutX="309.0" layoutY="484.0" text="Commentaires" textFill="#1c287c">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <ScrollPane fx:id="commentairesScrollPane" fitToWidth="true" layoutX="42.0" layoutY="529.0" prefHeight="221.0" prefWidth="734.0" vbarPolicy="ALWAYS">
+            <content>
+                <VBox fx:id="commentairesVBox" prefWidth="780.0" spacing="10.0" style="-fx-padding: 10;" />
+            </content>
+        </ScrollPane>
     </children>
 </AnchorPane>

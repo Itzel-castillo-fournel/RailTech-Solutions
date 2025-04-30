@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AjouterMaintenance implements Initializable {
@@ -24,7 +23,7 @@ public class AjouterMaintenance implements Initializable {
     @FXML
     private ChoiceBox<String> etatChoiceBox;
     @FXML
-    private ChoiceBox<String> technicienChoiceBox;
+    private Label technicienLabel;
     @FXML
     private TextArea descriptionTextArea;
 
@@ -32,6 +31,7 @@ public class AjouterMaintenance implements Initializable {
     private int incidentId;
 
     private final TechnicienDAO technicienDAO = new TechnicienDAO();
+    private UtilisateurModel currentUser;
 
     // Référence au MainController
     private MainController mainController;
@@ -43,14 +43,16 @@ public class AjouterMaintenance implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Initialisation des états disponibles dans le choicebox
         for (Etat etat : Etat.values()) {
             etatChoiceBox.getItems().add(etat.toString());
         }
+    }
 
-        // Remplir le ChoiceBox des techniciens
-        List<UtilisateurModel> techniciens = technicienDAO.getTechniciens();
-        for (UtilisateurModel technicien : techniciens) {
-            technicienChoiceBox.getItems().add(technicien.getNom() + " " + technicien.getPrenom());
+    public void setUser(UtilisateurModel utilisateur) {
+        this.currentUser = utilisateur;
+        if (utilisateur != null && technicienLabel != null) {
+            technicienLabel.setText(utilisateur.getNom() + " " + utilisateur.getPrenom());
         }
     }
 
@@ -67,38 +69,33 @@ public class AjouterMaintenance implements Initializable {
     }
 
     public void envoyerMaintenance() {
-        // On récupére les valeurs des ChoiceBox (etat, technicien) ainsi que le contenu du TextArea (la description)
+        // On récupère les valeurs du ChoiceBox (état) ainsi que le contenu du TextArea (la description)
         String etat = etatChoiceBox.getValue();
-        String technicien = technicienChoiceBox.getValue();
         String description = descriptionTextArea.getText();
 
-        // On vérifie que ces 3 champs ne sont pas vides
-        if (etat == null || technicien == null || description.isEmpty()) {
+        // On vérifie que ces champs ne sont pas vides
+        if (etat == null || description.isEmpty()) {
             showAlert("Erreur", "Veuillez remplir tous les champs.", false);
             return;
         }
 
-        // On récupére l'ID du technicien
-        int technicienId = getTechnicienIdFromName(technicien);
+        // Vérification que l'utilisateur est bien défini
+        if (currentUser == null) {
+            showAlert("Erreur", "Utilisateur non identifié.", false);
+            return;
+        }
 
-        // On ajoute la maintenance à la base de données
-        boolean success = technicienDAO.ajouterMaintenance(description, typeProblemeLabel.getText(), etat, incidentId, technicienId);
+
+        // On ajoute la maintenance à la base de données avec l'ID du technicien connecté
+        boolean success = technicienDAO.ajouterMaintenance(description, typeProblemeLabel.getText(), etat, incidentId, currentUser.getId());
+        technicienDAO.nouveauCommentaire(description, incidentId, currentUser.getId());
+
 
         if (success) {
             showAlert("Succès", "La maintenance a été ajoutée avec succès.", true);
         } else {
             showAlert("Erreur", "Une erreur s'est produite lors de l'ajout de la maintenance.", false);
         }
-    }
-
-    private int getTechnicienIdFromName(String fullName) {
-        List<UtilisateurModel> techniciens = technicienDAO.getTechniciens();
-        for (UtilisateurModel technicien : techniciens) {
-            if ((technicien.getNom() + " " + technicien.getPrenom()).equals(fullName)) {
-                return technicien.getId();
-            }
-        }
-        return -1; // Retourne -1 si le technicien n'est pas trouvé
     }
 
     private void showAlert(String title, String message, boolean redirectToNotifications) {
